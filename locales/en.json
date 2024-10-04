@@ -1,0 +1,55 @@
+{
+  "shared": {
+    "home": "Home",
+    "about": "About",
+    "contact": "Contact",
+    "login": "Log In",
+    "logout": "Log Out",
+    "dashboard": "Dashboard",
+    "theme": "Theme",
+    "language": "Language",
+    "company_name": "Multilingual App Inc.",
+    "all_rights_reserved": "All rights reserved.",
+    "products": "Products"
+  },
+  "home": {
+    "welcome": "Welcome to our Multilingual Theme Switcher",
+    "home_description": "This is a demo of a multilingual application with theme switching capabilities."
+  },
+  "about": {
+    "title": "About Us",
+    "description": "We are a team dedicated to creating amazing multilingual experiences."
+  },
+  "contact": {
+    "title": "Contact Us",
+    "email": "Email",
+    "message": "Message",
+    "send": "Send"
+  },
+  "auth": {
+    "login_title": "Log In",
+    "register_title": "Register",
+    "email": "Email",
+    "password": "Password",
+    "confirm_password": "Confirm Password",
+    "submit": "Submit"
+  },
+  "dashboard": {
+    "welcome": "Welcome to your dashboard",
+    "stats": "Your Stats",
+    "profile": "Profile"
+  },
+  "footer": {
+    "heading": "Ready to take your digital presence to the next level?",
+    "subheading": "Reach out to me today and let's discuss how I can help you achieve your goals.",
+    "cta": "Let's get in touch",
+    "email": "contact@jsmastery.pro",
+    "copyright": "Copyright © 2024 Adrian Hajdin"
+  },
+  "products": {
+    "product1": "Product 1",
+    "product2": "Product 2",
+    "product3": "Product 3",
+    "product4": "Product 4"
+  }
+}
