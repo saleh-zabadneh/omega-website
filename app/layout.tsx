@@ -9,8 +9,8 @@ import { defaultLocale, ValidLocale } from "@/config/i18n-config";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Themed Next.js App",
-  description: "A Next.js app with global dark and light mode using shadcn/ui",
+  title: "Omega Company",
+  description: "Omega Company Solutions",
 };
 
 export default function RootLayout({
