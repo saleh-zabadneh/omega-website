@@ -40,17 +40,6 @@ const nextConfig = {
       },
     ];
   },
-  webpack: (config, { dev, isServer }) => {
-    // Custom webpack configurations can be added here
-    if (!dev && !isServer) {
-      Object.assign(config.resolve.alias, {
-        react: "preact/compat",
-        "react-dom/test-utils": "preact/test-utils",
-        "react-dom": "preact/compat",
-      });
-    }
-    return config;
-  },
 };
 
 export default nextConfig;
