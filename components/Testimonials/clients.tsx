@@ -4,21 +4,21 @@ import { ValidLocale } from "@/config/i18n-config";
 import { getTestimonials } from "@/lib/sanity/queries/testimonials";
 import { getCompanies } from "@/lib/sanity/queries/companies";
 import { InfiniteMovingCards } from "../ui/infinity-cards";
+import { Testimonial, Company } from "@/interfaces";
+import { LocaleString } from "@/types/types";
 
 interface ClientsProps {
   lang: ValidLocale;
 }
 
-interface Testimonial {
-  _id: string;
-  quote: string;
-  name: string;
-  title: string;
-}
-
-interface Company {
-  _id: string;
-  nameImg: string;
+function getLocalizedString(
+  value: string | LocaleString,
+  lang: ValidLocale
+): string {
+  if (typeof value === "string") {
+    return value;
+  }
+  return value[lang] || Object.values(value)[0] || "";
 }
 
 async function Clients({ lang }: ClientsProps) {
@@ -33,15 +33,15 @@ async function Clients({ lang }: ClientsProps) {
       >
         <blockquote>
           <p className="relative z-20 text-sm leading-[1.6] text-primary-foreground font-normal">
-            {testimonial.quote}
+            {getLocalizedString(testimonial.quote, lang)}
           </p>
           <footer className="relative z-20 mt-6 flex flex-row items-center">
             <div className="flex flex-col gap-1">
               <cite className="text-sm font-medium leading-[1.6] text-primary-foreground not-italic">
-                {testimonial.name}
+                {getLocalizedString(testimonial.name, lang)}
               </cite>
               <p className="text-sm leading-[1.6] text-primary-foreground/80 font-normal">
-                {testimonial.title}
+                {getLocalizedString(testimonial.title, lang)}
               </p>
             </div>
           </footer>

@@ -102,8 +102,8 @@ export interface PartnersSectionType extends BaseSection {
 export interface TestimonialsAndCompaniesSectionType {
   _type: "testimonialsAndCompaniesSection";
   id: string;
-  heading: LocaleString;
-  specialWord?: LocaleString;
+  heading: LocaleString | string;
+  specialWord?: LocaleString | string;
   testimonials: Testimonial[];
   companies: Company[];
 }

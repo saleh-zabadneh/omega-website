@@ -11,6 +11,10 @@ interface TestimonialsAndCompaniesSectionProps
   lang: ValidLocale;
 }
 
+interface LocaleString {
+  [key: string]: string;
+}
+
 export function TestimonialsAndCompaniesSection({
   heading,
   specialWord,
@@ -26,15 +30,21 @@ export function TestimonialsAndCompaniesSection({
       >
         <blockquote>
           <span className="relative z-20 text-sm leading-[1.6] text-primary-foreground font-normal">
-            {testimonial.quote}
+            {typeof testimonial.quote === "string"
+              ? testimonial.quote
+              : testimonial.quote[lang]}
           </span>
           <div className="relative z-20 mt-6 flex flex-row items-center">
             <div className="flex flex-col gap-1">
               <span className="text-sm font-medium leading-[1.6] text-primary-foreground">
-                {testimonial.name}
+                {typeof testimonial.name === "string"
+                  ? testimonial.name
+                  : testimonial.name[lang]}
               </span>
               <span className="text-sm leading-[1.6] text-primary-foreground/80 font-normal">
-                {testimonial.title}
+                {typeof testimonial.title === "string"
+                  ? testimonial.title
+                  : testimonial.title[lang]}
               </span>
             </div>
           </div>
@@ -58,8 +68,16 @@ export function TestimonialsAndCompaniesSection({
 
   return (
     <SectionContainer>
-      <Heading specialWord={specialWord ? specialWord[lang] : undefined}>
-        {heading[lang]}
+      <Heading
+        specialWord={
+          specialWord
+            ? typeof specialWord === "string"
+              ? specialWord
+              : specialWord[lang]
+            : undefined
+        }
+      >
+        {typeof heading === "string" ? heading : heading[lang]}
       </Heading>
       <div className="flex gap-16 flex-col items-center max-lg:mt-10">
         <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

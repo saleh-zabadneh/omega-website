@@ -28,7 +28,7 @@ export function InfiniteMovingCards({
     if (containerRef.current && scrollerRef.current) {
       const scrollerContent = Array.from(scrollerRef.current.children);
 
-      scrollerContent.forEach((item, index) => {
+      scrollerContent.forEach((item) => {
         const duplicatedItem = item.cloneNode(true) as HTMLElement;
         duplicatedItem.setAttribute("data-cloned", "true");
         duplicatedItem.setAttribute("aria-hidden", "true");
