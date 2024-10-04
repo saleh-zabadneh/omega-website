@@ -16,10 +16,9 @@ export type HomeProductSectionProps = {
 };
 export interface Testimonial {
   _id: string;
-  items: ReactNode[];
-  quote: Record<ValidLocale, string>;
-  name: Record<ValidLocale, string>;
-  title: Record<ValidLocale, string>;
+  quote: string;
+  name: string;
+  title: string;
 }
 export interface SocialMediaLink {
   _id: string;
@@ -30,4 +29,10 @@ export interface Company {
   _id: string;
 
   nameImg: string;
+}
+export interface TestimonialsAndCompaniesSectionType {
+  heading: Record<ValidLocale, string>;
+  specialWord?: Record<ValidLocale, string>;
+  testimonials: Testimonial[];
+  companies: Company[];
 }

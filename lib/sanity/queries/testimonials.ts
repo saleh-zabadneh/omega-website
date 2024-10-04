@@ -8,6 +8,7 @@ export async function getTestimonials(
   const query = `
     *[_type == "testimonial"] {
       _id,
+      
       "quote": quote.${lang},
       "name": name.${lang},
       "title": title.${lang}
