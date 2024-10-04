@@ -1,10 +1,10 @@
 import { ValidLocale } from "@/config/i18n-config";
-import { getTranslation } from "@/lib/i18n";
 import { ArrowBigRight } from "lucide-react";
 import MagicButton from "../ui/MagicButton";
 import Image from "next/image";
 import { getSocialMedia } from "@/lib/sanity/queries/socialMedia";
 import { Facebook, Instagram, Twitter, Linkedin } from "lucide-react";
+import { getTranslation } from "@/lib/translation";
 
 export interface SocialMediaLink {
   _id: string;

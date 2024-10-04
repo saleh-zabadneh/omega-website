@@ -4,7 +4,6 @@ import * as React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Menu, ChevronDown } from "lucide-react";
-import { getTranslation } from "@/lib/i18n";
 import { ValidLocale } from "@/config/i18n-config";
 import LanguageSwitcher from "../common/language-switcher";
 import { ThemeToggle } from "../common/theme-toggle";
@@ -25,6 +24,7 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
+import { getTranslation } from "@/lib/translation";
 
 const Header = ({ lang }: { lang: ValidLocale }) => {
   const isRTL = lang === "ar";
