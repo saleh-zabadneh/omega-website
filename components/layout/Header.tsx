@@ -26,13 +26,19 @@ import {
 } from "@/components/ui/collapsible";
 import { getTranslation } from "@/lib/translation";
 
-const Header = ({ lang }: { lang: ValidLocale }) => {
+interface NavigationItem {
+  name: string;
+  href: string;
+  children?: NavigationItem[];
+}
+
+const Header: React.FC<{ lang: ValidLocale }> = ({ lang }) => {
   const isRTL = lang === "ar";
 
-  const navigation = [
+  const navigation: NavigationItem[] = [
     {
       name: getTranslation(lang, "shared", "home"),
-      href: lang ? `/${lang}` : "/",
+      href: `/${lang}`,
     },
     {
       name: getTranslation(lang, "shared", "products"),
@@ -40,25 +46,29 @@ const Header = ({ lang }: { lang: ValidLocale }) => {
       children: [
         {
           name: getTranslation(lang, "products", "product1"),
-          href: "#product1",
+          href: `/${lang}/products#product1`,
         },
         {
           name: getTranslation(lang, "products", "product2"),
-          href: "#product2",
+          href: `/${lang}/products#product2`,
         },
         {
           name: getTranslation(lang, "products", "product3"),
-          href: "#product3",
+          href: `/${lang}/products#product3`,
         },
         {
           name: getTranslation(lang, "products", "product4"),
-          href: "#product4",
+          href: `/${lang}/products#product4`,
         },
       ],
     },
-    { name: getTranslation(lang, "shared", "about"), href: "#about" },
-    { name: getTranslation(lang, "shared", "contact"), href: "#contact" },
+    { name: getTranslation(lang, "shared", "about"), href: `/${lang}/about` },
+    {
+      name: getTranslation(lang, "shared", "contact"),
+      href: `/${lang}/contact`,
+    },
   ];
+
   return (
     <header className="sticky top-0 py-2 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div
@@ -67,9 +77,8 @@ const Header = ({ lang }: { lang: ValidLocale }) => {
         }`}
       >
         <div className={`${isRTL ? "ml-4" : "mr-4"} flex items-center`}>
-          <Link href="/" className="flex items-center space-x-2">
+          <Link href={`/${lang}`} className="flex items-center space-x-2">
             <Image src="/logo.png" alt="Logo" width={122} height={32} />
-            {/* <span className="font-bold text-xl">YourLogo</span> */}
           </Link>
         </div>
         <div className={`${isRTL ? "mr-4" : "ml-4"} hidden md:flex`}>
@@ -85,12 +94,12 @@ const Header = ({ lang }: { lang: ValidLocale }) => {
                           {item.children.map((child) => (
                             <li key={child.href}>
                               <NavigationMenuLink asChild>
-                                <a
+                                <Link
                                   href={child.href}
                                   className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
                                 >
                                   {child.name}
-                                </a>
+                                </Link>
                               </NavigationMenuLink>
                             </li>
                           ))}
@@ -148,13 +157,12 @@ const Header = ({ lang }: { lang: ValidLocale }) => {
   );
 };
 
-function MobileNav({
-  navigation,
-  isRTL,
-}: {
-  navigation: any[];
+interface MobileNavProps {
+  navigation: NavigationItem[];
   isRTL: boolean;
-}) {
+}
+
+const MobileNav: React.FC<MobileNavProps> = ({ navigation, isRTL }) => {
   return (
     <ScrollArea
       className={`my-4 h-[calc(100vh-8rem)] pb-10 ${isRTL ? "pr-6" : "pl-6"}`}
@@ -169,7 +177,7 @@ function MobileNav({
                   <ChevronDown className="h-4 w-4" />
                 </CollapsibleTrigger>
                 <CollapsibleContent className="mt-2 space-y-2">
-                  {item.children.map((child: any) => (
+                  {item.children.map((child) => (
                     <Link
                       key={child.href}
                       href={child.href}
@@ -193,6 +201,6 @@ function MobileNav({
       </div>
     </ScrollArea>
   );
-}
+};
 
 export default Header;

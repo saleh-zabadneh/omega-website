@@ -18,7 +18,7 @@ export default function RootLayout({
   params,
 }: {
   children: React.ReactNode;
-  params: { lang?: string };
+  params: { lang: string };
 }) {
   const lang = (params.lang || defaultLocale) as ValidLocale;
   const isRTL = lang === "ar";
