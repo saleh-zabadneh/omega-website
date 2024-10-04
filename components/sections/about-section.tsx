@@ -18,12 +18,17 @@ export function AboutSection({
 }: AboutSectionProps) {
   return (
     <SectionContainer>
-      <Heading specialWord={specialWord?.[lang]}>{heading[lang]}</Heading>
+      <Heading
+        className="mb-4 text-[#1b275a] dark:text-white"
+        specialWord={specialWord?.[lang]}
+      >
+        {heading[lang]}
+      </Heading>
       <div className="container">
-        <div className="relative flex md:flex-wrap flex-nowrap border-2 border-s3 rounded-7xl md:overflow-hidden max-md:flex-col feature-after md:g7 max-md:border-none max-md:rounded-none max-md:gap-3">
+        <div className="relative flex md:flex-wrap flex-nowrap border-2 border-s3  rounded-7xl md:overflow-hidden max-md:flex-col feature-after md:g7 max-md:border-none max-md:rounded-none max-md:gap-3">
           <WhatWeOffer items={whatWeOfferItems} lang={lang} />
           <ul className="relative flex justify-around flex-grow px-[5%] border-2 border-s3 rounded-7xl max-md:hidden">
-            <div className="absolute bg-s3/20 top-[38%] left-0 right-0 w-full h-[1px] z-10" />
+            <div className="absolute bg-s3/40 top-[38%] left-0 right-0 w-full h-[1px] z-10" />
             <Steps steps={steps} />
           </ul>
         </div>

@@ -13,7 +13,10 @@ export function Steps({ steps }: StepsProps) {
   return (
     <>
       {details.map(({ id, icon, title }) => (
-        <li key={id} className="relative pt-16 px-4 pb-14 overflow-hidden">
+        <li
+          key={id}
+          className="relative pt-16 text-white px-4 pb-14 overflow-hidden"
+        >
           <div className="absolute top-8 bottom-0 left-1/2 bg-s3/20 w-[1px] h-full z-10" />
 
           <div className="flex items-center justify-center mx-auto mb-3 border-2 border-s2 rounded-full hover:border-s4 transition-all duration-500 shadow-500 size-20">

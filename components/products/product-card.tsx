@@ -3,15 +3,16 @@ import Image from "next/image";
 import { PinContainer } from "../ui/3d-pin";
 
 export default function ProductCard({ product, lang }: ProductCardProps) {
+  console.log(product);
   return (
     <div
       key={product._id}
       className="lg:min-h-[32.5rem] h-[25rem] flex items-center justify-center sm:w-96 w-[80vw]  "
     >
       <PinContainer
-        className="bg-none"
-        title="/ui.aceternity.com"
-        href="https://twitter.com/mannupaaji"
+        className="bg-background"
+        title={`/${product.title[lang]}`}
+        href={`/${product.title[lang]}`}
       >
         <div className="relative flex items-center justify-center sm:w-96 w-[80vw]  overflow-hidden h-[20vh] lg:h-[30vh] mb-10">
           <div

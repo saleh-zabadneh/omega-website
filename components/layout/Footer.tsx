@@ -41,8 +41,8 @@ const Footer = async ({ lang }: FooterProps) => {
         />
       </div>
 
-      <div className="flex flex-col items-center">
-        <h1 className="heading lg:max-w-[45vw]">
+      <div className="flex flex-col items-center ">
+        <h1 className="heading lg:max-w-[45vw] px-4 text-lg font-bold md:px-0">
           {getTranslation(lang, "footer", "heading")
             .split("your")
             .map((part, index) =>
@@ -58,7 +58,7 @@ const Footer = async ({ lang }: FooterProps) => {
               )
             )}
         </h1>
-        <p className="text-white-200 md:mt-10 my-5 text-center">
+        <p className="text-white-200 md:mt-10 my-5 text-center px-5 md:px-0">
           {getTranslation(lang, "footer", "subheading")}
         </p>
         <a href={`mailto:${getTranslation(lang, "footer", "email")}`}>
@@ -69,7 +69,7 @@ const Footer = async ({ lang }: FooterProps) => {
           />
         </a>
       </div>
-      <div className="flex mt-16 md:flex-row flex-col justify-between items-center">
+      <div className="flex mt-16 md:flex-row gap-6  md:gap-0 flex-col justify-between items-center">
         <p className="md:text-base text-sm md:font-normal font-light">
           {getTranslation(lang, "footer", "copyright")}
         </p>
