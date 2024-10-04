@@ -12,13 +12,9 @@ const nextConfig = {
       },
     ],
   },
-  // Add the following configurations:
   poweredByHeader: false,
   compress: true,
-  i18n: {
-    locales: ["en", "ar"],
-    defaultLocale: "en",
-  },
+  // Remove the i18n configuration from here
   async headers() {
     return [
       {

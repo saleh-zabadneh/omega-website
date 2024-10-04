@@ -13,14 +13,18 @@ export function middleware(request: NextRequest) {
   // Redirect if there is no locale
   if (pathnameIsMissingLocale) {
     const locale = defaultLocale;
-    return NextResponse.redirect(new URL(`/${locale}${pathname}`, request.url));
+    return NextResponse.redirect(
+      new URL(`/${locale}${pathname === "/" ? "" : pathname}`, request.url)
+    );
   }
 
   // Check for protected routes
   if (pathname.startsWith("/dashboard") || pathname.startsWith("/protected")) {
     const user = request.cookies.get("user");
     if (!user) {
-      return NextResponse.redirect(new URL("/login", request.url));
+      return NextResponse.redirect(
+        new URL(`/${defaultLocale}/login`, request.url)
+      );
     }
   }
 
