@@ -34,13 +34,8 @@ async function Clients({ lang }: ClientsProps) {
             <React.Fragment key={company._id}>
               <div className="flex md:max-w-60 max-w-32 gap-2">
                 <img
-                  src={company.logo}
-                  alt={company.name}
-                  className="md:w-10 w-5"
-                />
-                <img
                   src={company.nameImg}
-                  alt={company.name}
+                  alt={"company"}
                   width={150}
                   className="md:w-24 w-20"
                 />

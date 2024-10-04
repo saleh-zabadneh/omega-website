@@ -1,4 +1,5 @@
 import { ValidLocale } from "@/config/i18n-config";
+import { SocialMediaLink } from "@/interfaces";
 import { fetchSanity } from "@/lib/sanity";
 
 export async function getSocialMedia(

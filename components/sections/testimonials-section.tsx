@@ -2,8 +2,9 @@ import React from "react";
 import { SectionContainer } from "../common/section-container";
 import { Heading } from "../common/heading";
 import { ValidLocale } from "@/config/i18n-config";
-import { InfiniteMovingCards } from "../ui/infinity-cards";
 import { TestimonialsAndCompaniesSectionType } from "@/types/types";
+import { InfiniteMovingCards } from "../ui/infinity-cards";
+import { Company, Testimonial } from "@/interfaces";
 
 interface TestimonialsAndCompaniesSectionProps
   extends TestimonialsAndCompaniesSectionType {
@@ -17,7 +18,7 @@ export function TestimonialsAndCompaniesSection({
   companies,
   lang,
 }: TestimonialsAndCompaniesSectionProps) {
-  const testimonialItems = testimonials.map((testimonial) => (
+  const testimonialItems = testimonials.map((testimonial: Testimonial) => (
     <div
       key={testimonial._id}
       className="w-[350px] max-w-full relative rounded-2xl border border-b-0 flex-shrink-0 border-brand/10 px-8 py-6 md:w-[450px] bg-gradient-to-br from-brand/80 to-brand-sub/80 dark:from-brand/20 dark:to-brand-sub/20"
@@ -40,7 +41,7 @@ export function TestimonialsAndCompaniesSection({
     </div>
   ));
 
-  const companyItems = companies.map((company) => (
+  const companyItems = companies.map((company: Company) => (
     <div
       key={company._id}
       className="flex md:max-w-60 max-w-32 items-center justify-center"

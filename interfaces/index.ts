@@ -1,5 +1,6 @@
 import { ValidLocale } from "@/config/i18n-config";
 import { Product, ProductList, ProductsSectionType } from "@/types/types";
+import { ReactNode } from "react";
 
 export type ProductCardProps = {
   product: Product;
@@ -15,11 +16,16 @@ export type HomeProductSectionProps = {
 };
 export interface Testimonial {
   _id: string;
-  quote: string;
-  name: string;
-  title: string;
+  items: ReactNode[];
+  quote: Record<ValidLocale, string>;
+  name: Record<ValidLocale, string>;
+  title: Record<ValidLocale, string>;
 }
-
+export interface SocialMediaLink {
+  _id: string;
+  platform: string;
+  url: string;
+}
 export interface Company {
   _id: string;
 
