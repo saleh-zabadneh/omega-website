@@ -7,15 +7,17 @@ import {
 } from "@/types/types";
 import { ReactNode } from "react";
 
-export type ProductCardProps = {
+export interface ProductListProps {
+  products: Product[];
+  lang: ValidLocale;
+  translations?: Translations;
+}
+
+export interface ProductCardProps {
   product: Product;
   lang: ValidLocale;
-  translations: Translations;
-};
-export type ProductListProps = {
-  products: ProductList;
-  lang: ValidLocale;
-};
+  translations?: Translations;
+}
 export type HomeProductSectionProps = {
   section: ProductsSectionType;
   lang: ValidLocale;
