@@ -9,8 +9,8 @@ interface ParagraphProps {
 
 export function Paragraph({ children, className }: ParagraphProps) {
   return (
-    <BlurIn className={cn("text-gray-300 mb-8", className)} blurAmount={13}>
-      <p>{children}</p>
+    <BlurIn className={cn(" capitalize mb-8", className)} blurAmount={13}>
+      <p className="text-2xl md:text-4xl">{children}</p>
     </BlurIn>
   );
 }

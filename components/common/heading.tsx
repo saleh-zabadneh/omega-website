@@ -15,7 +15,7 @@ export function Heading({ children, specialWord, className }: HeadingProps) {
   return (
     <BlurIn
       className={cn(
-        "font-bold capitalize py-4 text-4xl md:text-5xl text-brand-2 text-center",
+        "font-bold capitalize py-4 text-3xl md:text-5xl text-brand-2 text-center",
         className
       )}
     >

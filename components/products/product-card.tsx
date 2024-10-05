@@ -11,8 +11,8 @@ export default function ProductCard({ product, lang }: ProductCardProps) {
     >
       <PinContainer
         className="bg-background"
-        title={`/${product.title[lang]}`}
-        href={`/${product.title[lang]}`}
+        title={`/${product.urlPath}`}
+        href={`/${lang}/products/${product.urlPath}`}
       >
         <div className="relative flex items-center justify-center sm:w-96 w-[80vw]  overflow-hidden h-[20vh] lg:h-[30vh] mb-10">
           <div
@@ -23,7 +23,7 @@ export default function ProductCard({ product, lang }: ProductCardProps) {
           </div>
           <Image
             src={product.image.url}
-            alt={product.title[lang as keyof typeof product.title] || ""}
+            alt={product.title[lang]}
             fill
             objectFit="cover"
             placeholder={product.image.metadata?.lqip ? "blur" : "empty"}

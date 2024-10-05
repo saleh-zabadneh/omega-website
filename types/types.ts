@@ -1,6 +1,6 @@
 import { Step } from "@/components/about/steps";
 import { WhatWeOfferItem } from "@/components/about/what-we-0ffer";
-import { ValidLocale } from "@/config/i18n-config";
+import { Translations, ValidLocale } from "@/config/i18n-config";
 import { Company, Testimonial } from "@/interfaces";
 
 // Basic types
@@ -40,6 +40,7 @@ export interface Product {
   _id: string;
   title: LocaleString;
   description: LocaleString;
+  urlPath: string;
   image: {
     url: string;
     metadata: {
@@ -50,15 +51,20 @@ export interface Product {
       lqip: string;
     };
   };
-  links?: Array<{
-    title: string;
-    url: string;
-  }>;
-  content?: any; // You might want to define a more specific type for your content blocks
+  content?: any[];
+}
+export type ProductList = Product[];
+export interface ProductListProps {
+  products: Product[];
+  lang: ValidLocale;
+  translations: Translations;
 }
 
-export type ProductList = Product[];
-
+export interface ProductCardProps {
+  product: Product;
+  lang: ValidLocale;
+  translations: Translations;
+}
 // Partner type
 export interface Partner {
   _key: string;
@@ -123,4 +129,74 @@ export interface AboutSectionType {
   heading: Record<ValidLocale, string>;
   content: Record<ValidLocale, string>;
   specialWord?: Record<ValidLocale, string>;
+}
+export interface ImageAsset {
+  url: string;
+  metadata: {
+    dimensions: {
+      width: number;
+      height: number;
+    };
+  };
+}
+
+export interface ImageGridItem {
+  _type: "imageGrid";
+  images: ImageAsset[];
+  columns: number;
+}
+
+export interface ListItem {
+  _type: "list";
+  items: LocaleString[];
+}
+
+export interface QuoteItem {
+  _type: "quote";
+  text: LocaleString;
+  author: LocaleString;
+}
+
+export interface CallToActionItem {
+  _type: "callToAction";
+  text: LocaleString;
+  url: string;
+}
+
+export type ContentItemType =
+  | LocaleString
+  | ImageGridItem
+  | ListItem
+  | QuoteItem
+  | CallToActionItem;
+
+export interface AboutSection {
+  sectionTitle: LocaleString;
+  content: ContentItemType[];
+}
+
+export interface AboutPageTypes {
+  title: LocaleString;
+  sections: AboutSection[];
+  seo: {
+    title: string;
+    description: string;
+    image: string;
+  };
+}
+export type ContentItems = LocaleString | ListItem | CallToActionItem;
+
+export interface PrivacyPolicySection {
+  sectionTitle: LocaleString;
+  content: ContentItems[];
+}
+
+export interface PrivacyPolicyPropsPage {
+  title: LocaleString;
+  sections: PrivacyPolicySection[];
+  seo: {
+    title: string;
+    description: string;
+    image: string;
+  };
 }

@@ -1,4 +1,4 @@
-import { ValidLocale } from "@/config/i18n-config";
+import { Translations, ValidLocale } from "@/config/i18n-config";
 import {
   LocaleString,
   Product,
@@ -10,6 +10,7 @@ import { ReactNode } from "react";
 export type ProductCardProps = {
   product: Product;
   lang: ValidLocale;
+  translations: Translations;
 };
 export type ProductListProps = {
   products: ProductList;

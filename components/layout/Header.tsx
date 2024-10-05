@@ -42,23 +42,23 @@ const Header: React.FC<{ lang: ValidLocale }> = ({ lang }) => {
     },
     {
       name: getTranslation(lang, "shared", "products"),
-      href: "#",
+      href: `/${lang}/products`,
       children: [
         {
-          name: getTranslation(lang, "products", "product1"),
-          href: `/${lang}/products#product1`,
+          name: getTranslation(lang, "products", "PV Mounting Structure"),
+          href: `/${lang}/products/pv-mounting-structure`,
         },
         {
-          name: getTranslation(lang, "products", "product2"),
-          href: `/${lang}/products#product2`,
+          name: getTranslation(lang, "products", "rock-wool-production-lines"),
+          href: `/${lang}/products/rock-wool-production-lines`,
         },
         {
-          name: getTranslation(lang, "products", "product3"),
-          href: `/${lang}/products#product3`,
+          name: getTranslation(lang, "products", "lead-recycling-plant"),
+          href: `/${lang}/products/lead-recycling-plant`,
         },
         {
-          name: getTranslation(lang, "products", "product4"),
-          href: `/${lang}/products#product4`,
+          name: getTranslation(lang, "products", "solar-panel-cleaning-robot"),
+          href: `/${lang}/products/solar-panel-cleaning-robot`,
         },
       ],
     },
@@ -66,6 +66,14 @@ const Header: React.FC<{ lang: ValidLocale }> = ({ lang }) => {
     {
       name: getTranslation(lang, "shared", "contact"),
       href: `/${lang}/contact`,
+    },
+    {
+      name: getTranslation(lang, "shared", "privacy-policy"),
+      href: `/${lang}/privacy-policy`,
+    },
+    {
+      name: getTranslation(lang, "shared", "industry-field"),
+      href: `/${lang}/industry-field`,
     },
   ];
 
