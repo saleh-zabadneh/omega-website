@@ -136,7 +136,7 @@ function List({
           >
             {index + 1}
           </motion.div>
-          <span className="text-lg text-gray-800">{item[lang]}</span>
+          <span className="text-lg ">{item[lang]}</span>
         </motion.li>
       ))}
     </ul>

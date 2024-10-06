@@ -1,5 +1,14 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  async rewrites() {
+    return [
+      {
+        source: "/:lang/industry-field/:id",
+        destination: "/:lang/industry-field/[id]",
+      },
+      // ... other rewrites
+    ];
+  },
   reactStrictMode: true,
   swcMinify: true,
   productionBrowserSourceMaps: true,

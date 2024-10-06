@@ -39,7 +39,7 @@ export default function ContactPageContent({
           initial={{ opacity: 0, y: 20 }}
           animate={titleInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
-          className="text-5xl font-bold mb-12 text-center text-gray-800"
+          className="text-5xl font-bold mb-12 text-center "
         >
           <span className="bg-clip-text text-transparent bg-brand">
             {contactPage.title[lang]}
@@ -54,9 +54,7 @@ export default function ContactPageContent({
             transition={{ duration: 0.6, delay: 0.2 }}
             className=" p-8 rounded-2xl shadow-xl"
           >
-            <h2 className="text-3xl font-semibold mb-6 text-gray-800">
-              Get in Touch
-            </h2>
+            <h2 className="text-3xl font-semibold mb-6 ">Get in Touch</h2>
             <ContactForm lang={lang} />
           </motion.div>
 
@@ -67,7 +65,7 @@ export default function ContactPageContent({
             transition={{ duration: 0.6, delay: 0.4 }}
             className=" p-8 rounded-2xl shadow-xl"
           >
-            <h2 className="text-3xl font-semibold mb-6 text-gray-800">
+            <h2 className="text-3xl font-semibold mb-6 ">
               Contact Information
             </h2>
             <ContactInfo contactInfo={contactPage.contactInfo} lang={lang} />

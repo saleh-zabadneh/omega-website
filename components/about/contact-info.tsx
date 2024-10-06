@@ -1,6 +1,7 @@
 import { ValidLocale } from "@/config/i18n-config";
 import { motion, Variants } from "framer-motion";
-import { Phone, Smartphone, MapPin, Mail, PhoneCallIcon } from "lucide-react";
+import { Phone, Smartphone, MapPin, Mail, PhoneCall } from "lucide-react";
+import { Card, CardContent } from "@/components/ui/card";
 
 interface ContactInfo {
   phones: string[];
@@ -19,7 +20,6 @@ interface ContactItemProps {
   icon: React.ReactNode;
   title: string;
   items: string[];
-  variants: Variants;
 }
 
 export default function ContactInfo({ contactInfo, lang }: ContactInfoProps) {
@@ -38,69 +38,72 @@ export default function ContactInfo({ contactInfo, lang }: ContactInfoProps) {
     visible: { opacity: 1, y: 0 },
   };
 
+  const contactItems = [
+    {
+      icon: <Phone className="w-5 h-5 text-primary" />,
+      title: "Phone",
+      items: contactInfo.phones,
+    },
+    {
+      icon: <PhoneCall className="w-5 h-5 text-primary" />,
+      title: "Fax",
+      items: contactInfo.faxes,
+    },
+    {
+      icon: <Smartphone className="w-5 h-5 text-primary" />,
+      title: "Mobile",
+      items: contactInfo.mobiles,
+    },
+    {
+      icon: <MapPin className="w-5 h-5 text-primary" />,
+      title: "Address",
+      items: contactInfo.addresses.map((address) => address[lang]),
+    },
+    {
+      icon: <Mail className="w-5 h-5 text-primary" />,
+      title: "Email",
+      items: contactInfo.emails,
+    },
+  ].filter((item) => item.items.length > 0);
+
   return (
     <motion.div
-      className="space-y-6"
+      className="grid grid-cols-1 xl:grid-cols-2 gap-6"
       variants={containerVariants}
       initial="hidden"
       animate="visible"
     >
-      {contactInfo.phones.length > 0 && (
-        <ContactItem
-          icon={<Phone className="w-6 h-6 text-brand" />}
-          title="Phone"
-          items={contactInfo.phones}
-          variants={itemVariants}
-        />
-      )}
-      {contactInfo.faxes.length > 0 && (
-        <ContactItem
-          icon={<PhoneCallIcon className="w-6 h-6 text-brand" />}
-          title="Fax"
-          items={contactInfo.faxes}
-          variants={itemVariants}
-        />
-      )}
-      {contactInfo.mobiles.length > 0 && (
-        <ContactItem
-          icon={<Smartphone className="w-6 h-6 text-brand" />}
-          title="Mobile"
-          items={contactInfo.mobiles}
-          variants={itemVariants}
-        />
-      )}
-      {contactInfo.addresses.length > 0 && (
-        <ContactItem
-          icon={<MapPin className="w-6 h-6 text-brand" />}
-          title="Address"
-          items={contactInfo.addresses.map((address) => address[lang])}
-          variants={itemVariants}
-        />
-      )}
-      {contactInfo.emails.length > 0 && (
-        <ContactItem
-          icon={<Mail className="w-6 h-6 text-brand" />}
-          title="Email"
-          items={contactInfo.emails}
-          variants={itemVariants}
-        />
-      )}
+      {contactItems.map((item, index) => (
+        <motion.div key={index} variants={itemVariants}>
+          <Card>
+            <CardContent className="py-6 px-4">
+              <ContactItem
+                icon={item.icon}
+                title={item.title}
+                items={item.items}
+              />
+            </CardContent>
+          </Card>
+        </motion.div>
+      ))}
     </motion.div>
   );
 }
 
-function ContactItem({ icon, title, items, variants }: ContactItemProps) {
+function ContactItem({ icon, title, items }: ContactItemProps) {
   return (
-    <motion.div className="flex items-start space-x-4" variants={variants}>
-      {icon}
+    <div className="flex items-center flex-wrap space-x-4">
+      <div className="flex-shrink-0 w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+        {icon}
+      </div>
       <div>
-        <h3 className="font-semibold text-lg text-gray-800 mb-2">{title}:</h3>
+        <h3 className="font-semibold text-lg mb-2">{title}</h3>
         {items.map((item, index) => (
-          <p key={index} className="text-gray-600">
+          <p key={index} className="text-muted-foreground text-sm">
             {item}
           </p>
         ))}
       </div>
-    </motion.div>
+    </div>
   );
 }
