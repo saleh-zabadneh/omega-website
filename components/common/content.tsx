@@ -81,11 +81,7 @@ function ContentItem({ item, lang }: { item: any; lang: ValidLocale }) {
 }
 
 function LocaleText({ text }: { text: string }) {
-  return (
-    <p className="text-lg leading-relaxed text-gray-700 max-w-3xl mx-auto">
-      {text}
-    </p>
-  );
+  return <p className="text-lg leading-relaxed  max-w-3xl mx-auto">{text}</p>;
 }
 
 function ImageGrid({ images, columns }: { images: any[]; columns: number }) {
@@ -151,7 +147,7 @@ function Quote({ text, author }: { text: string; author: string }) {
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.5 }}
       >
-        <p className="text-xl italic text-gray-700 mb-4">{text}</p>
+        <p className="text-xl italic  mb-4">{text}</p>
         <footer className="text-right text-brand font-semibold">
           — {author}
         </footer>
