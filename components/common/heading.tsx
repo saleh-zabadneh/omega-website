@@ -5,10 +5,18 @@ import BlurIn from "../ui/blur-in";
 interface HeadingProps {
   children: React.ReactNode;
   specialWord?: string;
+  highlightSpecialWord?: boolean;
+  specialWordClassName?: string;
   className?: string;
 }
 
-export function Heading({ children, specialWord, className }: HeadingProps) {
+export function Heading({
+  children,
+  specialWord,
+  highlightSpecialWord = false,
+  specialWordClassName,
+  className,
+}: HeadingProps) {
   const headingText = children?.toString() || "";
   const parts = specialWord ? headingText.split(specialWord) : [headingText];
 
@@ -21,7 +29,17 @@ export function Heading({ children, specialWord, className }: HeadingProps) {
     >
       <h2>
         {parts[0]}
-        {specialWord && <span className="text-brand"> {specialWord} </span>}
+        {specialWord && (
+          <span
+            className={cn(
+              highlightSpecialWord && "text-brand",
+              specialWordClassName
+            )}
+          >
+            {" "}
+            {specialWord}{" "}
+          </span>
+        )}
         {parts[1]}
       </h2>
     </BlurIn>

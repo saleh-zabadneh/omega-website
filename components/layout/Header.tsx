@@ -71,10 +71,10 @@ const Header: React.FC<{ lang: ValidLocale }> = ({ lang }) => {
       name: getTranslation(lang, "shared", "privacy-policy"),
       href: `/${lang}/privacy-policy`,
     },
-    {
-      name: getTranslation(lang, "shared", "industry-field"),
-      href: `/${lang}/industry-field`,
-    },
+    // {
+    //   name: getTranslation(lang, "shared", "industry-field"),
+    //   href: `/${lang}/industry-field`,
+    // },
   ];
 
   return (
