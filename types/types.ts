@@ -59,7 +59,19 @@ export interface ProductListProps {
   lang: ValidLocale;
   translations: Translations;
 }
+export interface ReferenceProject {
+  _id: string;
+  title: LocaleString;
+  description: LocaleString;
+  urlPath: string;
+  image: {
+    url: string;
+    metadata: { dimensions: { width: number; height: number }; lqip: string };
+  };
+  content?: any[];
+}
 
+export type ReferenceProjectList = ReferenceProject[];
 export interface ProductCardProps {
   product: Product;
   lang: ValidLocale;
@@ -100,7 +112,10 @@ export interface ProductsSectionType extends BaseSection {
   _type: "productsSection";
   featuredProducts: Product[];
 }
-
+export interface ReferenceProjectSectionType extends BaseSection {
+  _type: "referenceProjectSection";
+  referenceProjects: ReferenceProject[];
+}
 export interface PartnersSectionType extends BaseSection {
   _type: "partnersSection";
   partners: Partner[];
@@ -116,8 +131,10 @@ export interface TestimonialsAndCompaniesSectionType {
 export type Section =
   | HeroSectionType
   | AboutSectionType
+  | AboutSectionTypeV2
   | ProductsSectionType
   | TestimonialsAndCompaniesSectionType
+  | ReferenceProjectSectionType
   | PartnersSectionType;
 
 // Home page type
@@ -199,4 +216,19 @@ export interface PrivacyPolicyPropsPage {
     description: string;
     image: string;
   };
+}
+export interface AboutSectionTypeV2 extends BaseSection {
+  _type: "aboutSectionv2";
+  heading: Record<ValidLocale, string>;
+  specialWord?: Record<ValidLocale, string>;
+  badge: Record<ValidLocale, string>;
+  content: Record<ValidLocale, string>;
+  image: {
+    url: string;
+    alt: string;
+  };
+  stats: Array<{
+    label: Record<ValidLocale, string>;
+    value: number;
+  }>;
 }

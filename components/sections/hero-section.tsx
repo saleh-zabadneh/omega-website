@@ -100,7 +100,6 @@ export function HeroSection({ slides, lang }: HeroSectionProps) {
             <div className="text-center text-white px-4">
               <Heading
                 specialWord={slides[currentIndex].specialWord?.[lang]}
-                highlightSpecialWord
                 className="text-4xl md:text-6xl mb-4"
               >
                 {slides[currentIndex].heading[lang]}

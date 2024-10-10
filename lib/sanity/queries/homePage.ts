@@ -1,4 +1,3 @@
-// lib/sanity.ts
 import { ValidLocale } from "@/config/i18n-config";
 import { fetchSanity } from "@/lib/sanity";
 import { HomePage } from "@/types/types";
@@ -24,14 +23,18 @@ export async function getHomePage(lang: ValidLocale): Promise<HomePage> {
             link
           }
         },
-        _type == "aboutSection" => {
+        _type == "aboutSectionv2" =>{
           heading,
           specialWord,
-          subheading,
+          badge,
           content,
-          "backgroundImage": backgroundImage {
+          "image": image {
             "url": asset->url,
             "alt": asset->alt
+          },
+          stats[] {
+            label,
+            value
           }
         },
         _type == "productsSection" => {
@@ -74,6 +77,24 @@ export async function getHomePage(lang: ValidLocale): Promise<HomePage> {
             name,
             "logo": logo.asset->url,
             "nameImg": nameImg.asset->url
+          }
+        },
+        _type == "referenceProjectSection" => {
+          id,
+          heading,
+          specialWord,
+          "referenceProjects": ReferenceProject[]-> {
+            _id,
+            title,
+            description,
+            "urlPath": slug.current,
+            "image": image.asset->{
+              url,
+              metadata {
+                dimensions,
+                lqip
+              }
+            }
           }
         }
       }

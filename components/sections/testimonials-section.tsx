@@ -88,14 +88,14 @@ export function TestimonialsAndCompaniesSection({
             className="py-4"
           />
         </div>
-        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <InfiniteMovingCards
             items={companyItems}
             direction="left"
             speed="normal"
             className="py-4"
           />
-        </div>
+        </div> */}
       </div>
     </SectionContainer>
   );

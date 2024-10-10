@@ -2,12 +2,12 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ValidLocale } from "@/config/i18n-config";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { useState } from "react";
 
 interface ContentSectionProps {
-  sectionTitle: string | Record<ValidLocale, string>;
+  sectionTitle: string | Record<ValidLocale, string> | null;
   content: any[];
   lang: ValidLocale;
 }
@@ -18,18 +18,21 @@ export function ContentSection({
   lang,
 }: ContentSectionProps) {
   const title =
-    typeof sectionTitle === "string" ? sectionTitle : sectionTitle[lang];
-
+    typeof sectionTitle === "string"
+      ? sectionTitle
+      : sectionTitle?.[lang] ?? null;
   return (
     <section className="my-16 px-4 md:px-8">
-      <motion.h2
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        className="text-4xl font-bold mb-8 text-center text-brand"
-      >
-        {title}
-      </motion.h2>
+      {title && (
+        <motion.h2
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="text-4xl font-bold mb-8 text-center text-brand"
+        >
+          {title}
+        </motion.h2>
+      )}
       <div className="space-y-12">
         {content?.map((item, index) => (
           <ContentItem key={index} item={item} lang={lang} />
@@ -71,7 +74,12 @@ function ContentItem({ item, lang }: { item: any; lang: ValidLocale }) {
           case "callToAction":
             return <CallToAction text={item.text[lang]} url={item.url} />;
           case "video":
-            return <Video url={item.url} caption={item.caption[lang]} />;
+            return (
+              <Video
+                url={item.url}
+                caption={item.caption ? item.caption[lang] : ""}
+              />
+            );
           default:
             return null;
         }
@@ -81,31 +89,70 @@ function ContentItem({ item, lang }: { item: any; lang: ValidLocale }) {
 }
 
 function LocaleText({ text }: { text: string }) {
-  return <p className="text-lg leading-relaxed  max-w-3xl mx-auto">{text}</p>;
+  return <p className="text-lg leading-relaxed  max-w-4xl mx-auto">{text}</p>;
 }
-
 function ImageGrid({ images, columns }: { images: any[]; columns: number }) {
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+
+  const getGridColumns = () => {
+    if (columns > 0 && columns === 1) return columns + 1;
+    if (images.length % 2 === 0) {
+      return images.length > 4 ? 4 : 2;
+    } else {
+      return 3;
+    }
+  };
+
+  const gridColumns = getGridColumns();
+
   return (
-    <div className={`grid grid-cols-1 md:grid-cols-${columns} gap-6`}>
-      {images.map((image, index) => (
-        <motion.div
-          key={index}
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          className={
-            index === 0 && images.length > 1 ? `md:col-span-${columns}` : ""
-          }
-        >
-          <Image
-            src={image?.asset?.url || ""}
-            alt={image?.alt || ""}
-            width={image?.asset?.metadata?.dimensions?.width || 800}
-            height={image?.asset?.metadata?.dimensions?.height || 600}
-            className="w-full h-auto object-cover rounded-lg shadow-lg"
-          />
-        </motion.div>
-      ))}
-    </div>
+    <>
+      <div
+        className={`grid grid-cols-1 place-content-center mx-auto max-w-4xl md:grid-cols-${gridColumns} gap-6`}
+      >
+        {images.map((image, index) => (
+          <motion.div
+            key={index}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className={
+              index === 0 && images.length > 1 ? `md:col-span-${columns} ` : ""
+            }
+            onClick={() =>
+              setSelectedImage(image?.asset?.url || image?.url || "")
+            }
+          >
+            <Image
+              src={image?.asset?.url || image?.url || ""}
+              alt={image?.alt || ""}
+              width={image?.asset?.metadata?.dimensions?.width || 800}
+              height={image?.asset?.metadata?.dimensions?.height || 600}
+              className="w-full h-44 object-cover rounded-lg shadow-lg cursor-pointer"
+            />
+          </motion.div>
+        ))}
+      </div>
+      <AnimatePresence>
+        {selectedImage && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setSelectedImage(null)}
+            className="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center z-50"
+          >
+            <motion.img
+              src={selectedImage}
+              alt="Full screen image"
+              className="max-h-full w-full h-full  max-w-full object-contain"
+              initial={{ scale: 0.8 }}
+              animate={{ scale: 1 }}
+              exit={{ scale: 0.8 }}
+            />
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
   );
 }
 
@@ -117,7 +164,7 @@ function List({
   lang: ValidLocale;
 }) {
   return (
-    <ul className="space-y-4 max-w-3xl mx-auto">
+    <ul className="space-y-4 max-w-4xl mx-auto">
       {items.map((item, index) => (
         <motion.li
           key={index}
@@ -141,7 +188,7 @@ function List({
 
 function Quote({ text, author }: { text: string; author: string }) {
   return (
-    <blockquote className="relative p-8 bg-gray-100 rounded-lg shadow-inner max-w-3xl mx-auto">
+    <blockquote className="relative p-8  rounded-lg shadow-inner max-w-4xl mx-auto">
       <motion.div
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ opacity: 1, scale: 1 }}
@@ -193,6 +240,7 @@ function CallToAction({ text, url }: { text: string; url: string }) {
 }
 
 function Video({ url, caption }: { url: string; caption: string }) {
+  console.log(url);
   return (
     <div className="w-full max-w-4xl mx-auto">
       <div className="relative pb-[56.25%] h-0 overflow-hidden rounded-lg shadow-lg">

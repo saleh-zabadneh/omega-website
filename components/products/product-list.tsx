@@ -7,7 +7,7 @@ export default function ProductList({
   translations,
 }: ProductListProps) {
   return (
-    <div className="flex flex-wrap items-center justify-center p-4 md:gap-x-16 ">
+    <div className="grid grid-cols-1 justify-items-center md:grid-cols-2 justify-content-center p-4 md:gap-x-10 ">
       {products.map((product) => (
         <ProductCard
           key={product._id}

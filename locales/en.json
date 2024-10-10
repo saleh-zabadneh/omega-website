@@ -4,11 +4,11 @@
     "about": "About",
     "contact": "Contact",
     "login": "Log In",
+    "reference-projects": "Rreference Projects",
     "privacy-policy": "privacy policy",
     "logout": "Log Out",
     "dashboard": "Dashboard",
     "theme": "Theme",
-    "industry-field": "industry field",
     "explore_products": "explore all products",
     "language": "Language",
     "company_name": "Multilingual App Inc.",
@@ -53,6 +53,7 @@
     "product1": "Product 1",
     "product2": "Product 2",
     "product3": "Product 3",
-    "product4": "Product 4"
+    "product4": "Product 4",
+    "other": "other"
   }
 }

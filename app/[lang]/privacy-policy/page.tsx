@@ -11,12 +11,13 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const privacyPolicyPage = await getPrivacyPolicyPage(params.lang);
   return {
-    title: privacyPolicyPage.seo.title,
-    description: privacyPolicyPage.seo.description,
+    title: privacyPolicyPage?.seo?.title || "Omega Policy",
+    description:
+      privacyPolicyPage?.seo?.description || "Privacy Policy of Omega Industry",
     openGraph: {
-      title: privacyPolicyPage.seo.title,
-      description: privacyPolicyPage.seo.description,
-      images: [{ url: privacyPolicyPage.seo.image }],
+      title: privacyPolicyPage?.seo?.title,
+      description: privacyPolicyPage?.seo?.description,
+      images: [{ url: privacyPolicyPage?.seo?.image }],
     },
   };
 }

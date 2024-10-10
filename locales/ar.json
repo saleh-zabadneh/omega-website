@@ -4,7 +4,7 @@
     "about": "عن الشركة",
     "contact": "اتصل بنا",
     "login": "تسجيل الدخول",
-    "industry-field": "industry field",
+    "reference-projects": "المشاريع المرجعية",
     "logout": "تسجيل الخروج",
     "privacy-policy": "privacy policy",
     "dashboard": "لوحة التحكم",
@@ -53,6 +53,7 @@
     "product1": "المنتج 1",
     "product2": "المنتج 2",
     "product3": "المنتج 3",
-    "product4": "المنتج 4"
+    "product4": "المنتج 4",
+    "other": "منجات اخرى"
   }
 }

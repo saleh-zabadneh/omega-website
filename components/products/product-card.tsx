@@ -7,14 +7,14 @@ export default function ProductCard({ product, lang }: ProductCardProps) {
   return (
     <div
       key={product._id}
-      className="lg:min-h-[32.5rem] h-[25rem] flex items-center justify-center sm:w-96 w-[80vw]  "
+      className="2xl:min-h-[35.5rem] lg:min-h-[32.5rem] h-[25rem] flex items-center justify-center 2xl:w-[27rem] lg:w-96 2xl:mb-12 sm:w-72 md:w-[21rem] w-[80vw]   "
     >
       <PinContainer
         className="bg-background"
         title={`/${product.urlPath}`}
         href={`/${lang}/products/${product.urlPath}`}
       >
-        <div className="relative flex items-center justify-center sm:w-96 w-[80vw]  overflow-hidden h-[20vh] lg:h-[30vh] mb-10">
+        <div className="relative flex items-center justify-center sm:w-72 md:w-[21rem] lg:w-96 w-[80vw]  overflow-hidden h-[20vh] lg:h-[30vh] mb-10">
           <div
             className="relative w-full h-full overflow-hidden lg:rounded-3xl"
             // style={{ backgroundColor: "#13162D" }}

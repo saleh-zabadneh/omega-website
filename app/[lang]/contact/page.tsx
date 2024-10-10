@@ -13,12 +13,12 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const contactPage = await getContactPage(params.lang);
   return {
-    title: contactPage.seo.title,
-    description: contactPage.seo.description,
+    title: contactPage?.seo?.title || "Contact Us",
+    description: contactPage?.seo?.description || "Contact With Omega Team",
     openGraph: {
-      title: contactPage.seo.title,
-      description: contactPage.seo.description,
-      images: [{ url: contactPage.seo.image }],
+      title: contactPage?.seo?.title,
+      description: contactPage?.seo?.description,
+      images: [{ url: contactPage?.seo?.image }],
     },
   };
 }

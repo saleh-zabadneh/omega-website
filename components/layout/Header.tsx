@@ -60,6 +60,10 @@ const Header: React.FC<{ lang: ValidLocale }> = ({ lang }) => {
           name: getTranslation(lang, "products", "solar-panel-cleaning-robot"),
           href: `/${lang}/products/solar-panel-cleaning-robot`,
         },
+        {
+          name: getTranslation(lang, "products", "other"),
+          href: `/${lang}/products`,
+        },
       ],
     },
     { name: getTranslation(lang, "shared", "about"), href: `/${lang}/about` },
@@ -71,14 +75,14 @@ const Header: React.FC<{ lang: ValidLocale }> = ({ lang }) => {
       name: getTranslation(lang, "shared", "privacy-policy"),
       href: `/${lang}/privacy-policy`,
     },
-    // {
-    //   name: getTranslation(lang, "shared", "industry-field"),
-    //   href: `/${lang}/industry-field`,
-    // },
+    {
+      name: getTranslation(lang, "shared", "reference-projects"),
+      href: `/${lang}/reference-projects`,
+    },
   ];
 
   return (
-    <header className="sticky top-0 py-2 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <header className="sticky top-0 py-2 z-[100] w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div
         className={`container flex h-14 items-center ${
           isRTL ? "flex-row-reverse" : ""
@@ -86,7 +90,7 @@ const Header: React.FC<{ lang: ValidLocale }> = ({ lang }) => {
       >
         <div className={`${isRTL ? "ml-4" : "mr-4"} flex items-center`}>
           <Link href={`/${lang}`} className="flex items-center space-x-2">
-            <Image src="/logo.png" alt="Logo" width={122} height={32} />
+            <Image src="/logoOmega2.png" alt="Logo" width={122} height={32} />
           </Link>
         </div>
         <div className={`${isRTL ? "mr-4" : "ml-4"} hidden md:flex`}>
@@ -98,13 +102,13 @@ const Header: React.FC<{ lang: ValidLocale }> = ({ lang }) => {
                     <>
                       <NavigationMenuTrigger>{item.name}</NavigationMenuTrigger>
                       <NavigationMenuContent>
-                        <ul className="grid gap-3 p-4 md:w-[400px] md:grid-cols-2 lg:w-[500px]">
+                        <ul className="grid gap-3 p-4 md:w-[400px] md:grid-cols-2 lg:w-[500px] xl:w-[900px]">
                           {item.children.map((child) => (
                             <li key={child.href}>
                               <NavigationMenuLink asChild>
                                 <Link
                                   href={child.href}
-                                  className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+                                  className="block capitalize select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
                                 >
                                   {child.name}
                                 </Link>

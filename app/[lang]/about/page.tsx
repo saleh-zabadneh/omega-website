@@ -10,12 +10,12 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const aboutPage = await getAboutPage(params.lang);
   return {
-    title: aboutPage.seo.title,
-    description: aboutPage.seo.description,
+    title: aboutPage?.seo?.title || "About Omega",
+    description: aboutPage?.seo?.description || "What about Omega Industry",
     openGraph: {
-      title: aboutPage.seo.title,
-      description: aboutPage.seo.description,
-      images: [{ url: aboutPage.seo.image }],
+      title: aboutPage?.seo?.title,
+      description: aboutPage?.seo?.description,
+      images: [{ url: aboutPage?.seo?.image }],
     },
   };
 }
@@ -29,11 +29,11 @@ export default async function AboutPage({
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <h1 className="text-4xl font-bold mb-8">{aboutPage.title[lang]}</h1>
+      {/* <h1 className="text-4xl font-bold mb-8">{aboutPage.title[lang]}</h1> */}
       {aboutPage?.sections?.map((section, index) => (
         <ContentSection
           key={index}
-          sectionTitle={section.sectionTitle}
+          sectionTitle={section?.sectionTitle}
           content={section.content}
           lang={lang}
         />
