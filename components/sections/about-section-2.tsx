@@ -84,9 +84,11 @@ export function AboutSectionPropsV2({
             {isLoading ? (
               <Skeleton className="h-12 w-full" />
             ) : (
-              <h2 className="text-4xl md:text-5xl font-bold leading-tight">
+              <h2 className="text-4xl capitalize md:text-5xl font-bold leading-tight">
                 {heading?.[lang]}
-                <span className="px-1 text-brand">{specialWord?.[lang]}</span>
+                <span className="px-1 capitalize text-brand">
+                  {specialWord?.[lang]}
+                </span>
               </h2>
             )}
             {isLoading ? (
