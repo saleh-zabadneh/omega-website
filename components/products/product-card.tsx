@@ -63,7 +63,7 @@ export default function ProductCard({ product, lang }: ProductCardProps) {
 
           <div className="flex justify-center items-center">
             <p className="flex lg:text-xl md:text-xs text-sm text-purple">
-              Check Live Site
+              {lang === "ar" ? "شاهد التفاصيل" : "Check Details"}
             </p>
             {/* <FaLocationArrow className="ms-3" color="#CBACF9" /> */}
           </div>
