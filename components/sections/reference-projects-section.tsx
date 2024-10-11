@@ -17,7 +17,6 @@ export function ReferenceProjectsSection({
   specialWord,
   lang,
 }: ReferenceProjectsSectionProps) {
-  console.log(referenceProjects);
   return (
     <SectionContainer>
       <Heading specialWord={specialWord ? specialWord[lang] : undefined}>

@@ -36,7 +36,6 @@ export default async function ReferenceProjectPage({
   params: { urlPath: string; lang: ValidLocale };
 }) {
   const referenceProject = await getReferenceProjectDetails(params.urlPath);
-  console.log(referenceProject);
   return (
     <div className="min-h-screen">
       <div className="relative h-screen">

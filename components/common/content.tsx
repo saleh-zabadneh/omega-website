@@ -240,7 +240,6 @@ function CallToAction({ text, url }: { text: string; url: string }) {
 }
 
 function Video({ url, caption }: { url: string; caption: string }) {
-  console.log(url);
   return (
     <div className="w-full max-w-4xl mx-auto">
       <div className="relative pb-[56.25%] h-0 overflow-hidden rounded-lg shadow-lg">

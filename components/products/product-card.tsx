@@ -3,7 +3,6 @@ import Image from "next/image";
 import { PinContainer } from "../ui/3d-pin";
 
 export default function ProductCard({ product, lang }: ProductCardProps) {
-  console.log(product);
   return (
     <div
       key={product._id}
@@ -14,7 +13,7 @@ export default function ProductCard({ product, lang }: ProductCardProps) {
         title={`/${product.urlPath}`}
         href={`/${lang}/products/${product.urlPath}`}
       >
-        <div className="relative flex items-center justify-center sm:w-72 md:w-[21rem] lg:w-96 w-[80vw]  overflow-hidden h-[20vh] lg:h-[30vh] mb-10">
+        <div className="relative flex items-center justify-center sm:w-72 md:w-[21rem] lg:w-96 w-[80vw]  overflow-hidden h-[10rem] lg:h-[12rem] mb-10">
           <div
             className="relative w-full h-full overflow-hidden lg:rounded-3xl"
             // style={{ backgroundColor: "#13162D" }}
@@ -28,7 +27,7 @@ export default function ProductCard({ product, lang }: ProductCardProps) {
             objectFit="cover"
             placeholder={product.image.metadata?.lqip ? "blur" : "empty"}
             blurDataURL={product.image.metadata?.lqip}
-            className="z-10 absolute bottom-0 w-fulls h-full"
+            className="z-10 absolute bottom-0 w-fulls h-full object-fit"
           />
         </div>
 

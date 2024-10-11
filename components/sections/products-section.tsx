@@ -17,7 +17,6 @@ export function ProductsSection({
   specialWord,
   lang,
 }: ProductsSectionProps) {
-  console.log(heading[lang]);
   return (
     <SectionContainer>
       <Heading specialWord={specialWord ? specialWord[lang] : undefined}>
