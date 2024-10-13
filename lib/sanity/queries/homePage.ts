@@ -79,7 +79,7 @@ export async function getHomePage(lang: ValidLocale): Promise<HomePage> {
             "nameImg": nameImg.asset->url
           }
         },
-        _type == "referenceProjectSection" => {
+       _type == "referenceProjectSection" => {
           id,
           heading,
           specialWord,
@@ -95,6 +95,32 @@ export async function getHomePage(lang: ValidLocale): Promise<HomePage> {
                 lqip
               }
             }
+          }
+        },
+      _type == "referenceProjectSection2" => {
+          id,
+          heading,
+          specialWord,
+          "referenceProjects": referenceProjects[]-> {
+            _id,
+            text1,
+            text2,
+            "urlPath": slug.current,
+            "image1": image1.asset->{
+              url,
+              metadata {
+                dimensions,
+                lqip
+              }
+            },
+            "image2": image2.asset->{
+              url,
+              metadata {
+                dimensions,
+                lqip
+              }
+            },
+            "category": category->name
           }
         }
       }

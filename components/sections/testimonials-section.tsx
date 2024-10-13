@@ -83,7 +83,7 @@ export function TestimonialsAndCompaniesSection({
         <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <InfiniteMovingCards
             items={testimonialItems}
-            direction="right"
+            direction={lang === "ar" ? "left" : "right"}
             speed="slow"
             className="py-4"
           />

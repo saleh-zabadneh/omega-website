@@ -18,9 +18,11 @@ export function ReferenceProjectsList({
   lang,
 }: ReferenceProjectsListProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [direction, setDirection] = useState(0);
 
   const nextSlide = useCallback(() => {
     if (referenceProjects?.length > 0) {
+      setDirection(1);
       setCurrentIndex(
         (prevIndex) => (prevIndex + 1) % referenceProjects.length
       );
@@ -29,6 +31,7 @@ export function ReferenceProjectsList({
 
   const prevSlide = useCallback(() => {
     if (referenceProjects?.length > 0) {
+      setDirection(-1);
       setCurrentIndex(
         (prevIndex) =>
           (prevIndex - 1 + referenceProjects.length) % referenceProjects.length
@@ -55,7 +58,7 @@ export function ReferenceProjectsList({
   return (
     <div className="relative w-full max-w-6xl mx-auto overflow-hidden py-12">
       <div className="flex justify-center items-center h-[500px]">
-        <AnimatePresence initial={false}>
+        <AnimatePresence initial={false} custom={direction}>
           {[-1, 0, 1].map((offset) => {
             const index = getItemIndex(offset);
             const project = referenceProjects[index];
@@ -64,6 +67,7 @@ export function ReferenceProjectsList({
                 key={`${project._id}-${offset}`}
                 project={project}
                 offset={offset}
+                direction={direction}
                 lang={lang}
               />
             );

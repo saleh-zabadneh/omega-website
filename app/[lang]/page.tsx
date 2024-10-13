@@ -3,6 +3,7 @@ import { AboutSectionPropsV2 } from "@/components/sections/about-section-2";
 import { HeroSection } from "@/components/sections/hero-section";
 import { ProductsSection } from "@/components/sections/products-section";
 import { ReferenceProjectsSection } from "@/components/sections/reference-projects-section";
+import ReferenceProjectSection2 from "@/components/sections/reference-projects-section-2";
 import { TestimonialsAndCompaniesSection } from "@/components/sections/testimonials-section";
 import { ValidLocale } from "@/config/i18n-config";
 import { getHomePage } from "@/lib/sanity/queries/homePage";
@@ -33,6 +34,9 @@ export default async function Home({
   );
   const referenceProjectSection = homePageData?.sections?.find(
     (section: Section) => section._type === "referenceProjectSection"
+  );
+  const referenceProjectSection2 = homePageData?.sections?.find(
+    (section: Section) => section._type === "referenceProjectSection2"
   );
 
   return (
@@ -66,6 +70,13 @@ export default async function Home({
         <ReferenceProjectsSection
           key={referenceProjectSection.id}
           {...referenceProjectSection}
+          lang={lang}
+        />
+      )}
+      {referenceProjectSection2 && (
+        <ReferenceProjectSection2
+          key={referenceProjectSection2.id}
+          {...referenceProjectSection2}
           lang={lang}
         />
       )}

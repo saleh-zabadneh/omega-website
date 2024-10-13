@@ -1,5 +1,4 @@
-import { Step } from "@/components/about/steps";
-import { WhatWeOfferItem } from "@/components/about/what-we-0ffer";
+import { ReferenceProject2 } from "@/components/reference-projects/reference-projects-card-2";
 import { Translations, ValidLocale } from "@/config/i18n-config";
 import { Company, Testimonial } from "@/interfaces";
 
@@ -104,8 +103,8 @@ export interface HeroSectionType extends BaseSection {
 export interface AboutSectionType extends BaseSection {
   _type: "aboutSection";
   lang: ValidLocale;
-  steps: Step[];
-  whatWeOfferItems: WhatWeOfferItem[];
+  // steps: Step[];
+  // whatWeOfferItems: WhatWeOfferItem[];
 }
 
 export interface ProductsSectionType extends BaseSection {
@@ -116,6 +115,7 @@ export interface ReferenceProjectSectionType extends BaseSection {
   _type: "referenceProjectSection";
   referenceProjects: ReferenceProject[];
 }
+
 export interface PartnersSectionType extends BaseSection {
   _type: "partnersSection";
   partners: Partner[];
@@ -128,6 +128,10 @@ export interface TestimonialsAndCompaniesSectionType {
   testimonials: Testimonial[];
   companies: Company[];
 }
+export interface ReferenceProjectSection2Type extends BaseSection {
+  _type: "referenceProjectSection2";
+  referenceProjects: ReferenceProject2[];
+}
 export type Section =
   | HeroSectionType
   | AboutSectionType
@@ -135,6 +139,7 @@ export type Section =
   | ProductsSectionType
   | TestimonialsAndCompaniesSectionType
   | ReferenceProjectSectionType
+  | ReferenceProjectSection2Type
   | PartnersSectionType;
 
 // Home page type

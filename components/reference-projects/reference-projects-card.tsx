@@ -7,12 +7,14 @@ import Link from "next/link";
 interface ReferenceProjectCardProps {
   project: ReferenceProject;
   offset: number;
+  direction: number;
   lang: ValidLocale;
 }
 
 export function ReferenceProjectCard({
   project,
   offset,
+  direction,
   lang,
 }: ReferenceProjectCardProps) {
   // Helper function to safely access localized strings
@@ -24,27 +26,42 @@ export function ReferenceProjectCard({
     return obj[lang] || fallback;
   };
 
+  const variants = {
+    enter: (direction: number) => {
+      return {
+        x: direction > 0 ? "100%" : "-100%",
+        opacity: 0,
+      };
+    },
+    center: (offset: number) => ({
+      x: `${offset * 100}%`,
+      opacity: 1,
+      scale: offset === 0 ? 1 : 0.8,
+      zIndex: offset === 0 ? 2 : 1,
+    }),
+    exit: (direction: number) => {
+      return {
+        x: direction < 0 ? "100%" : "-100%",
+        opacity: 0,
+      };
+    },
+  };
+
   return (
     <motion.div
-      key={project._id}
+      variants={variants}
       custom={offset}
-      initial={{ opacity: 0, x: offset * 100 + "%", scale: 0.8 }}
-      animate={{
-        opacity: 1,
-        x: offset * 100 + "%",
-        scale: offset === 0 ? 1 : 0.8,
-        zIndex: offset === 0 ? 2 : 1,
-      }}
-      exit={{ opacity: 0, x: offset * 100 + "%", scale: 0.8 }}
+      initial="enter"
+      animate="center"
+      exit="exit"
       transition={{
-        type: "spring",
-        stiffness: 500,
-        damping: 90,
-        duration: 0.6,
+        x: { type: "ease", stiffness: 900, damping: 900 },
+        opacity: { duration: 1.3 },
+        scale: { type: "ease", stiffness: 900, damping: 900 },
       }}
       className={`absolute w-[280px] md:w-[350px] md:h-[500px] h-[450px] ${
         offset === 0
-          ? "drop-shadow-xl rounded-xl shadow-black/30 dark:shadow-white/30 border-[1.5px] border-primary lg:scale-[1.1]"
+          ? "drop-shadow-xl rounded-xl shadow-black/30 dark:shadow-white/30 border-[1.5px] border-primary"
           : ""
       }`}
     >
