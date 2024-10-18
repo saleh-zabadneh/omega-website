@@ -12,7 +12,6 @@ export function NormalReferenceProjectCard({
   project,
   lang,
 }: NormalReferenceProjectCardProps) {
-  // Helper function to safely access localized strings
   const getLocalizedString = (
     obj: LocaleText | undefined,
     fallback: string

@@ -5,17 +5,16 @@ import Image from "next/image";
 import { getSocialMedia } from "@/lib/sanity/queries/socialMedia";
 import { Facebook, Instagram, Twitter, Linkedin } from "lucide-react";
 import { getTranslation } from "@/lib/translation";
+import React from "react";
 
 export interface SocialMediaLink {
   _id: string;
   platform: string;
   url: string;
 }
-
 interface FooterProps {
-  lang: ValidLocale;
+  lang: ValidLocale | ValidLocale;
 }
-
 const Footer = async ({ lang }: FooterProps) => {
   const socialMediaLinks = await getSocialMedia(lang);
 

@@ -13,7 +13,14 @@
     "language": "Language",
     "company_name": "Multilingual App Inc.",
     "all_rights_reserved": "All rights reserved.",
-    "products": "Products"
+    "products": "Products",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "email": "Email",
+    "searchPlaceholder": "Search...",
+    "searchNotFound": "No results found",
+    "message": "Message",
+    "sendMessage": "Send Message"
   },
   "home": {
     "welcome": "Welcome to our Multilingual Theme Switcher",

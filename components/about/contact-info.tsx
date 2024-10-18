@@ -40,22 +40,22 @@ export default function ContactInfo({ contactInfo, lang }: ContactInfoProps) {
 
   const contactItems = [
     {
-      icon: <Phone className="w-5 h-5 text-primary" />,
+      icon: <Phone className="w-5   h-5 text-primary" />,
       title: "Phone",
       items: contactInfo.phones,
     },
     {
-      icon: <PhoneCall className="w-5 h-5 text-primary" />,
+      icon: <PhoneCall className="w-5  h-5 text-primary" />,
       title: "Fax",
       items: contactInfo.faxes,
     },
     {
-      icon: <Smartphone className="w-5 h-5 text-primary" />,
+      icon: <Smartphone className="w-5  h-5 text-primary" />,
       title: "Mobile",
       items: contactInfo.mobiles,
     },
     {
-      icon: <MapPin className="w-5 h-5 text-primary" />,
+      icon: <MapPin className="w-5  h-5 text-primary" />,
       title: "Address",
       items: contactInfo.addresses.map((address) => address[lang]),
     },
@@ -93,11 +93,11 @@ export default function ContactInfo({ contactInfo, lang }: ContactInfoProps) {
 function ContactItem({ icon, title, items }: ContactItemProps) {
   return (
     <div className="flex items-center flex-wrap space-x-4">
-      <div className="flex-shrink-0 w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+      <div className="flex-shrink-0  w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
         {icon}
       </div>
       <div>
-        <h3 className="font-semibold text-lg mb-2">{title}</h3>
+        <h3 className="font-semibold px-2 text-lg mb-2">{title}</h3>
         {items.map((item, index) => (
           <p key={index} className="text-muted-foreground text-sm">
             {item}

@@ -33,7 +33,7 @@ export default async function PrivacyPolicyPage({
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <h1 className="text-4xl font-bold mb-8">
+      <h1 className="text-4xl font-bold mb-8 ">
         {privacyPolicyPage.title[lang]}
       </h1>
       {privacyPolicyPage?.sections?.map((section, index) => (

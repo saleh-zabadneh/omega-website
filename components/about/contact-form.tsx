@@ -3,13 +3,17 @@
 import { useState } from "react";
 import { ValidLocale } from "@/config/i18n-config";
 import PhoneInput from "react-phone-input-2";
-import "react-phone-input-2/lib/style.css";
+import "@/styles/phone-input.css";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
+import { useTranslations } from "@/hooks/use-translation";
 
 export default function ContactForm({ lang }: { lang: ValidLocale }) {
+  const isRTL = lang === "ar";
+  const t = useTranslations(lang);
+
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -30,7 +34,7 @@ export default function ContactForm({ lang }: { lang: ValidLocale }) {
   return (
     <motion.form
       onSubmit={handleSubmit}
-      className="space-y-6"
+      className={`space-y-6 ${isRTL ? "rtl" : "ltr"}`}
       initial="hidden"
       animate="visible"
       variants={{
@@ -41,13 +45,15 @@ export default function ContactForm({ lang }: { lang: ValidLocale }) {
         },
       }}
     >
-      <div className="flex space-x-4">
+      <div
+        className={`flex ${isRTL ? "space-x-reverse space-x-4" : "space-x-4"}`}
+      >
         <motion.div className="w-1/2" variants={inputVariants}>
           <Input
             type="text"
             value={firstName}
             onChange={(e) => setFirstName(e.target.value)}
-            placeholder="First Name"
+            placeholder={t("firstName")}
             className="w-full focus:ring-2 focus:ring-brand focus:border-transparent"
             required
           />
@@ -57,7 +63,7 @@ export default function ContactForm({ lang }: { lang: ValidLocale }) {
             type="text"
             value={lastName}
             onChange={(e) => setLastName(e.target.value)}
-            placeholder="Last Name"
+            placeholder={t("lastName")}
             className="w-full focus:ring-2 focus:ring-brand focus:border-transparent"
             required
           />
@@ -68,28 +74,39 @@ export default function ContactForm({ lang }: { lang: ValidLocale }) {
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          placeholder="Email"
+          placeholder={t("email")}
           className="w-full focus:ring-2 focus:ring-brand focus:border-transparent"
           required
         />
       </motion.div>
-      <motion.div className="phone-input-container" variants={inputVariants}>
+      <motion.div className="phone-input-container">
         <PhoneInput
           country={"jo"}
           value={phone}
           onChange={(phone) => setPhone(phone)}
-          inputClass="!w-full p-2 border !border-border !bg-background rounded focus:ring-2 focus:ring-brand focus:border-transparent"
+          inputClass={`!w-full p-2 border !border-border !bg-background rounded focus:ring-2 focus:ring-brand focus:border-transparent ${
+            isRTL ? "rtl-input" : ""
+          }`}
           containerClass="w-full"
           dropdownClass="!border-border !rounded-r-none focus:bg-background !hover:bg-background !bg-background"
-          buttonClass="!border-border !rounded-r-none focus:bg-background !hover:bg-background !bg-background"
+          buttonClass={`!border-border focus:bg-background !hover:bg-background !bg-background ${
+            isRTL
+              ? "!rounded-l-none !rounded-r-md absoulte right-0"
+              : "!rounded-r-none !rounded-l-md"
+          }`}
           searchClass="!border-border !rounded-r-none focus:bg-background !hover:bg-background !bg-background"
+          enableSearch={true}
+          disableSearchIcon={false}
+          searchPlaceholder={t("searchPlaceholder")}
+          searchNotFound={t("searchNotFound")}
+          enableAreaCodes={true}
         />
       </motion.div>
       <motion.div variants={inputVariants}>
         <Textarea
           value={message}
           onChange={(e) => setMessage(e.target.value)}
-          placeholder="Message"
+          placeholder={t("message")}
           className="w-full h-32 focus:ring-2 focus:ring-brand focus:border-transparent"
           required
         />
@@ -99,7 +116,7 @@ export default function ContactForm({ lang }: { lang: ValidLocale }) {
           type="submit"
           className="w-full bg-brand hover:bg-brand-dark transition-colors duration-300"
         >
-          Send Message
+          {t("sendMessage")}
         </Button>
       </motion.div>
     </motion.form>

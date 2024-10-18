@@ -1,4 +1,3 @@
-import { ReferenceProject2 } from "@/components/reference-projects/reference-projects-card-2";
 import { Translations, ValidLocale } from "@/config/i18n-config";
 import { Company, Testimonial } from "@/interfaces";
 
@@ -22,8 +21,8 @@ export interface Image {
 
 // Language context
 export type LanguageContextType = {
-  locale: ValidLocale;
-  setLocale: (locale: ValidLocale) => void;
+  lang: ValidLocale;
+  setLang: (lang: ValidLocale) => void;
 };
 
 // Base section type
@@ -128,10 +127,7 @@ export interface TestimonialsAndCompaniesSectionType {
   testimonials: Testimonial[];
   companies: Company[];
 }
-export interface ReferenceProjectSection2Type extends BaseSection {
-  _type: "referenceProjectSection2";
-  referenceProjects: ReferenceProject2[];
-}
+
 export type Section =
   | HeroSectionType
   | AboutSectionType
@@ -139,7 +135,6 @@ export type Section =
   | ProductsSectionType
   | TestimonialsAndCompaniesSectionType
   | ReferenceProjectSectionType
-  | ReferenceProjectSection2Type
   | PartnersSectionType;
 
 // Home page type

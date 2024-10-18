@@ -10,7 +10,8 @@ export type TranslationKey =
   | "auth"
   | "dashboard"
   | "products"
-  | "footer"; // Add this line
+  | "footer";
+
 export type Translations = {
   [key in TranslationKey]: {
     [key: string]: string;

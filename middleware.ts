@@ -4,7 +4,7 @@ import { defaultLocale, locales } from "./config/i18n-config";
 
 export function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
-
+  console.log(pathname);
   // Check if the pathname is missing a locale
   const pathnameIsMissingLocale = locales.every(
     (locale) => !pathname.startsWith(`/${locale}/`) && pathname !== `/${locale}`

@@ -1,10 +1,7 @@
-"use client";
-
 import * as React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Menu, ChevronDown } from "lucide-react";
-import { ValidLocale } from "@/config/i18n-config";
 import LanguageSwitcher from "../common/language-switcher";
 import { ThemeToggle } from "../common/theme-toggle";
 import { Button } from "@/components/ui/button";
@@ -25,62 +22,81 @@ import {
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
 import { getTranslation } from "@/lib/translation";
+import {
+  getProductsNavNames,
+  ProductNavName,
+} from "@/lib/sanity/queries/productsNavNames";
+import { ValidLocale } from "@/config/i18n-config";
 
 interface NavigationItem {
   name: string;
   href: string;
   children?: NavigationItem[];
 }
-
-const Header: React.FC<{ lang: ValidLocale }> = ({ lang }) => {
+interface HeaderProps {
+  lang: ValidLocale | ValidLocale;
+}
+export default async function Header({ lang }: HeaderProps) {
   const isRTL = lang === "ar";
+
+  const dynamicProducts: ProductNavName[] = await getProductsNavNames(lang);
 
   const navigation: NavigationItem[] = [
     {
-      name: getTranslation(lang, "shared", "home"),
+      name: lang === "ar" ? "الرئيسية" : "home",
       href: `/${lang}`,
     },
     {
-      name: getTranslation(lang, "shared", "products"),
+      name: lang === "ar" ? "المنتجات" : "products",
       href: `/${lang}/products`,
       children: [
         {
-          name: getTranslation(lang, "products", "PV Mounting Structure"),
+          name:
+            lang === "ar" ? "pv-mounting-structure" : "pv-mounting-structure",
           href: `/${lang}/products/pv-mounting-structure`,
         },
         {
-          name: getTranslation(lang, "products", "rock-wool-production-lines"),
+          name:
+            lang === "ar"
+              ? "rock-wool-production-lines"
+              : "rock-wool-production-lines",
           href: `/${lang}/products/rock-wool-production-lines`,
         },
         {
-          name: getTranslation(lang, "products", "lead-recycling-plant"),
+          name: lang === "ar" ? "lead-recycling-plant" : "lead-recycling-plant",
           href: `/${lang}/products/lead-recycling-plant`,
         },
         {
-          name: getTranslation(lang, "products", "solar-panel-cleaning-robot"),
+          name:
+            lang === "ar"
+              ? "solar-panel-cleaning-robot"
+              : "solar-panel-cleaning-robot",
           href: `/${lang}/products/solar-panel-cleaning-robot`,
         },
         {
-          name: getTranslation(lang, "products", "other"),
+          name: lang === "ar" ? "المزيد" : "other",
           href: `/${lang}/products`,
         },
+        ...dynamicProducts.map((product) => ({
+          name: product.title,
+          href: `/${lang}/products/${product.slug}`,
+        })),
       ],
     },
-    { name: getTranslation(lang, "shared", "about"), href: `/${lang}/about` },
+    { name: lang === "ar" ? "من نحن" : "about", href: `/${lang}/about` },
     {
-      name: getTranslation(lang, "shared", "contact"),
+      name: lang === "ar" ? "تواصل معنا" : "contact",
       href: `/${lang}/contact`,
     },
     {
-      name: getTranslation(lang, "shared", "privacy-policy"),
-      href: `/${lang}/privacy-policy`,
+      name: lang === "ar" ? "الشروط " : "policy",
+      href: `/${lang}/policy`,
     },
     {
-      name: getTranslation(lang, "shared", "reference-projects"),
+      name: lang === "ar" ? "المشاريع المرجعية " : "references projects",
       href: `/${lang}/reference-projects`,
     },
   ];
-
   return (
     <header className="sticky top-0 py-2 z-[100] w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div
@@ -167,7 +183,7 @@ const Header: React.FC<{ lang: ValidLocale }> = ({ lang }) => {
       </div>
     </header>
   );
-};
+}
 
 interface MobileNavProps {
   navigation: NavigationItem[];
@@ -214,5 +230,3 @@ const MobileNav: React.FC<MobileNavProps> = ({ navigation, isRTL }) => {
     </ScrollArea>
   );
 };
-
-export default Header;

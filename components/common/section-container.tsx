@@ -1,5 +1,6 @@
 import React from "react";
 import { cn } from "@/lib/utils";
+import { InteractiveSection } from "./interactive-section";
 
 interface SectionContainerProps {
   children: React.ReactNode;
@@ -11,8 +12,10 @@ export function SectionContainer({
   className,
 }: SectionContainerProps) {
   return (
-    <section className={cn("py-16 md:py-24 max-w-7xl w-full", className)}>
-      {children}
-    </section>
+    <InteractiveSection className={className}>
+      <section className={cn("py-16 md:py-24 max-w-7xl w-full", className)}>
+        {children}
+      </section>
+    </InteractiveSection>
   );
 }

@@ -1,3 +1,5 @@
+@import "dubai-font.css";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -413,4 +415,181 @@ body {
 .animate-infinite-scroll {
   animation: infinite-scroll var(--animation-duration, 40s)
     var(--animation-direction, forwards) linear infinite;
+}
+.glow-effect {
+  position: relative;
+  overflow: hidden;
+}
+
+.glow-effect::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.3) 0%,
+    rgba(255, 255, 255, 0) 70%
+  );
+  transform: rotate(30deg);
+  pointer-events: none;
+}
+
+.glow-effect:hover::before {
+  animation: glow 1.5s infinite linear;
+}
+
+@keyframes glow {
+  0% {
+    transform: rotate(30deg) translateY(0);
+  }
+  100% {
+    transform: rotate(30deg) translateY(-100%);
+  }
+}
+
+.shadow-effect {
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.3);
+  transition: box-shadow 0.3s ease-in-out;
+}
+
+.shadow-effect:hover {
+  box-shadow: 0 20px 40px -20px rgba(0, 0, 0, 0.5);
+}
+
+.parallax-bg {
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.text-gradient {
+  background: linear-gradient(45deg, var(--primary), var(--secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Add this new class for the scrolling glow effect */
+.bg-gradient-radial {
+  background-image: radial-gradient(circle, var(--tw-gradient-stops));
+}
+/*  */
+.glow-effect {
+  position: relative;
+  overflow: hidden;
+}
+
+.glow-effect::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.3) 0%,
+    rgba(255, 255, 255, 0) 70%
+  );
+  transform: rotate(30deg);
+  pointer-events: none;
+}
+
+.glow-effect:hover::before {
+  animation: glow 1.5s infinite linear;
+}
+
+@keyframes glow {
+  0% {
+    transform: rotate(30deg) translateY(0);
+  }
+  100% {
+    transform: rotate(30deg) translateY(-100%);
+  }
+}
+
+.shadow-effect {
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.3);
+  transition: box-shadow 0.3s ease-in-out;
+}
+
+.shadow-effect:hover {
+  box-shadow: 0 20px 40px -20px rgba(0, 0, 0, 0.5);
+}
+
+.parallax-bg {
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.text-gradient {
+  background: linear-gradient(45deg, var(--primary), var(--secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.bg-gradient-radial {
+  background-image: radial-gradient(circle, var(--tw-gradient-stops));
+}
+
+/* New styles for the enhanced scrolling glow effect */
+.scrolling-glow-container {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 50;
+  overflow: hidden;
+}
+
+.scrolling-glow-path {
+  stroke-width: 4;
+  fill: none;
+}
+
+.scrolling-glow-gradient {
+  position: absolute;
+  inset: 0;
+  opacity: 0.5;
+}
+/*  */
+
+@layer utilities {
+  .glow-effect {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .glow-effect::before {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(
+      circle,
+      rgba(var(--primary), 0.1) 0%,
+      transparent 70%
+    );
+    transform: rotate(30deg);
+    pointer-events: none;
+  }
+
+  .glow-effect:hover::before {
+    animation: glow 1.5s infinite linear;
+  }
+
+  @keyframes glow {
+    0% {
+      transform: rotate(30deg) translateY(0);
+    }
+    100% {
+      transform: rotate(30deg) translateY(-100%);
+    }
+  }
 }

@@ -1,6 +1,5 @@
 "use client";
 
-import { usePathname, useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -10,27 +9,22 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Globe } from "lucide-react";
 import { locales, ValidLocale } from "@/config/i18n-config";
+import { useLanguage } from "@/providers/language-provider";
 
 const LanguageSwitcher = () => {
-  const router = useRouter();
-  const pathname = usePathname();
-
-  const handleLanguageChange = (newLocale: ValidLocale) => {
-    const currentPathname = pathname.split("/").slice(2).join("/");
-    router.push(`/${newLocale}/${currentPathname}`);
-  };
+  const { locale, setLocale } = useLanguage();
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" size="icon">
-          <Globe className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all" />
+          <Globe className="h-[1.2rem] z-[100] w-[1.2rem] rotate-0 scale-100 transition-all" />
           <span className="sr-only">Toggle language</span>
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end">
+      <DropdownMenuContent align="end" className="z-[100]">
         {locales.map((loc) => (
-          <DropdownMenuItem key={loc} onClick={() => handleLanguageChange(loc)}>
+          <DropdownMenuItem key={loc} onClick={() => setLocale(loc)}>
             {loc.toUpperCase()}
           </DropdownMenuItem>
         ))}

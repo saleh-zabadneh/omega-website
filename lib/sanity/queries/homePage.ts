@@ -2,7 +2,7 @@ import { ValidLocale } from "@/config/i18n-config";
 import { fetchSanity } from "@/lib/sanity";
 import { HomePage } from "@/types/types";
 
-export async function getHomePage(lang: ValidLocale): Promise<HomePage> {
+export async function getHomePage(lang: ValidLocale): Promise<HomePage | null> {
   const query = `
     *[_type == "homePage"][0] {
       title,
@@ -97,32 +97,7 @@ export async function getHomePage(lang: ValidLocale): Promise<HomePage> {
             }
           }
         },
-      _type == "referenceProjectSection2" => {
-          id,
-          heading,
-          specialWord,
-          "referenceProjects": referenceProjects[]-> {
-            _id,
-            text1,
-            text2,
-            "urlPath": slug.current,
-            "image1": image1.asset->{
-              url,
-              metadata {
-                dimensions,
-                lqip
-              }
-            },
-            "image2": image2.asset->{
-              url,
-              metadata {
-                dimensions,
-                lqip
-              }
-            },
-            "category": category->name
-          }
-        }
+      
       }
     }
   `;

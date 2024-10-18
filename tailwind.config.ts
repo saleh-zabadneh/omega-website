@@ -117,6 +117,9 @@ const config: Config = {
         half: "50%",
         "7xl": "40px",
       },
+      fontFamily: {
+        dubai: ["var(--font-dubai)", "sans-serif"],
+      },
       keyframes: {
         "accordion-down": {
           from: { height: "0" },
@@ -136,6 +139,9 @@ const config: Config = {
         "accordion-up": "accordion-up 0.2s ease-out",
         "infinite-scroll":
           "scroll var(--animation-duration, 40s) var(--animation-direction, forwards) linear infinite",
+      },
+      backgroundImage: {
+        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
       },
     },
   },

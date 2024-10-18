@@ -7,7 +7,7 @@ export default function ProductList({
   translations,
 }: ProductListProps) {
   return (
-    <div className="grid grid-cols-1 justify-items-center md:grid-cols-2 justify-content-center p-4 md:gap-x-10 ">
+    <div className="grid grid-cols-1 justify-items-center md:grid-cols-2 justify-content-center p-4 md:gap-x-10  ">
       {products.map((product) => (
         <ProductCard
           key={product._id}

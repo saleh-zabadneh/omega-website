@@ -1,9 +1,9 @@
 import { Heading } from "@/components/common/heading";
 import { Paragraph } from "@/components/common/paragraph";
 import { SectionContainer } from "@/components/common/section-container";
-import { NormalReferenceProjectsList } from "@/components/reference-projects/normal-reference-project-list";
+import ReferenceProjectSection2 from "@/components/sections/reference-projects-section-2";
 import { ValidLocale } from "@/config/i18n-config";
-import { getReferenceProjects } from "@/lib/sanity/queries/referenceProjects";
+import { getReferenceProjects2 } from "@/lib/sanity/queries/referenceProjects2";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -16,7 +16,7 @@ export default async function ProductsPage({
 }: {
   params: { lang: ValidLocale };
 }) {
-  const referenceProjects = await getReferenceProjects();
+  const referenceProjects = await getReferenceProjects2();
 
   return (
     <main className="relative bg-background flex justify-center max-w-7xl mx-auto items-center flex-col overflow-hidden">
@@ -29,8 +29,8 @@ export default async function ProductsPage({
             ? "جميع المشاريع المرجعية الخاصة بنا "
             : "all of our reference projects"}
         </Paragraph>
-        <div className=" mx-8">
-          <NormalReferenceProjectsList
+        <div className="mx-8">
+          <ReferenceProjectSection2
             referenceProjects={referenceProjects}
             lang={lang}
           />

@@ -1,9 +1,8 @@
-// import Carousel from "@/components/common/x";
+import { InteractiveSection } from "@/components/common/interactive-section";
 import { AboutSectionPropsV2 } from "@/components/sections/about-section-2";
 import { HeroSection } from "@/components/sections/hero-section";
 import { ProductsSection } from "@/components/sections/products-section";
 import { ReferenceProjectsSection } from "@/components/sections/reference-projects-section";
-import ReferenceProjectSection2 from "@/components/sections/reference-projects-section-2";
 import { TestimonialsAndCompaniesSection } from "@/components/sections/testimonials-section";
 import { ValidLocale } from "@/config/i18n-config";
 import { getHomePage } from "@/lib/sanity/queries/homePage";
@@ -35,52 +34,51 @@ export default async function Home({
   const referenceProjectSection = homePageData?.sections?.find(
     (section: Section) => section._type === "referenceProjectSection"
   );
-  const referenceProjectSection2 = homePageData?.sections?.find(
-    (section: Section) => section._type === "referenceProjectSection2"
-  );
 
   return (
-    <main className="relative bg-black-100 flex justify-center mx-auto items-center flex-col overflow-hidden">
-      {heroSection && (
-        <HeroSection key={heroSection.id} {...heroSection} lang={lang} />
-      )}
-      {aboutSection && (
-        <AboutSectionPropsV2
-          key={aboutSection.id}
-          {...aboutSection}
-          lang={lang}
-        />
-      )}
-      {productsSection && (
-        <ProductsSection
-          key={productsSection.id}
-          {...productsSection}
-          lang={lang}
-          featuredProducts={products}
-        />
-      )}
-      {testimonialsSection && (
-        <TestimonialsAndCompaniesSection
-          key={testimonialsSection.id}
-          {...testimonialsSection}
-          lang={lang}
-        />
-      )}
-      {referenceProjectSection && (
-        <ReferenceProjectsSection
-          key={referenceProjectSection.id}
-          {...referenceProjectSection}
-          lang={lang}
-        />
-      )}
-      {referenceProjectSection2 && (
-        <ReferenceProjectSection2
-          key={referenceProjectSection2.id}
-          {...referenceProjectSection2}
-          lang={lang}
-        />
-      )}
-      {/* <Carousel /> */}
+    <main className="relative  bg-black-100 flex justify-center mx-auto items-center w-full  flex-col overflow-hidden">
+      <InteractiveSection className="max-w-full w-full">
+        {heroSection && (
+          <HeroSection key={heroSection.id} {...heroSection} lang={lang} />
+        )}
+      </InteractiveSection>
+      <InteractiveSection>
+        {aboutSection && (
+          <AboutSectionPropsV2
+            key={aboutSection.id}
+            {...aboutSection}
+            lang={lang}
+          />
+        )}
+      </InteractiveSection>
+      <InteractiveSection>
+        {productsSection && (
+          <ProductsSection
+            key={productsSection.id}
+            {...productsSection}
+            lang={lang}
+            featuredProducts={products}
+          />
+        )}
+      </InteractiveSection>
+      <InteractiveSection>
+        {testimonialsSection && (
+          <TestimonialsAndCompaniesSection
+            key={testimonialsSection.id}
+            {...testimonialsSection}
+            lang={lang}
+          />
+        )}
+      </InteractiveSection>
+      <InteractiveSection>
+        {referenceProjectSection && (
+          <ReferenceProjectsSection
+            key={referenceProjectSection.id}
+            {...referenceProjectSection}
+            lang={lang}
+          />
+        )}
+      </InteractiveSection>
     </main>
   );
 }

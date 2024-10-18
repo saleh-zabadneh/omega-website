@@ -13,7 +13,14 @@
     "language": "اللغة",
     "company_name": "شركة التطبيقات متعددة اللغات",
     "all_rights_reserved": "جميع الحقوق محفوظة.",
-    "products": "المنتجات"
+    "products": "المنتجات",
+    "firstName": "الاسم الأول",
+    "lastName": "اسم العائلة",
+    "email": "البريد الإلكتروني",
+    "searchPlaceholder": "بحث...",
+    "searchNotFound": "لم يتم العثور على نتائج",
+    "message": "الرسالة",
+    "sendMessage": "إرسال الرسالة"
   },
   "home": {
     "welcome": "مرحبًا بكم في مبدل المظهر متعدد اللغات",

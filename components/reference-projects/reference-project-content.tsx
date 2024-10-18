@@ -4,15 +4,8 @@ import Image from "next/image";
 import { Card, CardContent } from "@/components/ui/card";
 import { ValidLocale } from "@/config/i18n-config";
 import { LocaleString } from "@/types/types";
-import dynamic from "next/dynamic";
-import { useState } from "react";
-
-const ReferenceProjectContent = dynamic(
-  () => import("./reference-project-content"),
-  {
-    loading: () => <p>Loading...</p>,
-  }
-);
+import { motion } from "framer-motion";
+import ReferenceProjectContent from "./reference-project-content";
 
 export interface ReferenceProject2 {
   _id: string;
@@ -42,10 +35,13 @@ export default function ReferenceProjectCard2({
   project,
   lang,
 }: ReferenceProjectCard2Props) {
-  const [isContentVisible, setIsContentVisible] = useState(false);
-
   return (
-    <div className="w-full max-w-7xl mx-auto mb-8 opacity-0 animate-fadeIn">
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+      className="w-full max-w-7xl mx-auto mb-8"
+    >
       <Card className="overflow-hidden hover:shadow-lg transition-shadow duration-300">
         <CardContent className="p-0">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-0">
@@ -68,23 +64,20 @@ export default function ReferenceProjectCard2({
               <p className="text-lg lg:text-xl text-gray-600 dark:text-gray-300 mb-6">
                 {project.text2[lang]}
               </p>
-              <button
-                onClick={() => setIsContentVisible(!isContentVisible)}
-                className="text-base font-medium text-primary"
-              >
-                {isContentVisible ? "Show less ↑" : "Learn more →"}
-              </button>
             </div>
           </div>
         </CardContent>
       </Card>
 
-      {isContentVisible && (
-        <div className="mt-8">
-          <ReferenceProjectContent project={project} lang={lang} />
-        </div>
-      )}
-    </div>
+      <motion.div
+        initial={{ opacity: 0, height: 0 }}
+        animate={{ opacity: 1, height: "auto" }}
+        transition={{ duration: 0.5 }}
+        className="mt-8"
+      >
+        <ReferenceProjectContent project={project} lang={lang} />
+      </motion.div>
+    </motion.div>
   );
 }
 

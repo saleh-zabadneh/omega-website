@@ -1,8 +1,14 @@
-"use client";
+// "use client";
 
-import { LanguageContextType } from "@/types/types";
-import { createContext } from "react";
+// import { createContext } from "react";
+// import { ValidLocale, defaultLocale } from "@/config/i18n-config";
 
-export const LanguageContext = createContext<LanguageContextType | undefined>(
-  undefined
-);
+// export type LanguageContextType = {
+//   lang: ValidLocale;
+//   setLang: (lang: ValidLocale) => void;
+// };
+
+// export const LanguageContext = createContext<LanguageContextType>({
+//   lang: defaultLocale,
+//   setLang: () => {},
+// });

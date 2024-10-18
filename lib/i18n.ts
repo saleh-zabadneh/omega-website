@@ -8,17 +8,17 @@ const translations: Record<
 > = { en, ar };
 
 export function getTranslation(
-  locale: ValidLocale,
+  lang: ValidLocale,
   section: TranslationKey,
   key: string
 ) {
-  if (!translations[locale]) {
-    console.error(`Locale '${locale}' not found`);
+  if (!translations[lang]) {
+    console.error(`Language '${lang}' not found`);
     return key;
   }
-  if (!translations[locale][section]) {
-    console.error(`Section '${section}' not found in locale '${locale}'`);
+  if (!translations[lang][section]) {
+    console.error(`Section '${section}' not found in language '${lang}'`);
     return key;
   }
-  return translations[locale][section][key] || key;
+  return translations[lang][section][key] || key;
 }
