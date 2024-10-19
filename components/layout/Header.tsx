@@ -209,7 +209,7 @@ const MobileNav: React.FC<MobileNavProps> = ({ navigation, isRTL }) => {
                     <Link
                       key={child.href}
                       href={child.href}
-                      className="block py-2 pl-4 text-sm text-muted-foreground transition-colors hover:text-primary"
+                      className="block capitalize py-2 pl-4 text-sm text-muted-foreground transition-colors hover:text-primary"
                     >
                       {child.name}
                     </Link>
@@ -219,7 +219,7 @@ const MobileNav: React.FC<MobileNavProps> = ({ navigation, isRTL }) => {
             ) : (
               <Link
                 href={item.href}
-                className="block py-2 text-sm text-muted-foreground transition-colors hover:text-primary"
+                className="block py-2 capitalize text-sm text-muted-foreground transition-colors hover:text-primary"
               >
                 {item.name}
               </Link>

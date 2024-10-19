@@ -41,27 +41,27 @@ export default function ContactInfo({ contactInfo, lang }: ContactInfoProps) {
   const contactItems = [
     {
       icon: <Phone className="w-5   h-5 text-primary" />,
-      title: "Phone",
+      title: lang === "ar" ? "الهاتف" : "Phone",
       items: contactInfo.phones,
     },
     {
       icon: <PhoneCall className="w-5  h-5 text-primary" />,
-      title: "Fax",
+      title: lang === "ar" ? "فاكس" : "Fax",
       items: contactInfo.faxes,
     },
     {
       icon: <Smartphone className="w-5  h-5 text-primary" />,
-      title: "Mobile",
+      title: lang === "ar" ? "رقم الموبايل" : "Mobile",
       items: contactInfo.mobiles,
     },
     {
       icon: <MapPin className="w-5  h-5 text-primary" />,
-      title: "Address",
+      title: lang === "ar" ? "العنوان" : "Address",
       items: contactInfo.addresses.map((address) => address[lang]),
     },
     {
       icon: <Mail className="w-5 h-5 text-primary" />,
-      title: "Email",
+      title: lang === "ar" ? "البريد الالكتروني" : "Email",
       items: contactInfo.emails,
     },
   ].filter((item) => item.items.length > 0);

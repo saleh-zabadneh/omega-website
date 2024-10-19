@@ -1,10 +1,8 @@
 "use client";
 
-import { ValidLocale } from "@/config/i18n-config";
-import { LocaleString } from "@/types/types";
 import { motion } from "framer-motion";
+import { ValidLocale } from "@/config/i18n-config";
 import ReferenceProjectCard2, {
-  groupReferenceProjectsByCategory,
   ReferenceProject2,
 } from "../reference-projects/reference-projects-card-2";
 
@@ -35,16 +33,38 @@ export default function ReferenceProjectSection2({
             >
               {category}
             </motion.h3>
-            {projects.map((project) => (
-              <ReferenceProjectCard2
-                key={project._id}
-                project={project}
-                lang={lang}
-              />
-            ))}
+            <div className="space-y-12">
+              {projects.map((project) => (
+                <ReferenceProjectCard2
+                  key={project._id}
+                  project={project}
+                  lang={lang}
+                />
+              ))}
+            </div>
           </div>
         ))}
       </div>
     </section>
   );
+}
+
+export interface ReferenceProjectList2 extends Array<ReferenceProject2> {}
+
+export interface GroupedReferenceProjects {
+  [category: string]: ReferenceProject2[];
+}
+
+export function groupReferenceProjectsByCategory(
+  projects: ReferenceProjectList2,
+  lang: ValidLocale
+): GroupedReferenceProjects {
+  return projects?.reduce((acc, project) => {
+    const category = project?.category[lang];
+    if (!acc[category]) {
+      acc[category] = [];
+    }
+    acc[category].push(project);
+    return acc;
+  }, {} as GroupedReferenceProjects);
 }

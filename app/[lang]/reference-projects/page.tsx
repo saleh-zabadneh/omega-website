@@ -17,7 +17,7 @@ export default async function ProductsPage({
   params: { lang: ValidLocale };
 }) {
   const referenceProjects = await getReferenceProjects2();
-
+  console.log(referenceProjects);
   return (
     <main className="relative bg-background flex justify-center max-w-7xl mx-auto items-center flex-col overflow-hidden">
       <SectionContainer>

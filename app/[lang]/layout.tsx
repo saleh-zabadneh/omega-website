@@ -8,7 +8,6 @@ import Footer from "@/components/layout/Footer";
 import { ValidLocale, defaultLocale } from "@/config/i18n-config";
 import WhatsAppLink from "@/components/common/whatsapp-link";
 import { LanguageProvider } from "@/providers/language-provider";
-// import ClientWrapper from "@/components/common/client-wrapper";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -52,17 +51,23 @@ export default function RootLayout({
 }) {
   const lang = params.lang || defaultLocale;
 
-  console.log(params);
   return (
     <html
       lang={params.lang}
       dir={lang === "ar" ? "rtl" : "ltr"}
       suppressHydrationWarning
     >
-      <body className={`${inter.className} ${dubai.variable}`}>
+      <body
+        className={`${dubai.variable} ${inter.className} ${
+          lang === "ar" ? "font-dubai" : "font-sans"
+        }`}
+        style={{
+          fontFamily:
+            lang === "ar" ? "var(--font-dubai), sans-serif" : "inherit",
+        }}
+      >
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <LanguageProvider initialLocale={lang}>
-            {/* <ClientWrapper> */}
             <div className="flex flex-col min-h-screen">
               <Header lang={lang} />
               <main className="flex-grow">{children}</main>
@@ -72,7 +77,6 @@ export default function RootLayout({
               phoneNumber="1234567890"
               message="Hi, I'd like to know more about your services."
             />
-            {/* </ClientWrapper> */}
           </LanguageProvider>
         </ThemeProvider>
       </body>

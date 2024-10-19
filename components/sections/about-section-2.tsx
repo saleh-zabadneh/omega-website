@@ -129,7 +129,7 @@ export function AboutSectionPropsV2({
             hidden: { opacity: 0, y: 50 },
           }}
           transition={{ duration: 0.5, ease: "easeOut" }}
-          className="absolute inset-0 blur-xl h-[580px]"
+          className="z-[-1] absolute inset-0 blur-xl h-[580px]"
           style={{
             background:
               "linear-gradient(143.6deg, rgba(192, 132, 252, 0) 20.79%, rgba(232, 114, 18, 0.13) 10.92%, rgba(204, 171, 238, 0) 70.35%)",
