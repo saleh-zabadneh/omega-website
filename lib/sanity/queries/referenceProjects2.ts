@@ -1,7 +1,5 @@
-import {
-  ReferenceProject2,
-  ReferenceProjectList2,
-} from "@/components/reference-projects/reference-projects-card-2";
+import { ReferenceProject2 } from "@/components/reference-projects/reference-projects-card-2";
+import { ReferenceProjectList2 } from "@/components/sections/reference-projects-section-2";
 import { fetchSanity } from "@/lib/sanity";
 
 export async function getReferenceProjects2(
