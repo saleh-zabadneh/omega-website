@@ -48,9 +48,19 @@ export default function ReferenceProjectCard2({
       transition={{ duration: 0.5 }}
       className="w-full max-w-7xl mx-auto mb-16"
     >
-      <div className="overflow-hidden hover:shadow-lg transition-shadow duration-300 rounded-lg bg-white dark:bg-gray-800">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-0">
-          <div className="relative h-72">
+      <div className="overflow-hidden hover:shadow-lg transition-shadow duration-300 rounded-lg ">
+        <div className="flex flex-col capitalize lg:flex-row">
+          <div className="flex-1 p-6 lg:p-8 flex flex-col">
+            <div className="flex-grow overflow-y-auto">
+              <h3 className="text-2xl lg:text-3xl font-bold mb-4 ">
+                {project.text1[lang]}
+              </h3>
+            </div>
+            <div className="flex-grow overflow-y-auto">
+              <p className="text-base lg:text-lg">{project.text2[lang]}</p>
+            </div>
+          </div>
+          <div className="relative lg:w-1/2 h-72 lg:h-auto">
             <Image
               src={project.image1.url}
               alt={project.text1[lang]}
@@ -59,16 +69,8 @@ export default function ReferenceProjectCard2({
               sizes="(max-width: 1024px) 100vw, 50vw"
               placeholder="blur"
               blurDataURL={project.image1.metadata.lqip}
-              className="rounded-t-lg lg:rounded-l-lg lg:rounded-t-none"
+              className="rounded-b-lg lg:rounded-r-lg lg:rounded-l-none"
             />
-          </div>
-          <div className="flex flex-col justify-center p-8 lg:p-16 gap-x-1">
-            <h3 className="text-3xl lg:text-4xl font-bold mb-4 text-gray-800 dark:text-gray-100">
-              {project.text1[lang]}
-            </h3>
-            <p className="text-lg lg:text-xl text-gray-600 dark:text-gray-300 mb-6">
-              {project.text2[lang]}
-            </p>
           </div>
         </div>
       </div>

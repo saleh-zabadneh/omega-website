@@ -6,6 +6,7 @@ import { getTranslation } from "@/lib/translation";
 import Link from "next/link";
 import { ReferenceProjectsList } from "../reference-projects/reference-project-list";
 import { ReferenceProjectSectionType } from "@/types/types";
+import { ArrowLeft } from "lucide-react";
 
 interface ReferenceProjectsSectionProps extends ReferenceProjectSectionType {
   lang: ValidLocale;
@@ -28,7 +29,7 @@ export function ReferenceProjectsSection({
       />
       <Link href={`/${lang}/reference-projects`} passHref>
         <Button className="bg-brand mx-auto flex justify-center capitalize text-lg">
-          {getTranslation(lang, "shared", "Explore Projects")}
+          {lang === "ar" ? "مشاهدة جميع المشاريع" : "Explore Projects"}
         </Button>
       </Link>
     </SectionContainer>
