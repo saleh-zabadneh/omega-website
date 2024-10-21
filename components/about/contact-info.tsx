@@ -1,7 +1,10 @@
+"use client";
+
 import { ValidLocale } from "@/config/i18n-config";
 import { motion, Variants } from "framer-motion";
 import { Phone, Smartphone, MapPin, Mail, PhoneCall } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
+import Link from "next/link";
 
 interface ContactInfo {
   phones: string[];
@@ -20,9 +23,10 @@ interface ContactItemProps {
   icon: React.ReactNode;
   title: string;
   items: string[];
+  type: "phone" | "fax" | "mobile" | "address" | "email";
 }
 
-export default function ContactInfo({ contactInfo, lang }: ContactInfoProps) {
+export default function Component({ contactInfo, lang }: ContactInfoProps) {
   const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
@@ -40,29 +44,34 @@ export default function ContactInfo({ contactInfo, lang }: ContactInfoProps) {
 
   const contactItems = [
     {
-      icon: <Phone className="w-5   h-5 text-primary" />,
+      icon: <Phone className="w-5 h-5 text-primary" />,
       title: lang === "ar" ? "الهاتف" : "Phone",
       items: contactInfo.phones,
+      type: "phone" as const,
     },
     {
-      icon: <PhoneCall className="w-5  h-5 text-primary" />,
+      icon: <PhoneCall className="w-5 h-5 text-primary" />,
       title: lang === "ar" ? "فاكس" : "Fax",
       items: contactInfo.faxes,
+      type: "fax" as const,
     },
     {
-      icon: <Smartphone className="w-5  h-5 text-primary" />,
+      icon: <Smartphone className="w-5 h-5 text-primary" />,
       title: lang === "ar" ? "رقم الموبايل" : "Mobile",
       items: contactInfo.mobiles,
+      type: "mobile" as const,
     },
     {
-      icon: <MapPin className="w-5  h-5 text-primary" />,
+      icon: <MapPin className="w-5 h-5 text-primary" />,
       title: lang === "ar" ? "العنوان" : "Address",
       items: contactInfo.addresses.map((address) => address[lang]),
+      type: "address" as const,
     },
     {
       icon: <Mail className="w-5 h-5 text-primary" />,
       title: lang === "ar" ? "البريد الالكتروني" : "Email",
       items: contactInfo.emails,
+      type: "email" as const,
     },
   ].filter((item) => item.items.length > 0);
 
@@ -81,6 +90,7 @@ export default function ContactInfo({ contactInfo, lang }: ContactInfoProps) {
                 icon={item.icon}
                 title={item.title}
                 items={item.items}
+                type={item.type}
               />
             </CardContent>
           </Card>
@@ -90,18 +100,51 @@ export default function ContactInfo({ contactInfo, lang }: ContactInfoProps) {
   );
 }
 
-function ContactItem({ icon, title, items }: ContactItemProps) {
+function ContactItem({ icon, title, items, type }: ContactItemProps) {
+  const getHref = (item: string, type: ContactItemProps["type"]) => {
+    switch (type) {
+      case "phone":
+      case "fax":
+      case "mobile":
+        return `tel:${item.replace(/\s/g, "")}`;
+      case "email":
+        return `mailto:${item}`;
+      case "address":
+        return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+          item
+        )}`;
+      default:
+        return "#";
+    }
+  };
+
   return (
     <div className="flex items-center flex-wrap space-x-4">
-      <div className="flex-shrink-0  w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+      <div className="flex-shrink-0 w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
         {icon}
       </div>
       <div>
         <h3 className="font-semibold px-2 text-lg mb-2">{title}</h3>
         {items.map((item, index) => (
-          <p key={index} className="text-muted-foreground text-sm">
+          <Link
+            key={index}
+            href={getHref(item, type)}
+            className="block text-muted-foreground text-sm hover:text-primary transition-colors"
+            target={type === "address" ? "_blank" : undefined}
+            rel={type === "address" ? "noopener noreferrer" : undefined}
+            onClick={() => {
+              // Google Analytics event tracking
+              if (typeof window !== "undefined" && (window as any).gtag) {
+                (window as any).gtag("event", "contact_click", {
+                  event_category: "Contact",
+                  event_label: type,
+                  value: item,
+                });
+              }
+            }}
+          >
             {item}
-          </p>
+          </Link>
         ))}
       </div>
     </div>

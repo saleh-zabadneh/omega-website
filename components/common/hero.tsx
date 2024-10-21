@@ -1,17 +1,12 @@
 "use client";
 
-import React, { useState, useEffect, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import { Button } from "@/components/ui/button";
-import { SectionContainer } from "../common/section-container";
-import { Heading } from "../common/heading";
-import { Paragraph } from "../common/paragraph";
-import { ValidLocale } from "@/config/i18n-config";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { ParticleNetwork } from "../common/particles";
-import Link from "next/link";
-import { getTranslation } from "@/lib/translation";
+import { Button } from "@/components/ui/button";
+import { ValidLocale } from "@/config/i18n-config";
+import { ParticleNetwork } from "./particles";
 
 interface HeroSlide {
   heading: Record<ValidLocale, string>;
@@ -27,13 +22,13 @@ interface HeroSlide {
   };
 }
 
-interface HeroSectionProps {
-  id: string;
+interface HeroProps {
+  id?: string;
   slides: HeroSlide[];
   lang: ValidLocale;
 }
 
-export function HeroSection({ slides, lang }: HeroSectionProps) {
+export default function Hero({ slides, lang }: HeroProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [direction, setDirection] = useState(0);
 
@@ -78,15 +73,7 @@ export function HeroSection({ slides, lang }: HeroSectionProps) {
   };
 
   return (
-    <SectionContainer className="relative h-screen max-w-full overflow-hidden">
-      <div className="absolute inset-0 z-[100]">
-        <ParticleNetwork
-          particleColor="rgba(219, 105, 24, 0.5)"
-          lineColor="rgba(255, 255, 255, 0.1)"
-          particleCount={50}
-          lineMaxLength={150}
-        />
-      </div>
+    <div className="relative h-screen w-full max-w-full overflow-hidden">
       <AnimatePresence initial={false} custom={direction}>
         <motion.div
           key={currentIndex}
@@ -114,40 +101,29 @@ export function HeroSection({ slides, lang }: HeroSectionProps) {
             transition={{ duration: 0.5 }}
             className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center"
           >
-            <div className="text-center max-w-7xl text-white px-4">
-              <Heading
-                duration={1.6}
-                highlightColor="bg-primary/60"
-                specialWord={slides[currentIndex].specialWord?.[lang]}
-                className="mb-4"
-              >
+            <div className="text-center  text-white px-4">
+              <h1 className="text-4xl md:text-5xl font-bold mb-4">
                 {slides[currentIndex].heading[lang]}
-              </Heading>
-              <Paragraph className="text-xl md:text-2xl mb-8">
+                {slides[currentIndex].specialWord && (
+                  <span className="bg-primary/60 px-2">
+                    {slides[currentIndex].specialWord[lang]}
+                  </span>
+                )}
+              </h1>
+              <p className="text-xl md:text-2xl mb-8">
                 {slides[currentIndex].subheading[lang]}
-              </Paragraph>
+              </p>
             </div>
           </motion.div>
         </motion.div>
       </AnimatePresence>
-      <Link
-        href={`/${lang}/products`}
-        passHref
-        className="absolute z-[200] top-2/3 left-1/2 transform -translate-x-1/2  -translate-y-1/2"
-      >
-        <motion.div className="flex justify-center">
-          <Button className="bg-brand capitalize text-lg">
-            {getTranslation(lang, "shared", "explore_products")}
-          </Button>
-        </motion.div>
-      </Link>
       <Button
         variant="outline"
         size="icon"
-        className="absolute left-4 z-[200] top-1/2 transform -translate-y-1/2  bg-white/20 hover:bg-white/40 transition-colors"
+        className="absolute left-4 z-[200] top-1/2 transform -translate-y-1/2 bg-white/20 hover:bg-white/40 transition-colors"
         onClick={prevSlide}
       >
-        <ChevronLeft className="h-6 w-6 " />
+        <ChevronLeft className="h-6 w-6" />
         <span className="sr-only">Previous slide</span>
       </Button>
       <Button
@@ -159,6 +135,6 @@ export function HeroSection({ slides, lang }: HeroSectionProps) {
         <ChevronRight className="h-6 w-6" />
         <span className="sr-only">Next slide</span>
       </Button>
-    </SectionContainer>
+    </div>
   );
 }

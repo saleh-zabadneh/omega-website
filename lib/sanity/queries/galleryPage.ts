@@ -1,26 +1,31 @@
 import { fetchSanity } from "@/lib/sanity";
 import { ValidLocale } from "@/config/i18n-config";
-import { AboutPageTypes } from "@/types/types";
 
-export async function getAboutPage(lang: ValidLocale): Promise<AboutPageTypes> {
+export interface GalleryPageTypes {
+  title: {
+    [key in ValidLocale]: string;
+  };
+  sections: {
+    sectionTitle: {
+      [key in ValidLocale]: string;
+    };
+    content: Array<{
+      _type: string;
+      [key: string]: any;
+    }>;
+  }[];
+  seo: {
+    title: string;
+    description: string;
+    image: string;
+  };
+}
+export async function getGalleryPage(
+  lang: ValidLocale
+): Promise<GalleryPageTypes> {
   const query = `
-    *[_type == "about"][0] {
+    *[_type == "gallery"][0] {
       title,
-      hero {
-        slides[] {
-          heading,
-          subheading,
-          specialWord,
-          backgroundImage {
-            "url": asset->url,
-            alt
-          },
-          link {
-            text,
-            url
-          }
-        }
-      },
       sections[] {
         sectionTitle,
         content[] {
@@ -74,5 +79,5 @@ export async function getAboutPage(lang: ValidLocale): Promise<AboutPageTypes> {
       }
     }
   `;
-  return fetchSanity<AboutPageTypes>(query);
+  return fetchSanity<GalleryPageTypes>(query);
 }

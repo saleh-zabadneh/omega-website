@@ -49,6 +49,22 @@ export default function ContactPageContent({
   return (
     <div className="min-h-screen capitalize">
       <div className="container mx-auto px-4 py-16">
+        <motion.div
+          ref={mapRef}
+          initial={{ opacity: 0, y: 50 }}
+          animate={mapInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, delay: 0.6 }}
+          className="w-full mb-10"
+        >
+          <h2 className="text-3xl font-semibold mb-6 text-center">
+            {lang === "ar" ? "موقعنا" : "  Our Location"}
+          </h2>
+          <Map
+            latitude={mapDetails.latitude}
+            longitude={mapDetails.longitude}
+            zoom={mapDetails.zoom}
+          />
+        </motion.div>
         <motion.h1
           ref={titleRef}
           initial={{ opacity: 0, y: 20 }}
@@ -88,22 +104,6 @@ export default function ContactPageContent({
             <ContactInfo contactInfo={contactPage.contactInfo} lang={lang} />
           </motion.div>
         </div>
-        <motion.div
-          ref={mapRef}
-          initial={{ opacity: 0, y: 50 }}
-          animate={mapInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.6 }}
-          className="w-full"
-        >
-          <h2 className="text-3xl font-semibold mb-6 text-center">
-            Our Location
-          </h2>
-          <Map
-            latitude={mapDetails.latitude}
-            longitude={mapDetails.longitude}
-            zoom={mapDetails.zoom}
-          />
-        </motion.div>
       </div>
     </div>
   );

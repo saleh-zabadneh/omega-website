@@ -5,36 +5,45 @@ import { ValidLocale } from "@/config/i18n-config";
 import { motion, AnimatePresence } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { useState } from "react";
+import Hero from "./hero";
+import { cn } from "@/lib/utils";
+import { ChevronLeft, ChevronRight, X } from "lucide-react";
 
 interface ContentSectionProps {
   sectionTitle: string | Record<ValidLocale, string> | null;
   content: any[];
   lang: ValidLocale;
+  className?: string;
 }
 
 export function ContentSection({
   sectionTitle,
   content,
+  className,
   lang,
 }: ContentSectionProps) {
   const title =
     typeof sectionTitle === "string"
       ? sectionTitle
       : sectionTitle?.[lang] ?? null;
+  const heroContent = content.find((item) => item._type === "hero");
+  const otherContent = content.filter((item) => item._type !== "hero");
+  const orderedContent = heroContent ? [heroContent, ...otherContent] : content;
+  console.log(orderedContent);
   return (
-    <section className="my-16 px-4 md:px-8">
+    <section className={cn("px-4 md:px-8", className)}>
       {title && (
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="text-4xl font-bold mb-8 text-center text-brand"
+          className="text-4xl capitalize font-bold mb-8 text-center text-brand"
         >
           {title}
         </motion.h2>
       )}
       <div className="space-y-12">
-        {content?.map((item, index) => (
+        {orderedContent?.map((item, index) => (
           <ContentItem key={index} item={item} lang={lang} />
         ))}
       </div>
@@ -60,6 +69,7 @@ function ContentItem({ item, lang }: { item: any; lang: ValidLocale }) {
       animate={inView ? "visible" : "hidden"}
       variants={fadeInVariants}
       transition={{ duration: 0.5 }}
+      className="pb-12"
     >
       {(() => {
         switch (item._type) {
@@ -80,6 +90,8 @@ function ContentItem({ item, lang }: { item: any; lang: ValidLocale }) {
                 caption={item.caption ? item.caption[lang] : ""}
               />
             );
+          case "hero":
+            return <Hero slides={item.slides} lang={lang} />;
           default:
             return null;
         }
@@ -92,7 +104,9 @@ function LocaleText({ text }: { text: string }) {
   return <p className="text-lg leading-relaxed  max-w-4xl mx-auto">{text}</p>;
 }
 function ImageGrid({ images, columns }: { images: any[]; columns: number }) {
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(
+    null
+  );
 
   const getGridColumns = () => {
     if (columns > 0 && columns === 1) return columns + 1;
@@ -104,6 +118,24 @@ function ImageGrid({ images, columns }: { images: any[]; columns: number }) {
   };
 
   const gridColumns = getGridColumns();
+
+  const handlePrevImage = () => {
+    setSelectedImageIndex((prev) =>
+      prev === null || prev === 0 ? images.length - 1 : prev - 1
+    );
+  };
+
+  const handleNextImage = () => {
+    setSelectedImageIndex((prev) =>
+      prev === null || prev === images.length - 1 ? 0 : prev + 1
+    );
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "ArrowLeft") handlePrevImage();
+    if (e.key === "ArrowRight") handleNextImage();
+    if (e.key === "Escape") setSelectedImageIndex(null);
+  };
 
   return (
     <>
@@ -118,9 +150,7 @@ function ImageGrid({ images, columns }: { images: any[]; columns: number }) {
             className={
               index === 0 && images.length > 1 ? `md:col-span-${columns} ` : ""
             }
-            onClick={() =>
-              setSelectedImage(image?.asset?.url || image?.url || "")
-            }
+            onClick={() => setSelectedImageIndex(index)}
           >
             <Image
               src={image?.asset?.url || image?.url || ""}
@@ -133,22 +163,51 @@ function ImageGrid({ images, columns }: { images: any[]; columns: number }) {
         ))}
       </div>
       <AnimatePresence>
-        {selectedImage && (
+        {selectedImageIndex !== null && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            onClick={() => setSelectedImage(null)}
             className="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center z-50"
+            onClick={() => setSelectedImageIndex(null)}
+            onKeyDown={handleKeyDown}
+            tabIndex={0}
           >
-            <motion.img
-              src={selectedImage}
-              alt="Full screen image"
-              className="max-h-full w-full h-full  max-w-full object-contain"
-              initial={{ scale: 0.8 }}
-              animate={{ scale: 1 }}
-              exit={{ scale: 0.8 }}
-            />
+            <motion.div
+              className="relative w-full h-full flex items-center justify-center"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <motion.img
+                src={
+                  images[selectedImageIndex]?.asset?.url ||
+                  images[selectedImageIndex]?.url ||
+                  ""
+                }
+                alt="Reference-Project"
+                className="max-h-full w-full h-full max-w-full object-contain"
+                initial={{ scale: 0.8 }}
+                animate={{ scale: 1 }}
+                exit={{ scale: 0.8 }}
+              />
+              <button
+                className="absolute top-4 right-4 text-white p-2 rounded-full bg-black bg-opacity-50 hover:bg-opacity-75 transition-all"
+                onClick={() => setSelectedImageIndex(null)}
+              >
+                <X size={24} />
+              </button>
+              <button
+                className="absolute left-4 top-1/2 transform -translate-y-1/2 text-white p-2 rounded-full bg-black bg-opacity-50 hover:bg-opacity-75 transition-all"
+                onClick={handlePrevImage}
+              >
+                <ChevronLeft size={24} />
+              </button>
+              <button
+                className="absolute right-4 top-1/2 transform -translate-y-1/2 text-white p-2 rounded-full bg-black bg-opacity-50 hover:bg-opacity-75 transition-all"
+                onClick={handleNextImage}
+              >
+                <ChevronRight size={24} />
+              </button>
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>

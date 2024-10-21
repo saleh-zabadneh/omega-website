@@ -21,11 +21,6 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
-import { getTranslation } from "@/lib/translation";
-import {
-  getProductsNavNames,
-  ProductNavName,
-} from "@/lib/sanity/queries/productsNavNames";
 import { ValidLocale } from "@/config/i18n-config";
 
 interface NavigationItem {
@@ -33,74 +28,64 @@ interface NavigationItem {
   href: string;
   children?: NavigationItem[];
 }
-interface HeaderProps {
-  lang: ValidLocale | ValidLocale;
-}
-export default async function Header({ lang }: HeaderProps) {
-  const isRTL = lang === "ar";
 
-  const dynamicProducts: ProductNavName[] = await getProductsNavNames(lang);
+interface HeaderProps {
+  lang: ValidLocale;
+}
+
+export default function Component({ lang }: HeaderProps = { lang: "en" }) {
+  const isRTL = lang === "ar";
 
   const navigation: NavigationItem[] = [
     {
-      name: lang === "ar" ? "الرئيسية" : "home",
+      name: isRTL ? "الرئيسية" : "Home",
       href: `/${lang}`,
     },
     {
-      name: lang === "ar" ? "المنتجات" : "products",
+      name: isRTL ? "المنتجات" : "Products",
       href: `/${lang}/products`,
       children: [
         {
-          name:
-            lang === "ar" ? "pv-mounting-structure" : "pv-mounting-structure",
+          name: isRTL ? "هياكل تركيب الألواح الشمسية" : "PV Mounting Structure",
           href: `/${lang}/products/pv-mounting-structure`,
         },
         {
-          name:
-            lang === "ar"
-              ? "rock-wool-production-lines"
-              : "rock-wool-production-lines",
+          name: isRTL
+            ? "خطوط إنتاج الصوف الصخري"
+            : "Rock Wool Production Lines",
           href: `/${lang}/products/rock-wool-production-lines`,
         },
         {
-          name: lang === "ar" ? "lead-recycling-plant" : "lead-recycling-plant",
+          name: isRTL ? "مصنع إعادة تدوير الرصاص" : "Lead Recycling Plant",
           href: `/${lang}/products/lead-recycling-plant`,
         },
         {
-          name:
-            lang === "ar"
-              ? "solar-panel-cleaning-robot"
-              : "solar-panel-cleaning-robot",
+          name: isRTL
+            ? "روبوت تنظيف الألواح الشمسية"
+            : "Solar Panel Cleaning Robot",
           href: `/${lang}/products/solar-panel-cleaning-robot`,
         },
         {
-          name: lang === "ar" ? "المزيد" : "other",
+          name: isRTL ? "المزيد" : "Other",
           href: `/${lang}/products`,
         },
-        ...dynamicProducts.map((product) => ({
-          name: product.title,
-          href: `/${lang}/products/${product.slug}`,
-        })),
       ],
     },
-    { name: lang === "ar" ? "من نحن" : "about", href: `/${lang}/about` },
+    { name: isRTL ? " المعرض" : "Gallery", href: `/${lang}/gallery` },
+    { name: isRTL ? "من نحن" : "About", href: `/${lang}/about` },
+    { name: isRTL ? "تواصل معنا" : "Contact", href: `/${lang}/contact` },
     {
-      name: lang === "ar" ? "تواصل معنا" : "contact",
-      href: `/${lang}/contact`,
-    },
-    {
-      name: lang === "ar" ? "الشروط " : "policy",
-      href: `/${lang}/policy`,
-    },
-    {
-      name: lang === "ar" ? "المشاريع المرجعية " : "references projects",
+      name: isRTL ? "المشاريع المرجعية" : "Reference Projects",
       href: `/${lang}/reference-projects`,
     },
   ];
+
+  const reversedNavigation = isRTL ? [...navigation].reverse() : navigation;
+
   return (
-    <header className="sticky top-0 py-2 z-[100] w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <header className="sticky top-0 z-[100] w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div
-        className={`container flex h-14 items-center ${
+        className={`container flex h-16 items-center ${
           isRTL ? "flex-row-reverse" : ""
         }`}
       >
@@ -112,19 +97,19 @@ export default async function Header({ lang }: HeaderProps) {
         <div className={`${isRTL ? "mr-4" : "ml-4"} hidden md:flex`}>
           <NavigationMenu>
             <NavigationMenuList>
-              {navigation.map((item) => (
+              {reversedNavigation.map((item) => (
                 <NavigationMenuItem key={item.href}>
                   {item.children ? (
                     <>
                       <NavigationMenuTrigger>{item.name}</NavigationMenuTrigger>
                       <NavigationMenuContent>
-                        <ul className="grid gap-3 p-4 md:w-[400px] md:grid-cols-2 lg:w-[500px] xl:w-[900px]">
+                        <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
                           {item.children.map((child) => (
                             <li key={child.href}>
                               <NavigationMenuLink asChild>
                                 <Link
                                   href={child.href}
-                                  className="block capitalize select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+                                  className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
                                 >
                                   {child.name}
                                 </Link>
@@ -149,36 +134,23 @@ export default async function Header({ lang }: HeaderProps) {
           </NavigationMenu>
         </div>
         <div
-          className={`flex flex-1 items-center justify-between space-x-2 ${
+          className={`flex flex-1 items-center justify-end space-x-4 ${
             isRTL ? "flex-row-reverse" : ""
-          } md:justify-end`}
+          }`}
         >
-          <div className="w-full flex-1 md:w-auto md:flex-none">
-            <LanguageSwitcher />
-          </div>
-          <div className="md:hidden">
-            <Sheet>
-              <SheetTrigger asChild>
-                <Button
-                  variant="outline"
-                  size="icon"
-                  className={`${
-                    isRTL ? "ml-2" : "mr-2"
-                  } px-0 text-base hover:bg-transparent focus-visible:bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0`}
-                >
-                  <Menu className="h-5 w-5" />
-                  <span className="sr-only">Toggle Menu</span>
-                </Button>
-              </SheetTrigger>
-              <SheetContent
-                side={isRTL ? "right" : "left"}
-                className={isRTL ? "pl-0" : "pr-0"}
-              >
-                <MobileNav navigation={navigation} isRTL={isRTL} />
-              </SheetContent>
-            </Sheet>
-          </div>
+          <LanguageSwitcher />
           <ThemeToggle />
+          <Sheet>
+            <SheetTrigger asChild>
+              <Button variant="outline" size="icon" className="md:hidden">
+                <Menu className="h-5 w-5" />
+                <span className="sr-only">Toggle Menu</span>
+              </Button>
+            </SheetTrigger>
+            <SheetContent side={isRTL ? "right" : "left"} className="z-[100] ">
+              <MobileNav navigation={navigation} isRTL={isRTL} />
+            </SheetContent>
+          </Sheet>
         </div>
       </div>
     </header>
@@ -190,17 +162,19 @@ interface MobileNavProps {
   isRTL: boolean;
 }
 
-const MobileNav: React.FC<MobileNavProps> = ({ navigation, isRTL }) => {
+function MobileNav({ navigation, isRTL }: MobileNavProps) {
   return (
     <ScrollArea
-      className={`my-4 h-[calc(100vh-8rem)] pb-10 ${isRTL ? "pr-6" : "pl-6"}`}
+      className={`my-4 h-[calc(100vh-8rem)] z-[100] pb-10 ${
+        isRTL ? "pr-6" : "pl-6"
+      }`}
     >
       <div className="flex flex-col space-y-3">
         {navigation.map((item) => (
           <React.Fragment key={item.href}>
             {item.children ? (
               <Collapsible>
-                <CollapsibleTrigger className="flex w-full pr-4 items-center justify-between py-2 text-sm font-medium transition-colors hover:text-primary">
+                <CollapsibleTrigger className="flex w-full items-center justify-between py-2 text-sm font-medium transition-colors hover:text-primary">
                   {item.name}
                   <ChevronDown className="h-4 w-4" />
                 </CollapsibleTrigger>
@@ -209,7 +183,7 @@ const MobileNav: React.FC<MobileNavProps> = ({ navigation, isRTL }) => {
                     <Link
                       key={child.href}
                       href={child.href}
-                      className="block capitalize py-2 pl-4 text-sm text-muted-foreground transition-colors hover:text-primary"
+                      className="block py-2 pl-4 text-sm text-muted-foreground transition-colors hover:text-primary"
                     >
                       {child.name}
                     </Link>
@@ -219,7 +193,7 @@ const MobileNav: React.FC<MobileNavProps> = ({ navigation, isRTL }) => {
             ) : (
               <Link
                 href={item.href}
-                className="block py-2 capitalize text-sm text-muted-foreground transition-colors hover:text-primary"
+                className="block py-2 text-sm text-muted-foreground transition-colors hover:text-primary"
               >
                 {item.name}
               </Link>
@@ -229,4 +203,4 @@ const MobileNav: React.FC<MobileNavProps> = ({ navigation, isRTL }) => {
       </div>
     </ScrollArea>
   );
-};
+}
