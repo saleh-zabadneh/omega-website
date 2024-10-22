@@ -5,6 +5,7 @@ import {
   getGalleryPage,
 } from "@/lib/sanity/queries/galleryPage";
 import { ContentSection } from "@/components/common/content";
+import ImageGalleryGrid from "@/components/common/ImageGalleryGrid";
 
 export async function generateMetadata({
   params,
@@ -33,8 +34,12 @@ export default async function GalleryPage({
   const heroContent = galleryPage?.sections?.find((section) =>
     section.content.some((item) => item._type === "hero")
   );
+  const galleryContent = galleryPage?.sections?.find((section) =>
+    section.content.some((item) => item._type === "imageGrid")
+  );
+
   return (
-    <div className="">
+    <div className="space-y-12">
       {heroContent && (
         <ContentSection
           key="hero-section"
@@ -44,8 +49,25 @@ export default async function GalleryPage({
           lang={lang}
         />
       )}
+      {galleryContent && (
+        <section className="px-4 md:px-8">
+          <h2 className="text-4xl font-bold mb-8 text-center text-brand">
+            {typeof galleryContent.sectionTitle === "string"
+              ? galleryContent.sectionTitle
+              : galleryContent.sectionTitle?.[lang] || "Gallery"}
+          </h2>
+          <ImageGalleryGrid
+            images={
+              galleryContent.content.find((item) => item._type === "imageGrid")
+                ?.images || []
+            }
+          />
+        </section>
+      )}
       {galleryPage?.sections
-        ?.filter((section) => section !== heroContent)
+        ?.filter(
+          (section) => section !== heroContent && section !== galleryContent
+        )
         .map((section, index) => (
           <ContentSection
             key={index}
