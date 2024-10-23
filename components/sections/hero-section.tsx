@@ -133,7 +133,7 @@ export function HeroSection({ slides, lang }: HeroSectionProps) {
       <Link
         href={`/${lang}/products`}
         passHref
-        className="absolute z-[200] top-2/3 left-1/2 transform -translate-x-1/2  -translate-y-1/2"
+        className="absolute z-[200]  top-[72%] md:top-[76%]  lg:top-2/3 left-1/2 transform -translate-x-1/2  -translate-y-1/2"
       >
         <motion.div className="flex justify-center">
           <Button className="bg-brand capitalize text-lg">

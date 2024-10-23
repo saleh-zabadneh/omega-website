@@ -1,3 +1,4 @@
+"use client";
 import * as React from "react";
 import Link from "next/link";
 import Image from "next/image";
@@ -22,6 +23,7 @@ import {
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
 import { ValidLocale } from "@/config/i18n-config";
+import { usePathname } from "next/navigation";
 
 interface NavigationItem {
   name: string;
@@ -35,6 +37,7 @@ interface HeaderProps {
 
 export default function Component({ lang }: HeaderProps = { lang: "en" }) {
   const isRTL = lang === "ar";
+  const [isSheetOpen, setIsSheetOpen] = React.useState(false);
 
   const navigation: NavigationItem[] = [
     {
@@ -72,12 +75,16 @@ export default function Component({ lang }: HeaderProps = { lang: "en" }) {
       ],
     },
     { name: isRTL ? " المعرض" : "Gallery", href: `/${lang}/gallery` },
-    { name: isRTL ? "من نحن" : "About", href: `/${lang}/about` },
-    { name: isRTL ? "تواصل معنا" : "Contact", href: `/${lang}/contact` },
     {
       name: isRTL ? "المشاريع المرجعية" : "Reference Projects",
       href: `/${lang}/reference-projects`,
     },
+    {
+      name: isRTL ? " الاخبار" : "News",
+      href: `/${lang}/news`,
+    },
+    { name: isRTL ? "من نحن" : "About", href: `/${lang}/about` },
+    { name: isRTL ? "تواصل معنا" : "Contact", href: `/${lang}/contact` },
   ];
 
   const reversedNavigation = isRTL ? [...navigation].reverse() : navigation;
@@ -91,7 +98,7 @@ export default function Component({ lang }: HeaderProps = { lang: "en" }) {
       >
         <div className={`${isRTL ? "ml-4" : "mr-4"} flex items-center`}>
           <Link href={`/${lang}`} className="flex items-center space-x-2">
-            <Image src="/logoOmega2.png" alt="Logo" width={122} height={32} />
+            <Image src="/logo.png" alt="Logo" width={122} height={32} />
           </Link>
         </div>
         <div className={`${isRTL ? "mr-4" : "ml-4"} hidden md:flex`}>
@@ -140,15 +147,20 @@ export default function Component({ lang }: HeaderProps = { lang: "en" }) {
         >
           <LanguageSwitcher />
           <ThemeToggle />
-          <Sheet>
+          <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
             <SheetTrigger asChild>
               <Button variant="outline" size="icon" className="md:hidden">
                 <Menu className="h-5 w-5" />
                 <span className="sr-only">Toggle Menu</span>
               </Button>
             </SheetTrigger>
-            <SheetContent side={isRTL ? "right" : "left"} className="z-[100] ">
-              <MobileNav navigation={navigation} isRTL={isRTL} />
+            <SheetContent side={isRTL ? "right" : "left"} className="z-[100]">
+              <MobileNav
+                navigation={navigation}
+                isRTL={isRTL}
+                lang={lang}
+                closeSheet={() => setIsSheetOpen(false)}
+              />
             </SheetContent>
           </Sheet>
         </div>
@@ -160,9 +172,24 @@ export default function Component({ lang }: HeaderProps = { lang: "en" }) {
 interface MobileNavProps {
   navigation: NavigationItem[];
   isRTL: boolean;
+  lang: ValidLocale;
+  closeSheet: () => void;
 }
 
-function MobileNav({ navigation, isRTL }: MobileNavProps) {
+function MobileNav({ navigation, isRTL, lang, closeSheet }: MobileNavProps) {
+  const pathname = usePathname();
+  const [openCollapsible, setOpenCollapsible] = React.useState<string | null>(
+    null
+  );
+
+  const handleLinkClick = () => {
+    closeSheet();
+  };
+
+  const handleCollapsibleToggle = (href: string) => {
+    setOpenCollapsible(openCollapsible === href ? null : href);
+  };
+
   return (
     <ScrollArea
       className={`my-4 h-[calc(100vh-8rem)] z-[100] pb-10 ${
@@ -173,7 +200,10 @@ function MobileNav({ navigation, isRTL }: MobileNavProps) {
         {navigation.map((item) => (
           <React.Fragment key={item.href}>
             {item.children ? (
-              <Collapsible>
+              <Collapsible
+                open={openCollapsible === item.href}
+                onOpenChange={() => handleCollapsibleToggle(item.href)}
+              >
                 <CollapsibleTrigger className="flex w-full items-center justify-between py-2 text-sm font-medium transition-colors hover:text-primary">
                   {item.name}
                   <ChevronDown className="h-4 w-4" />
@@ -183,7 +213,12 @@ function MobileNav({ navigation, isRTL }: MobileNavProps) {
                     <Link
                       key={child.href}
                       href={child.href}
-                      className="block py-2 pl-4 text-sm text-muted-foreground transition-colors hover:text-primary"
+                      className={`block py-2 pl-4 text-sm transition-colors hover:text-primary ${
+                        pathname === child.href
+                          ? "text-primary font-medium"
+                          : "text-muted-foreground"
+                      }`}
+                      onClick={handleLinkClick}
                     >
                       {child.name}
                     </Link>
@@ -193,7 +228,12 @@ function MobileNav({ navigation, isRTL }: MobileNavProps) {
             ) : (
               <Link
                 href={item.href}
-                className="block py-2 text-sm text-muted-foreground transition-colors hover:text-primary"
+                className={`block py-2 text-sm transition-colors hover:text-primary ${
+                  pathname === item.href
+                    ? "text-primary font-medium"
+                    : "text-muted-foreground"
+                }`}
+                onClick={handleLinkClick}
               >
                 {item.name}
               </Link>

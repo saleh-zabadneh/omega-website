@@ -1,16 +1,15 @@
 import { ProductCardProps } from "@/interfaces";
 import Image from "next/image";
-import { PinContainer } from "../ui/3d-pin";
+import Link from "next/link";
 
 export default function ProductCard({ product, lang }: ProductCardProps) {
   return (
     <div
       key={product._id}
-      className="2xl:min-h-[35.5rem] lg:min-h-[32.5rem] h-[25rem] flex items-center justify-center 2xl:w-[27rem] lg:w-96 2xl:mb-10 sm:w-72 md:w-[21rem] w-[80vw]"
+      className="2xl:min-h-[35.5rem] rounded-lg lg:min-h-[32.5rem]  h-[25rem] flex items-center justify-center 2xl:w-[27rem] lg:w-96 2xl:mb-10 sm:w-72 md:w-[21rem] w-[80vw]"
     >
-      <PinContainer
-        className="bg-background"
-        title={`/${product.urlPath}`}
+      <Link
+        className="bg-background flex flex-col border-primary border-2 p-4 rounded-lg transition-transform transform hover:scale-105 hover:shadow-lg"
         href={`/${lang}/products/${product.urlPath}`}
       >
         <div className="relative flex items-center justify-center sm:w-72 md:w-[21rem] lg:w-96 w-[80vw] overflow-hidden h-[10rem] lg:h-[12rem] mb-10">
@@ -24,7 +23,7 @@ export default function ProductCard({ product, lang }: ProductCardProps) {
             objectFit="cover"
             placeholder={product.image.metadata?.lqip ? "blur" : "empty"}
             blurDataURL={product.image.metadata?.lqip}
-            className="z-10 absolute bottom-0 w-full h-full object-fit"
+            className="z-10 absolute bottom-0 w-full h-full object-fit   rounded-t-md "
           />
         </div>
 
@@ -63,7 +62,7 @@ export default function ProductCard({ product, lang }: ProductCardProps) {
             {/* <FaLocationArrow className="ms-3" color="#CBACF9" /> */}
           </div>
         </div>
-      </PinContainer>
+      </Link>
     </div>
   );
 }

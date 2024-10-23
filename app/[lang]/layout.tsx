@@ -8,6 +8,7 @@ import Footer from "@/components/layout/Footer";
 import { ValidLocale, defaultLocale } from "@/config/i18n-config";
 import WhatsAppLink from "@/components/common/whatsapp-link";
 import { LanguageProvider } from "@/providers/language-provider";
+import ChatbotWrapper from "@/components/common/ChatbotWrapper";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -77,6 +78,7 @@ export default function RootLayout({
               phoneNumber="1234567890"
               message="Hi, I'd like to know more about your services."
             />
+            <ChatbotWrapper lang={lang} />
           </LanguageProvider>
         </ThemeProvider>
       </body>

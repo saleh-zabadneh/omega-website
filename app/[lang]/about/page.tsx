@@ -4,6 +4,8 @@ import { getAboutPage } from "@/lib/sanity/queries/aboutPage";
 import { ContentSection } from "@/components/common/content";
 import { getPrivacyPolicyPage } from "@/lib/sanity/queries/privacyPolicy";
 import { PrivacyPolicyPropsPage } from "@/types/types";
+import { Timeline } from "@/components/common/timeline";
+import { getTimeline } from "@/lib/sanity/queries/getTimeline";
 
 export async function generateMetadata({
   params,
@@ -11,9 +13,7 @@ export async function generateMetadata({
   params: { lang: ValidLocale };
 }): Promise<Metadata> {
   const aboutPage = await getAboutPage(params.lang);
-  const heroContent = aboutPage?.sections?.find((section) =>
-    section.content.some((item) => item._type === "hero")
-  );
+
   return {
     title: aboutPage?.seo?.title || "About Omega",
     description: aboutPage?.seo?.description || "What about Omega Industry",
@@ -37,6 +37,8 @@ export default async function AboutPage({
   const heroContent = aboutPage?.sections?.find((section) =>
     section.content.some((item) => item._type === "hero")
   );
+  const timelineItems = await getTimeline(lang);
+
   return (
     <div className="">
       {heroContent && (
@@ -47,6 +49,9 @@ export default async function AboutPage({
           content={heroContent.content}
           lang={lang}
         />
+      )}
+      {timelineItems.length > 0 && (
+        <Timeline items={timelineItems} lang={lang} />
       )}
       {aboutPage?.sections
         ?.filter((section) => section !== heroContent)
