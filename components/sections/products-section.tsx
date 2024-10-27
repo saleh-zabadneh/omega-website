@@ -51,17 +51,7 @@ export function ProductsSection({
 
   return (
     <SectionContainer className="relative overflow-hidden">
-      <motion.div
-        ref={ref}
-        animate={controls}
-        initial="hidden"
-        variants={{
-          visible: { opacity: 1, y: 0 },
-          hidden: { opacity: 0, y: 50 },
-        }}
-        transition={{ duration: 0.5, ease: "easeOut" }}
-        className="relative z-10"
-      >
+      <motion.div className="relative z-10">
         <motion.div
           animate={{ rotate: 360 }}
           transition={{ repeat: Infinity, duration: 10, ease: "linear" }}

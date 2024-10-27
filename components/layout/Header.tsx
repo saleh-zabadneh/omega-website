@@ -40,10 +40,7 @@ export default function Component({ lang }: HeaderProps = { lang: "en" }) {
   const [isSheetOpen, setIsSheetOpen] = React.useState(false);
 
   const navigation: NavigationItem[] = [
-    {
-      name: isRTL ? "الرئيسية" : "Home",
-      href: `/${lang}`,
-    },
+    { name: isRTL ? "من نحن" : "About", href: `/${lang}/about` },
     {
       name: isRTL ? "المنتجات" : "Products",
       href: `/${lang}/products`,
@@ -74,16 +71,16 @@ export default function Component({ lang }: HeaderProps = { lang: "en" }) {
         },
       ],
     },
-    { name: isRTL ? " المعرض" : "Gallery", href: `/${lang}/gallery` },
     {
       name: isRTL ? "المشاريع المرجعية" : "Reference Projects",
       href: `/${lang}/reference-projects`,
     },
+    { name: isRTL ? " المعرض" : "Gallery", href: `/${lang}/gallery` },
     {
       name: isRTL ? " الاخبار" : "News",
       href: `/${lang}/news`,
     },
-    { name: isRTL ? "من نحن" : "About", href: `/${lang}/about` },
+
     { name: isRTL ? "تواصل معنا" : "Contact", href: `/${lang}/contact` },
   ];
 

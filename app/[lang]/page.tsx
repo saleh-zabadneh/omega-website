@@ -4,9 +4,11 @@ import { HeroSection } from "@/components/sections/hero-section";
 import { ProductsSection } from "@/components/sections/products-section";
 import { ReferenceProjectsSection } from "@/components/sections/reference-projects-section";
 import { TestimonialsAndCompaniesSection } from "@/components/sections/testimonials-section";
+import { NewsSection } from "@/components/sections/newsSection";
 import { ValidLocale } from "@/config/i18n-config";
 import { getHomePage } from "@/lib/sanity/queries/homePage";
 import { getProducts } from "@/lib/sanity/queries/products";
+import { getNewsSection } from "@/lib/sanity/queries/newsSection";
 import { Section } from "@/types/types";
 
 export default async function Home({
@@ -14,9 +16,10 @@ export default async function Home({
 }: {
   params: { lang: ValidLocale };
 }) {
-  const [homePageData, products] = await Promise.all([
+  const [homePageData, products, newsSection] = await Promise.all([
     getHomePage(lang),
     getProducts(4),
+    getNewsSection(lang),
   ]);
 
   const heroSection = homePageData?.sections?.find(
@@ -36,7 +39,7 @@ export default async function Home({
   );
 
   return (
-    <main className="relative  bg-black-100 flex justify-center mx-auto items-center w-full  flex-col overflow-hidden">
+    <main className="relative bg-black-100 flex justify-center mx-auto items-center w-full flex-col overflow-hidden">
       <InteractiveSection className="max-w-full w-full">
         {heroSection && (
           <HeroSection key={heroSection.id} {...heroSection} lang={lang} />
@@ -77,6 +80,11 @@ export default async function Home({
             {...referenceProjectSection}
             lang={lang}
           />
+        )}
+      </InteractiveSection>
+      <InteractiveSection>
+        {newsSection && (
+          <NewsSection key={newsSection._id} {...newsSection} lang={lang} />
         )}
       </InteractiveSection>
     </main>
