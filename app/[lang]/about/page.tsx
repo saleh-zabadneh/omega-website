@@ -6,6 +6,8 @@ import { getPrivacyPolicyPage } from "@/lib/sanity/queries/privacyPolicy";
 import { PrivacyPolicyPropsPage } from "@/types/types";
 import { Timeline } from "@/components/common/timeline";
 import { getTimeline } from "@/lib/sanity/queries/getTimeline";
+import { getTeamSection } from "@/lib/sanity/queries/getTeamSection";
+import { TeamList } from "@/components/about/team-list";
 
 export async function generateMetadata({
   params,
@@ -38,6 +40,7 @@ export default async function AboutPage({
     section.content.some((item) => item._type === "hero")
   );
   const timelineItems = await getTimeline(lang);
+  const teamSection = await getTeamSection(lang);
 
   return (
     <div className="">
@@ -71,6 +74,13 @@ export default async function AboutPage({
           lang={lang}
         />
       ))}
+      {teamSection && teamSection.showTeam && (
+        <TeamList
+          title={teamSection.title[lang]}
+          members={teamSection.teamMembers}
+          lang={lang}
+        />
+      )}
     </div>
   );
 }
