@@ -10,18 +10,22 @@ import { getHomePage } from "@/lib/sanity/queries/homePage";
 import { getProducts } from "@/lib/sanity/queries/products";
 import { getNewsSection } from "@/lib/sanity/queries/newsSection";
 import { Section } from "@/types/types";
+import { getDownloadSection } from "@/lib/sanity/queries/getDownloadFiles";
+import { DownloadSection } from "@/components/sections/download-section";
 
 export default async function Home({
   params: { lang },
 }: {
   params: { lang: ValidLocale };
 }) {
-  const [homePageData, products, newsSection] = await Promise.all([
-    getHomePage(lang),
-    getProducts(4),
-    getNewsSection(lang),
-  ]);
-
+  const [homePageData, products, newsSection, downloadSection] =
+    await Promise.all([
+      getHomePage(lang),
+      getProducts(4),
+      getNewsSection(lang),
+      getDownloadSection(lang),
+    ]);
+  console.log(downloadSection);
   const heroSection = homePageData?.sections?.find(
     (section: Section) => section._type === "heroSection"
   );
@@ -85,6 +89,12 @@ export default async function Home({
       <InteractiveSection>
         {newsSection && (
           <NewsSection key={newsSection._id} {...newsSection} lang={lang} />
+        )}
+      </InteractiveSection>
+
+      <InteractiveSection>
+        {downloadSection && (
+          <DownloadSection section={downloadSection} lang={lang} />
         )}
       </InteractiveSection>
     </main>

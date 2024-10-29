@@ -1,10 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Bot, ArrowLeft, X } from "lucide-react";
+import { Bot, ArrowLeft, X, MessageCircle } from "lucide-react";
 
 type Category = {
   categoryText: {
@@ -28,8 +28,14 @@ export default function Chatbot({ categories, lang, isEnabled }: ChatbotProps) {
   const [selectedCategory, setSelectedCategory] = useState<Category | null>(
     null
   );
+  const [showMessage, setShowMessage] = useState(true);
 
-  const toggleChatbot = () => setIsOpen(!isOpen);
+  const isRTL = lang === "ar";
+
+  const toggleChatbot = () => {
+    setIsOpen(!isOpen);
+    setShowMessage(false);
+  };
 
   const handleCategoryClick = (category: Category) => {
     setSelectedCategory(category);
@@ -43,18 +49,22 @@ export default function Chatbot({ categories, lang, isEnabled }: ChatbotProps) {
     return null;
   }
 
+  const message = isRTL ? "تحدث معي" : "Talk to me";
+
   return (
-    <div className="fixed bottom-4 left-4 z-50">
+    <div className={`fixed bottom-4 "left-5" z-50`}>
       {isOpen ? (
         <Card className="w-80 sm:w-96 h-[500px] flex flex-col">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium flex items-center">
               <Bot className="mr-2 h-5 w-5" />
-              Chatbot
+              {lang === "en" ? "Chatbot" : "روبوت الدردشة"}
             </CardTitle>
             <Button variant="ghost" size="icon" onClick={toggleChatbot}>
               <X className="h-4 w-4" />
-              <span className="sr-only">Close</span>
+              <span className="sr-only">
+                {lang === "en" ? "Close" : "إغلاق"}
+              </span>
             </Button>
           </CardHeader>
           <CardContent className="flex-grow flex flex-col">
@@ -89,21 +99,34 @@ export default function Chatbot({ categories, lang, isEnabled }: ChatbotProps) {
                   className="w-full"
                 >
                   <ArrowLeft className="mr-2 h-4 w-4" />
-                  Back to Categories
+                  {lang === "en" ? "Back to Categories" : "العودة إلى الفئات"}
                 </Button>
               </div>
             )}
           </CardContent>
         </Card>
       ) : (
-        <Button
-          onClick={toggleChatbot}
-          size="icon"
-          className="rounded-full h-12 w-12"
-        >
-          <Bot className="h-6 w-6" />
-          <span className="sr-only">Open Chatbot</span>
-        </Button>
+        <div className="flex flex-col items-center">
+          {showMessage && (
+            <div className="animate-pulse mb-2">
+              <span
+                className={`inline-block py-1 px-2 bg-primary text-primary-foreground rounded-full text-xs sm:text-sm font-medium`}
+              >
+                {message}
+              </span>
+            </div>
+          )}
+          <Button
+            onClick={toggleChatbot}
+            size="icon"
+            className="rounded-full h-8 w-8 sm:h-10 sm:w-10 flex items-center justify-center"
+          >
+            <MessageCircle className="h-4 w-4 sm:h-5 sm:w-5" />
+            <span className="sr-only">
+              {lang === "en" ? "Open Chatbot" : "افتح روبوت الدردشة"}
+            </span>
+          </Button>
+        </div>
       )}
     </div>
   );

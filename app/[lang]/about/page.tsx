@@ -43,7 +43,7 @@ export default async function AboutPage({
   const teamSection = await getTeamSection(lang);
 
   return (
-    <div className="">
+    <div>
       {heroContent && (
         <ContentSection
           key="hero-section"

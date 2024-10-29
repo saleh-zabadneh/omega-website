@@ -34,8 +34,8 @@ export function NewsSection({
         </div>
         <Link href={`/${lang}/news`} passHref>
           <motion.div className="flex justify-center">
-            <Button className="bg-brand capitalize text-lg">
-              {getTranslation(lang, "shared", "view_all_news")}
+            <Button className="bg-brand capitalize text-lg ">
+              {getTranslation(lang, "shared", "view all news")}
             </Button>
           </motion.div>
         </Link>

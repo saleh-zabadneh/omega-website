@@ -51,6 +51,10 @@ const Footer = async ({ lang }: FooterProps) => {
     { name: isRTL ? " الاخبار" : "News", href: `/${lang}/news` },
     { name: isRTL ? "من نحن" : "About", href: `/${lang}/about` },
     { name: isRTL ? "تواصل معنا" : "Contact", href: `/${lang}/contact` },
+    {
+      name: isRTL ? "تحميل ملفاتنا" : "Download Our Files",
+      href: `/${lang}/download-files`,
+    },
   ];
 
   const products = [
