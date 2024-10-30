@@ -59,7 +59,11 @@ export default function ProductCard({ product, lang }: ProductCardProps) {
             <p className="flex lg:text-xl md:text-xs text-sm text-purple">
               {lang === "ar" ? "شاهد التفاصيل" : "Check Details"}
             </p>
-            {/* <FaLocationArrow className="ms-3" color="#CBACF9" /> */}
+            {lang === "ar" ? (
+              <ArrowLeft className="h-4 w-4 mr-2" />
+            ) : (
+              <ArrowRight className="h-4 w-4 ml-2" />
+            )}{" "}
           </div>
         </div>
       </Link>

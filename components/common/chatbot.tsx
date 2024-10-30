@@ -121,7 +121,7 @@ export default function Chatbot({ categories, lang, isEnabled }: ChatbotProps) {
             size="icon"
             className="rounded-full h-8 w-8 sm:h-10 sm:w-10 flex items-center justify-center"
           >
-            <MessageCircle className="h-4 w-4 sm:h-5 sm:w-5" />
+            <Bot className="h-4 w-4 sm:h-5 sm:w-5" />
             <span className="sr-only">
               {lang === "en" ? "Open Chatbot" : "افتح روبوت الدردشة"}
             </span>
