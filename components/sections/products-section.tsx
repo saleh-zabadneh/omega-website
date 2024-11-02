@@ -35,23 +35,9 @@ export function ProductsSection({
   specialWord,
   lang,
 }: ProductsSectionProps) {
-  const controls = useAnimation();
-  const [ref, inView] = useInView({
-    triggerOnce: false,
-    threshold: 0.1,
-  });
-
-  useEffect(() => {
-    if (inView) {
-      controls.start("visible");
-    } else {
-      controls.start("hidden");
-    }
-  }, [controls, inView]);
-
   return (
-    <SectionContainer className="relative overflow-hidden">
-      <motion.div className="relative z-10">
+    <section className="py-16 md:py-24 max-w-7xl w-full relative overflow-hidden">
+      <div className="relative z-10">
         <motion.div
           animate={{ rotate: 360 }}
           transition={{ repeat: Infinity, duration: 10, ease: "linear" }}
@@ -67,9 +53,9 @@ export function ProductsSection({
           <ShapeBlob className="w-full h-full" />
         </motion.div>
 
-        <Heading specialWord={specialWord ? specialWord[lang] : undefined}>
-          {heading[lang]}
-        </Heading>
+        {/* <Heading specialWord={specialWord ? specialWord[lang] : undefined}>
+        {heading[lang]}
+      </Heading> */}
         <ProductList products={featuredProducts} lang={lang} />
         <Link href={`/${lang}/products`} passHref>
           <div className="flex justify-center">
@@ -78,7 +64,7 @@ export function ProductsSection({
             </Button>
           </div>
         </Link>
-      </motion.div>
-    </SectionContainer>
+      </div>
+    </section>
   );
 }

@@ -58,7 +58,7 @@ export default async function Home({
           />
         )}
       </InteractiveSection>
-      <InteractiveSection>
+      <>
         {productsSection && (
           <ProductsSection
             key={productsSection.id}
@@ -67,7 +67,7 @@ export default async function Home({
             featuredProducts={products}
           />
         )}
-      </InteractiveSection>
+      </>
       <InteractiveSection>
         {testimonialsSection && (
           <TestimonialsAndCompaniesSection
