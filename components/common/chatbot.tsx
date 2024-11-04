@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Bot, ArrowLeft, X, MessageCircle } from "lucide-react";
+import { motion } from "framer-motion";
 
 type Category = {
   categoryText: {
@@ -52,7 +53,9 @@ export default function Chatbot({ categories, lang, isEnabled }: ChatbotProps) {
   const message = isRTL ? "تحدث معي" : "Talk to me";
 
   return (
-    <div className={`fixed bottom-4 "left-5" z-50`}>
+    <div
+      className={`fixed bottom-4 ${lang === "ar" ? "right-4" : "left-4"} z-50`}
+    >
       {isOpen ? (
         <Card className="w-[26rem] h-[590px] flex flex-col">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
@@ -116,16 +119,15 @@ export default function Chatbot({ categories, lang, isEnabled }: ChatbotProps) {
               </span>
             </div>
           )}
-          <Button
+          <motion.button
             onClick={toggleChatbot}
-            size="icon"
-            className="rounded-full h-8 w-8 sm:h-10 sm:w-10 flex items-center justify-center"
+            className="bg-primary text-white p-2 rounded-full shadow-lg hover:bg-primary-dark transition-colors duration-300"
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+            aria-label={lang === "en" ? "Open Chatbot" : "افتح روبوت الدردشة"}
           >
-            <Bot className="h-4 w-4 sm:h-5 sm:w-5" />
-            <span className="sr-only">
-              {lang === "en" ? "Open Chatbot" : "افتح روبوت الدردشة"}
-            </span>
-          </Button>
+            <Bot className="h-5 w-5" />
+          </motion.button>
         </div>
       )}
     </div>
