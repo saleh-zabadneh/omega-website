@@ -37,6 +37,7 @@ interface HeaderProps {
 
 export default function Component({ lang }: HeaderProps = { lang: "en" }) {
   const isRTL = lang === "ar";
+  console.log(isRTL);
   const [isSheetOpen, setIsSheetOpen] = React.useState(false);
 
   const navigation: NavigationItem[] = [
