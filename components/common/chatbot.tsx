@@ -54,10 +54,10 @@ export default function Chatbot({ categories, lang, isEnabled }: ChatbotProps) {
   return (
     <div className={`fixed bottom-4 "left-5" z-50`}>
       {isOpen ? (
-        <Card className="w-80 sm:w-96 h-[500px] flex flex-col">
+        <Card className="w-[26rem] h-[590px] flex flex-col">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium flex items-center">
-              <Bot className="mr-2 h-5 w-5" />
+              <Bot className="mr-2 h-8 w-8" />
               {lang === "en" ? "Chatbot" : "روبوت الدردشة"}
             </CardTitle>
             <Button variant="ghost" size="icon" onClick={toggleChatbot}>

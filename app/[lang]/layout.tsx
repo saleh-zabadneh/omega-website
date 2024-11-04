@@ -75,6 +75,7 @@ export default function RootLayout({
               <Footer lang={lang} />
             </div>
             <WhatsAppLink
+              lang={lang}
               phoneNumber="1234567890"
               message="Hi, I'd like to know more about your services."
             />

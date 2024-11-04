@@ -1,0 +1,2 @@
+UserAgent: "*";
+Disallow: "/dashboard";
