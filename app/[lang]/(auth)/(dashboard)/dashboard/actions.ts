@@ -10,12 +10,10 @@ export async function createSuperAdmin(formData: FormData) {
   const username = formData.get("username") as string;
   const password = formData.get("password") as string;
 
-  const hashedPassword = await bcrypt.hash(password, 10);
-
   await prisma.superAdmin.create({
     data: {
       username,
-      password: hashedPassword,
+      password, // Store the original password
     },
   });
 
@@ -25,14 +23,9 @@ export async function createSuperAdmin(formData: FormData) {
 export async function deleteSuperAdmin(formData: FormData) {
   const id = formData.get("id") as string;
 
-  const userCookie = cookies().get("user");
-  const currentUser = JSON.parse(userCookie?.value || "{}");
-
-  if (currentUser.isFirst) {
-    await prisma.superAdmin.delete({
-      where: { id },
-    });
-  }
+  await prisma.superAdmin.delete({
+    where: { id },
+  });
 
   revalidatePath("/dashboard");
 }
@@ -43,18 +36,13 @@ export async function logout() {
 }
 
 export async function getPassword(id: string) {
-  const userCookie = cookies().get("user");
-  const currentUser = JSON.parse(userCookie?.value || "{}");
+  const user = await prisma.superAdmin.findUnique({
+    where: { id },
+    select: { password: true },
+  });
 
-  if (currentUser.isFirst) {
-    const user = await prisma.superAdmin.findUnique({
-      where: { id },
-      select: { password: true },
-    });
-
-    if (user) {
-      return user.password;
-    }
+  if (user) {
+    return user.password; // Return the original password
   }
 
   return null;

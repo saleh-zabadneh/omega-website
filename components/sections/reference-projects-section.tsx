@@ -2,11 +2,9 @@ import { SectionContainer } from "../common/section-container";
 import { Heading } from "../common/heading";
 import { ValidLocale } from "@/config/i18n-config";
 import { Button } from "../ui/button";
-import { getTranslation } from "@/lib/translation";
 import Link from "next/link";
 import { ReferenceProjectsList } from "../reference-projects/reference-project-list";
 import { ReferenceProjectSectionType } from "@/types/types";
-import { ArrowLeft } from "lucide-react";
 
 interface ReferenceProjectsSectionProps extends ReferenceProjectSectionType {
   lang: ValidLocale;

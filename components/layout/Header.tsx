@@ -37,7 +37,6 @@ interface HeaderProps {
 
 export default function Component({ lang }: HeaderProps = { lang: "en" }) {
   const isRTL = lang === "ar";
-  console.log(isRTL);
   const [isSheetOpen, setIsSheetOpen] = React.useState(false);
 
   const navigation: NavigationItem[] = [
@@ -81,7 +80,6 @@ export default function Component({ lang }: HeaderProps = { lang: "en" }) {
       name: isRTL ? " الاخبار" : "News",
       href: `/${lang}/news`,
     },
-
     { name: isRTL ? "تواصل معنا" : "Contact", href: `/${lang}/contact` },
   ];
 
@@ -89,17 +87,13 @@ export default function Component({ lang }: HeaderProps = { lang: "en" }) {
 
   return (
     <header className="sticky top-0 z-[100] w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div
-        className={`container flex h-16 items-center ${
-          isRTL ? "flex-row-reverse" : ""
-        }`}
-      >
-        <div className={`${isRTL ? "ml-4" : "mr-4"} flex items-center`}>
+      <div className="container flex justify-between h-16 items-center">
+        <div className="flex items-center">
           <Link href={`/${lang}`} className="flex items-center space-x-2">
             <Image src="/logo.png" alt="Logo" width={122} height={32} />
           </Link>
         </div>
-        <div className={`${isRTL ? "mr-4" : "ml-4"} hidden md:flex`}>
+        <div className={`${isRTL ? "mr-4" : "ml-4"} hidden md:flex flex-1`}>
           <NavigationMenu>
             <NavigationMenuList>
               {reversedNavigation.map((item) => (
@@ -139,7 +133,7 @@ export default function Component({ lang }: HeaderProps = { lang: "en" }) {
           </NavigationMenu>
         </div>
         <div
-          className={`flex flex-1 items-center justify-end space-x-4 ${
+          className={`flex items-center  space-x-4 ${
             isRTL ? "flex-row-reverse" : ""
           }`}
         >
@@ -194,7 +188,7 @@ function MobileNav({ navigation, isRTL, lang, closeSheet }: MobileNavProps) {
         isRTL ? "pr-6" : "pl-6"
       }`}
     >
-      <div className="flex flex-col space-y-3">
+      <div className="flex flex-col space-y-3 ">
         {navigation.map((item) => (
           <React.Fragment key={item.href}>
             {item.children ? (
@@ -206,7 +200,7 @@ function MobileNav({ navigation, isRTL, lang, closeSheet }: MobileNavProps) {
                   {item.name}
                   <ChevronDown className="h-4 w-4" />
                 </CollapsibleTrigger>
-                <CollapsibleContent className="mt-2 space-y-2">
+                <CollapsibleContent className="mt-2 space-y-2 ">
                   {item.children.map((child) => (
                     <Link
                       key={child.href}

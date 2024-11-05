@@ -54,7 +54,11 @@ export default function ReferenceProjectSection2({
                   transition={{ duration: 0.5, delay: index * 0.1 + 0.4 }}
                   className="relative"
                 >
-                  <div className={`absolute ${lang === "ar" ? "-right-8" : "-left-8"} md:text-2xl top-0 flex items-center justify-center w-12 h-12 rounded-full bg-primary text-background font-bold text-md`}>
+                  <div
+                    className={`absolute ${
+                      lang === "ar" ? "-right-8" : "-left-8"
+                    } md:text-2xl top-0 flex items-center justify-center w-12 h-12 rounded-full bg-primary text-background font-bold text-md`}
+                  >
                     {projectIndex + 1}
                   </div>
                   <ReferenceProjectCard2 project={project} lang={lang} />

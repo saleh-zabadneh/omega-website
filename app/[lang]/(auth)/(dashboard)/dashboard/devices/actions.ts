@@ -23,14 +23,9 @@ export async function addDevice(formData: FormData) {
 export async function deleteDevice(formData: FormData) {
   const id = formData.get("id") as string;
 
-  const userCookie = cookies().get("user");
-  const currentUser = JSON.parse(userCookie?.value || "{}");
-
-  if (currentUser.isFirst) {
-    await prisma.device.delete({
-      where: { id },
-    });
-  }
+  await prisma.device.delete({
+    where: { id },
+  });
 
   revalidatePath("/dashboard/devices");
 }

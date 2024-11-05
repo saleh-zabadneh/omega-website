@@ -23,7 +23,7 @@ const WhatsAppLink: React.FC<WhatsAppLinkProps> = ({
       rel="noopener noreferrer"
       className={`fixed bottom-4 ${
         lang === "ar" ? "left-4" : "right-4"
-      } z-50 bg-primary text-white p-2 rounded-full shadow-lg hover:bg-[#128C7E] transition-colors duration-300`}
+      } z-50 bg-primary text-white sm:p-4 p-3 rounded-full shadow-lg hover:bg-[#128C7E] transition-colors duration-300`}
       whileHover={{ scale: 1.1 }}
       whileTap={{ scale: 0.9 }}
       aria-label="Contact us on WhatsApp"
@@ -32,8 +32,8 @@ const WhatsAppLink: React.FC<WhatsAppLinkProps> = ({
         xmlns="http://www.w3.org/2000/svg"
         x="0px"
         y="0px"
-        width="17"
-        height="17"
+        width="28"
+        height="28"
         viewBox="0 0 50 50"
         fill="white"
       >

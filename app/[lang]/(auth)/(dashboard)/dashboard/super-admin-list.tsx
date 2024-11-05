@@ -10,9 +10,9 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
-import { deleteSuperAdmin, getPassword } from "./actions";
 import { Input } from "@/components/ui/input";
 import { toast } from "@/hooks/use-toast";
+import { deleteSuperAdmin, getPassword } from "./actions";
 
 type SuperAdmin = {
   id: string;
@@ -23,7 +23,7 @@ type SuperAdmin = {
 
 type SuperAdminListProps = {
   superAdmins: SuperAdmin[];
-  currentUser: { isFirst?: boolean };
+  currentUser: { id: string };
 };
 
 export function SuperAdminList({
@@ -40,13 +40,15 @@ export function SuperAdminList({
     formData.append("id", id);
     await deleteSuperAdmin(formData);
     setSuperAdmins(superAdmins.filter((admin) => admin.id !== id));
+    toast({
+      title: "Super Admin deleted",
+      description: "The Super Admin has been successfully deleted.",
+    });
   };
 
   const handleGetPassword = async (id: string) => {
-    if (currentUser.isFirst) {
-      const password = await getPassword(id);
-      setPasswords((prevPasswords) => ({ ...prevPasswords, [id]: password }));
-    }
+    const password = await getPassword(id);
+    setPasswords((prevPasswords) => ({ ...prevPasswords, [id]: password }));
   };
 
   const handleCopyPassword = (password: string | null) => {
@@ -72,7 +74,7 @@ export function SuperAdminList({
           <TableHead>Username</TableHead>
           <TableHead>Created At</TableHead>
           <TableHead>Actions</TableHead>
-          {currentUser.isFirst && <TableHead>Password</TableHead>}
+          <TableHead>Password</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
@@ -81,7 +83,7 @@ export function SuperAdminList({
             <TableCell>{admin.username}</TableCell>
             <TableCell>{new Date(admin.createdAt).toLocaleString()}</TableCell>
             <TableCell>
-              {currentUser.isFirst && !admin.isFirst && (
+              {admin.id !== currentUser.id && (
                 <Button
                   variant="destructive"
                   onClick={() => handleDelete(admin.id)}
@@ -90,28 +92,26 @@ export function SuperAdminList({
                 </Button>
               )}
             </TableCell>
-            {currentUser.isFirst && (
-              <TableCell>
-                {passwords[admin.id] !== undefined ? (
-                  <div className="flex items-center space-x-2">
-                    <Input
-                      type="text"
-                      value={passwords[admin.id] || ""}
-                      readOnly
-                    />
-                    <Button
-                      onClick={() => handleCopyPassword(passwords[admin.id])}
-                    >
-                      Copy
-                    </Button>
-                  </div>
-                ) : (
-                  <Button onClick={() => handleGetPassword(admin.id)}>
-                    View Password
+            <TableCell>
+              {passwords[admin.id] !== undefined ? (
+                <div className="flex items-center space-x-2">
+                  <Input
+                    type="text"
+                    value={passwords[admin.id] || ""}
+                    readOnly
+                  />
+                  <Button
+                    onClick={() => handleCopyPassword(passwords[admin.id])}
+                  >
+                    Copy
                   </Button>
-                )}
-              </TableCell>
-            )}
+                </div>
+              ) : (
+                <Button onClick={() => handleGetPassword(admin.id)}>
+                  View Password
+                </Button>
+              )}
+            </TableCell>
           </TableRow>
         ))}
       </TableBody>

@@ -2,7 +2,7 @@ import { ValidLocale } from "@/config/i18n-config";
 import { LocaleText, ReferenceProject } from "@/types/types";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import Link from "next/link";
+// import Link from "next/link";
 
 interface ReferenceProjectCardProps {
   project: ReferenceProject;
@@ -87,12 +87,12 @@ export function ReferenceProjectCard({
               "No description available"
             )}
           </p>
-          <Link
+          {/* <Link
             href={`/${lang}/reference-projects/${project?.urlPath}` || ""}
             className="inline-block px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90 transition-colors duration-200"
           >
             Show Details
-          </Link>
+          </Link> */}
         </div>
       </div>
     </motion.div>

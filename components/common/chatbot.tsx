@@ -121,12 +121,12 @@ export default function Chatbot({ categories, lang, isEnabled }: ChatbotProps) {
           )}
           <motion.button
             onClick={toggleChatbot}
-            className="bg-primary text-white p-2 rounded-full shadow-lg hover:bg-primary-dark transition-colors duration-300"
+            className="bg-primary text-white sm:p-4 p-3 rounded-full shadow-lg hover:bg-primary-dark transition-colors duration-300"
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
             aria-label={lang === "en" ? "Open Chatbot" : "افتح روبوت الدردشة"}
           >
-            <Bot className="h-5 w-5" />
+            <Bot className="sm:h-7 h-6 w-6 sm:w-7" />
           </motion.button>
         </div>
       )}

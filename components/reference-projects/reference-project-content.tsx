@@ -149,7 +149,7 @@ function ImageGrid({ images, columns }: { images: any[]; columns: number }) {
             tabIndex={0}
           >
             <motion.div
-              className="relative w-full h-full flex items-center justify-center"
+              className="relative w-full h-full flex items-center justify-center max-w-4xl md:max-w-[90vw] mx-auto"
               onClick={(e) => e.stopPropagation()}
             >
               <motion.img
@@ -158,14 +158,14 @@ function ImageGrid({ images, columns }: { images: any[]; columns: number }) {
                   images[selectedImageIndex]?.url ||
                   ""
                 }
-                alt="Reference-Project"
-                className="max-h-full w-full h-full max-w-full object-contain"
+                alt={images[selectedImageIndex]?.alt || "Gallery image"}
+                className="max-h-[90vh] w-full max-w-full object-contain"
                 initial={{ scale: 0.8 }}
                 animate={{ scale: 1 }}
                 exit={{ scale: 0.8 }}
               />
               <button
-                className="absolute top-4 right-4 text-white p-2 rounded-full bg-black bg-opacity-50 hover:bg-opacity-75 transition-all"
+                className="absolute top-4 right-4 md:top-0 md:-right-12 text-white p-2 rounded-full bg-black bg-opacity-50 hover:bg-opacity-75 transition-all"
                 onClick={() => setSelectedImageIndex(null)}
               >
                 <X size={24} />
