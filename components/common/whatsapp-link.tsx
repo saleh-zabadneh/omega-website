@@ -21,7 +21,7 @@ const WhatsAppLink: React.FC<WhatsAppLinkProps> = ({
       href={whatsappUrl}
       target="_blank"
       rel="noopener noreferrer"
-      className={`fixed bottom-4 ${
+      className={`fixed bottom-[14px] ${
         lang === "ar" ? "left-4" : "right-4"
       } z-50 bg-primary text-white sm:p-4 p-3 rounded-full shadow-lg hover:bg-[#128C7E] transition-colors duration-300`}
       whileHover={{ scale: 1.1 }}
@@ -32,8 +32,8 @@ const WhatsAppLink: React.FC<WhatsAppLinkProps> = ({
         xmlns="http://www.w3.org/2000/svg"
         x="0px"
         y="0px"
-        width="28"
-        height="28"
+        width="27"
+        height="27"
         viewBox="0 0 50 50"
         fill="white"
       >

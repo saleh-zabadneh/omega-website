@@ -63,18 +63,18 @@ export function TestimonialsAndCompaniesSection({
     )
   );
 
-  // const companyItems: ReactNode[] = companies.map((company: Company) => (
-  //   <div
-  //     key={company._id}
-  //     className="flex md:max-w-60 max-w-32 items-center justify-center"
-  //   >
-  //     <img
-  //       src={company.nameImg}
-  //       alt="company"
-  //       className="w-20 h-20 md:w-28 md:h-28 object-contain"
-  //     />
-  //   </div>
-  // ));
+  const companyItems: ReactNode[] = companies.map((company: Company) => (
+    <div
+      key={company._id}
+      className="flex md:max-w-60 max-w-32 items-center justify-center"
+    >
+      <img
+        src={company.nameImg}
+        alt="company"
+        className="w-20 h-20 md:w-28 md:h-28 object-contain"
+      />
+    </div>
+  ));
 
   return (
     <SectionContainer>
@@ -100,14 +100,16 @@ export function TestimonialsAndCompaniesSection({
             className="py-4"
           />
         </div>
-        {/* <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <InfiniteMovingCards
-            items={companyItems}
-            direction="left"
-            speed="normal"
-            className="py-4"
-          />
-        </div> */}
+        {companyItems && (
+          <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <InfiniteMovingCards
+              items={companyItems}
+              direction="left"
+              speed="normal"
+              className="py-4"
+            />
+          </div>
+        )}
       </div>
     </SectionContainer>
   );

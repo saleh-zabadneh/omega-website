@@ -4,8 +4,8 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Bot, ArrowLeft, X, MessageCircle } from "lucide-react";
-import { motion } from "framer-motion";
+import { Bot, ArrowLeft, X } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 
 type Category = {
   categoryText: {
@@ -32,6 +32,27 @@ export default function Chatbot({ categories, lang, isEnabled }: ChatbotProps) {
   const [showMessage, setShowMessage] = useState(true);
 
   const isRTL = lang === "ar";
+
+  useEffect(() => {
+    const hideMessage = () => {
+      setShowMessage(false);
+    };
+
+    const showMessageAgain = () => {
+      setShowMessage(true);
+    };
+
+    const initialHideTimer = setTimeout(hideMessage, 2000);
+    const showAgainTimer = setInterval(() => {
+      showMessageAgain();
+      setTimeout(hideMessage, 2000);
+    }, 11000);
+
+    return () => {
+      clearTimeout(initialHideTimer);
+      clearInterval(showAgainTimer);
+    };
+  }, []);
 
   const toggleChatbot = () => {
     setIsOpen(!isOpen);
@@ -109,26 +130,36 @@ export default function Chatbot({ categories, lang, isEnabled }: ChatbotProps) {
           </CardContent>
         </Card>
       ) : (
-        <div className="flex flex-col items-center">
-          {showMessage && (
-            <div className="animate-pulse mb-2">
-              <span
-                className={`inline-block py-1 px-2 bg-primary text-primary-foreground rounded-full text-xs sm:text-sm font-medium`}
-              >
-                {message}
-              </span>
-            </div>
-          )}
-          <motion.button
-            onClick={toggleChatbot}
-            className="bg-primary text-white sm:p-4 p-3 rounded-full shadow-lg hover:bg-primary-dark transition-colors duration-300"
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
-            aria-label={lang === "en" ? "Open Chatbot" : "افتح روبوت الدردشة"}
-          >
-            <Bot className="sm:h-7 h-6 w-6 sm:w-7" />
-          </motion.button>
-        </div>
+        <AnimatePresence>
+          <div className="flex flex-col items-center">
+            <AnimatePresence>
+              {showMessage && (
+                <motion.div
+                  className="mb-2"
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  transition={{ duration: 0.5 }}
+                >
+                  <span
+                    className={`inline-block py-1 px-2 bg-primary text-primary-foreground rounded-full text-xs sm:text-sm font-medium`}
+                  >
+                    {message}
+                  </span>
+                </motion.div>
+              )}
+            </AnimatePresence>
+            <motion.button
+              onClick={toggleChatbot}
+              className="bg-primary text-white sm:p-4 p-3 rounded-full shadow-lg hover:bg-primary-dark transition-colors duration-300"
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+              aria-label={lang === "en" ? "Open Chatbot" : "افتح روبوت الدردشة"}
+            >
+              <Bot className="sm:h-7 h-6 w-6 sm:w-7" />
+            </motion.button>
+          </div>
+        </AnimatePresence>
       )}
     </div>
   );
