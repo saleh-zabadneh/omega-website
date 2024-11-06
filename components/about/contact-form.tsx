@@ -9,21 +9,49 @@ import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { useTranslations } from "@/hooks/use-translation";
+import { submitContactForm } from "@/app/[lang]/actions";
+import { useToast } from "@/hooks/use-toast";
 
 export default function ContactForm({ lang }: { lang: ValidLocale }) {
   const isRTL = lang === "ar";
   const t = useTranslations(lang);
+  const { toast } = useToast();
 
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [message, setMessage] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission
-    console.log({ firstName, lastName, email, phone, message });
+    setIsSubmitting(true);
+
+    try {
+      const formData = new FormData();
+      formData.append("firstName", firstName);
+      formData.append("lastName", lastName);
+      formData.append("email", email);
+      formData.append("phone", phone);
+      formData.append("message", message);
+
+      const result = await submitContactForm(formData);
+
+      if (result.success) {
+        // Reset form
+        setFirstName("");
+        setLastName("");
+        setEmail("");
+        setPhone("");
+        setMessage("");
+      } else {
+        throw new Error(result.error);
+      }
+    } catch (error) {
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const inputVariants = {
@@ -115,8 +143,9 @@ export default function ContactForm({ lang }: { lang: ValidLocale }) {
         <Button
           type="submit"
           className="w-full bg-brand hover:bg-brand-dark transition-colors duration-300"
+          disabled={isSubmitting}
         >
-          {t("sendMessage")}
+          {isSubmitting ? (lang === "ar" ? "يتم الارسال" : "sending") : "ارسال"}
         </Button>
       </motion.div>
     </motion.form>

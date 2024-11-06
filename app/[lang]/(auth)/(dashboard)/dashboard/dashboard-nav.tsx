@@ -41,6 +41,16 @@ export default function DashboardNav({ lang }: { lang: string }) {
               >
                 Devices
               </Link>
+              <Link
+                href={`/${lang}/dashboard/contacts`}
+                className={`inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium ${
+                  isLinkActive(`/${lang}/dashboard/contacts`)
+                    ? "border-primary text-foreground"
+                    : "border-transparent text-muted-foreground hover:text-foreground hover:border-muted"
+                }`}
+              >
+                Contact
+              </Link>
             </div>
           </div>
           <div className="hidden sm:ml-6 sm:flex sm:items-center">

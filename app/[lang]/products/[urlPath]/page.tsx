@@ -13,17 +13,17 @@ export async function generateMetadata({
   const product = await getProductDetails(params.urlPath);
 
   return {
-    title: product.title[params.lang],
-    description: product.description[params.lang],
+    title: product?.title[params.lang],
+    description: product?.description[params.lang],
     openGraph: {
-      title: product.title[params.lang],
-      description: product.description[params.lang],
+      title: product?.title[params.lang],
+      description: product?.description[params.lang],
       images: [
         {
-          url: product.image.url,
+          url: product?.image.url,
           width: 800,
           height: 600,
-          alt: product.title[params.lang],
+          alt: product?.title[params.lang],
         },
       ],
     },
@@ -36,12 +36,22 @@ export default async function ProductPage({
   params: { urlPath: string; lang: ValidLocale };
 }) {
   const product = await getProductDetails(params.urlPath);
+  if (!product)
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <h1 className="text-primary text-xl md:text-5xl text-center">
+          {params.lang === "ar"
+            ? "عذرا يوجد خطا في المنتج"
+            : "Sorry there is no product"}
+        </h1>
+      </div>
+    );
 
   return (
     <div className="min-h-screen">
       <div className="relative h-screen">
         <Image
-          src={product.image.url}
+          src={product?.image.url}
           alt={product.title[params.lang]}
           layout="fill"
           objectFit="cover"

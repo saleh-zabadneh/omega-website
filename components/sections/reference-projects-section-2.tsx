@@ -45,7 +45,7 @@ export default function ReferenceProjectSection2({
               </div>
             </div>
 
-            <div className="max-w-4xl mx-auto space-y-12">
+            <div className=" mx-auto space-y-12">
               {projects.map((project, projectIndex) => (
                 <motion.div
                   key={project._id}

@@ -1,13 +1,22 @@
-// import { ValidLocale } from "@/config/i18n-config";
-// import { getProductsNavNames } from "@/lib/sanity/queries/productsNavNames";
-// import Header from "./Header";
+import { ValidLocale } from "@/config/i18n-config";
+import Header from "./Header";
+import {
+  getSettingsData,
+  SettingsData,
+} from "@/lib/sanity/queries/productsNavNames";
 
-// export default async function HeaderWrapper({
-//   params: { lang },
-// }: {
-//   params: { lang: ValidLocale };
-// }) {
-//   const initialProducts = await getProductsNavNames(lang);
+interface HeaderWrapperProps {
+  lang: ValidLocale;
+}
 
-//   return <Header initialProducts={initialProducts} />;
-// }
+export default async function HeaderWrapper({ lang }: HeaderWrapperProps) {
+  const settingsData: SettingsData = await getSettingsData(lang);
+
+  return (
+    <Header
+      lang={lang}
+      dynamicProducts={settingsData.productsNavNames}
+      showLanguageSwitcher={settingsData.showLanguageSwitcher}
+    />
+  );
+}

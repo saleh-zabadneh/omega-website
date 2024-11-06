@@ -1,49 +1,85 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronLeft, ChevronRight, X } from "lucide-react";
+import { X, ChevronLeft, ChevronRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
 
 interface ImageGalleryGridProps {
-  images: any[];
+  images: Array<{
+    asset?: { url: string };
+    url?: string;
+    alt?: string;
+  }>;
 }
 
 export default function ImageGalleryGrid({ images }: ImageGalleryGridProps) {
   const [selectedImage, setSelectedImage] = useState<number | null>(null);
+  const [shuffledImages, setShuffledImages] = useState(images);
+
+  const shuffleImages = useCallback(() => {
+    const newShuffled = [...images].sort(() => Math.random() - 0.5);
+    setShuffledImages(newShuffled);
+  }, [images]);
+
+  useEffect(() => {
+    shuffleImages();
+  }, [shuffleImages]);
 
   const openLightbox = (index: number) => setSelectedImage(index);
-  const closeLightbox = () => setSelectedImage(null);
-  const goToPrevious = () =>
-    setSelectedImage((prev) => (prev === 0 ? images.length - 1 : prev! - 1));
-  const goToNext = () =>
-    setSelectedImage((prev) => (prev === images.length - 1 ? 0 : prev! + 1));
+  const closeLightbox = useCallback(() => setSelectedImage(null), []);
 
-  const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === "ArrowLeft") goToPrevious();
-    if (e.key === "ArrowRight") goToNext();
-    if (e.key === "Escape") closeLightbox();
-  };
+  const goToPrevious = useCallback(() => {
+    setSelectedImage((prev) =>
+      prev === 0 ? shuffledImages.length - 1 : prev! - 1
+    );
+  }, [shuffledImages.length]);
+
+  const goToNext = useCallback(() => {
+    setSelectedImage((prev) =>
+      prev === shuffledImages.length - 1 ? 0 : prev! + 1
+    );
+  }, [shuffledImages.length]);
+
+  const handleKeyDown = useCallback(
+    (e: KeyboardEvent) => {
+      if (e.key === "Escape") closeLightbox();
+      if (e.key === "ArrowLeft") goToPrevious();
+      if (e.key === "ArrowRight") goToNext();
+    },
+    [closeLightbox, goToPrevious, goToNext]
+  );
+
+  useEffect(() => {
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [handleKeyDown]);
 
   return (
     <>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-        {images.map((image, index) => (
-          <motion.div
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 p-4">
+        {shuffledImages.map((image, index) => (
+          <Card
             key={index}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={() => openLightbox(index)}
-            className="cursor-pointer overflow-hidden rounded-lg shadow-lg"
+            className="overflow-hidden cursor-pointer transition-transform duration-300 hover:scale-105"
           >
-            <Image
-              src={image?.asset?.url || image?.url || ""}
-              alt={image?.alt || ""}
-              width={400}
-              height={300}
-              className="w-full h-64 object-cover"
-            />
-          </motion.div>
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => openLightbox(index)}
+              className="relative aspect-square"
+            >
+              <Image
+                src={image?.asset?.url || image?.url || "/bg.svg"}
+                alt={image?.alt || "Gallery image"}
+                layout="fill"
+                objectFit="cover"
+                className="rounded-lg"
+              />
+            </motion.div>
+          </Card>
         ))}
       </div>
 
@@ -53,44 +89,51 @@ export default function ImageGalleryGrid({ images }: ImageGalleryGridProps) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center z-50"
+            className="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center z-50 p-4"
             onClick={closeLightbox}
-            onKeyDown={handleKeyDown}
-            tabIndex={0}
           >
             <motion.div
-              className="relative w-full h-full flex items-center justify-center"
+              className="relative max-w-4xl max-h-[90vh] w-full h-full flex items-center justify-center"
               onClick={(e) => e.stopPropagation()}
             >
               <Image
                 src={
-                  images[selectedImage]?.asset?.url ||
-                  images[selectedImage]?.url ||
-                  ""
+                  shuffledImages[selectedImage]?.asset?.url ||
+                  shuffledImages[selectedImage]?.url ||
+                  "/placeholder.svg"
                 }
-                alt={images[selectedImage]?.alt || ""}
+                alt={shuffledImages[selectedImage]?.alt || "Selected image"}
                 layout="fill"
                 objectFit="contain"
-                className="max-h-full max-w-full"
+                className="rounded-lg"
               />
-              <button
-                className="absolute top-4 right-4 text-white p-2 rounded-full bg-black bg-opacity-50 hover:bg-opacity-75 transition-all"
+              <Button
+                variant="secondary"
+                size="icon"
+                className="absolute  right-2 top-0 md:top-12 md:right-0 bg-white text-black hover:bg-gray-200"
                 onClick={closeLightbox}
               >
-                <X size={24} />
-              </button>
-              <button
-                className="absolute left-4 top-1/2 transform -translate-y-1/2 text-white p-2 rounded-full bg-black bg-opacity-50 hover:bg-opacity-75 transition-all"
+                <X className="h-6 w-6" />
+                <span className="sr-only">Close</span>
+              </Button>
+              <Button
+                variant="secondary"
+                size="icon"
+                className="absolute left-2 md:left-4 top-1/2 transform -translate-y-1/2 bg-white text-black hover:bg-gray-200"
                 onClick={goToPrevious}
               >
-                <ChevronLeft size={24} />
-              </button>
-              <button
-                className="absolute right-4 top-1/2 transform -translate-y-1/2 text-white p-2 rounded-full bg-black bg-opacity-50 hover:bg-opacity-75 transition-all"
+                <ChevronLeft className="h-6 w-6" />
+                <span className="sr-only">Previous image</span>
+              </Button>
+              <Button
+                variant="secondary"
+                size="icon"
+                className="absolute right-2 md:right-4 top-1/2 transform -translate-y-1/2 bg-white text-black hover:bg-gray-200"
                 onClick={goToNext}
               >
-                <ChevronRight size={24} />
-              </button>
+                <ChevronRight className="h-6 w-6" />
+                <span className="sr-only">Next image</span>
+              </Button>
             </motion.div>
           </motion.div>
         )}

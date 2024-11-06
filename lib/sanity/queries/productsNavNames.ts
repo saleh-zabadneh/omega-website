@@ -6,18 +6,25 @@ export interface ProductNavName {
   slug: string;
 }
 
-export async function getProductsNavNames(
+export interface SettingsData {
+  productsNavNames: ProductNavName[];
+  showLanguageSwitcher: boolean;
+}
+
+export async function getSettingsData(
   lang: ValidLocale
-): Promise<ProductNavName[]> {
+): Promise<SettingsData> {
   const query = `*[_type == "setting"][0] {
     "productsNavNames": productsNavNames[]{
       "title": title.${lang},
       "slug": slug.current
-    }
+    },
+    showLanguageSwitcher
   }`;
 
-  const result = await fetchSanity<{ productsNavNames: ProductNavName[] }>(
-    query
-  );
-  return result?.productsNavNames || [];
+  const result = await fetchSanity<SettingsData>(query);
+  return {
+    productsNavNames: result?.productsNavNames || [],
+    showLanguageSwitcher: result?.showLanguageSwitcher || false,
+  };
 }

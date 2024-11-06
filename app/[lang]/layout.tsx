@@ -3,12 +3,12 @@ import { Inter } from "next/font/google";
 import localFont from "next/font/local";
 import "../globals.css";
 import { ThemeProvider } from "@/providers/theme-provider";
-import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import { ValidLocale, defaultLocale } from "@/config/i18n-config";
 import WhatsAppLink from "@/components/common/whatsapp-link";
 import { LanguageProvider } from "@/providers/language-provider";
 import ChatbotWrapper from "@/components/common/ChatbotWrapper";
+import HeaderWrapper from "@/components/layout/header-wrapper";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -70,7 +70,7 @@ export default function RootLayout({
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <LanguageProvider initialLocale={lang}>
             <div className="flex flex-col min-h-screen">
-              <Header lang={lang} />
+              <HeaderWrapper lang={lang} />
               <main className="flex-grow">{children}</main>
               <Footer lang={lang} />
             </div>

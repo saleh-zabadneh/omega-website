@@ -21,24 +21,58 @@ export function NewsSection({
   lang,
 }: NewsSectionProps) {
   return (
-    <SectionContainer className="relative overflow-hidden">
-      <motion.div className="relative z-10">
-        <Heading>{heading[lang]}</Heading>
-        <p className="text-center text-muted-foreground mb-8">
+    <SectionContainer className="relative overflow-hidden bg-gradient-to-br from-background to-background/80 py-16 md:py-24">
+      <div className="absolute inset-0 bg-grid-slate-900/[0.04] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_at_center,white,transparent_75%)]" />
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        className="relative z-10 container mx-auto px-4"
+      >
+        <Heading className="text-4xl md:text-5xl font-bold text-center mb-4">
+          {heading[lang]}
+        </Heading>
+        <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
           {subheading[lang]}
         </p>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+        <motion.div
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12"
+          variants={{
+            hidden: { opacity: 0 },
+            show: {
+              opacity: 1,
+              transition: {
+                staggerChildren: 0.2,
+              },
+            },
+          }}
+          initial="hidden"
+          animate="show"
+        >
           {featuredNews.map((newsItem) => (
-            <NewsCard key={newsItem._id} item={newsItem} lang={lang} />
+            <motion.div
+              key={newsItem._id}
+              variants={{
+                hidden: { opacity: 0, y: 20 },
+                show: { opacity: 1, y: 0 },
+              }}
+            >
+              <NewsCard item={newsItem} lang={lang} />
+            </motion.div>
           ))}
-        </div>
-        <Link href={`/${lang}/news`} passHref>
-          <motion.div className="flex justify-center">
-            <Button className="bg-brand capitalize text-lg ">
+        </motion.div>
+        <motion.div
+          className="flex justify-center"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.6, duration: 0.4 }}
+        >
+          <Link href={`/${lang}/news`} passHref>
+            <Button className="bg-brand capitalize text-lg">
               {getTranslation(lang, "shared", "view all news")}
             </Button>
-          </motion.div>
-        </Link>
+          </Link>
+        </motion.div>
       </motion.div>
     </SectionContainer>
   );

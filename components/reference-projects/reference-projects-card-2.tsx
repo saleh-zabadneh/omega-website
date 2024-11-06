@@ -46,7 +46,7 @@ export default function ReferenceProjectCard2({
       initial={{ opacity: 0, y: 20 }}
       animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
       transition={{ duration: 0.5 }}
-      className="w-full max-w-7xl mx-auto mb-16"
+      className="  max-w-full w-full md:max-w-7xl mx-auto mb-16"
     >
       <div className="overflow-hidden hover:shadow-lg transition-shadow duration-300 rounded-lg ">
         <div className="flex flex-col capitalize lg:flex-row">

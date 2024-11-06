@@ -19,7 +19,8 @@ export default async function ProductsPage({
   const referenceProjects = await getReferenceProjects2();
   console.log(referenceProjects);
   return (
-    <main className="relative bg-background flex justify-center max-w-7xl mx-auto items-center flex-col overflow-hidden">
+    //max-w-7xl
+    <main className="relative bg-background flex justify-center  mx-auto items-center flex-col overflow-hidden">
       <SectionContainer>
         <Heading specialWord={lang === "ar" ? "المميزة" : "projects"}>
           {lang === "ar" ? "  المشاريع المرجعية " : "Special Reference"}
@@ -29,7 +30,7 @@ export default async function ProductsPage({
             ? "جميع المشاريع المرجعية الخاصة بنا "
             : "all of our reference projects"}
         </Paragraph>
-        <div className="mx-8">
+        <div className="mx-1 md:mx-8">
           <ReferenceProjectSection2
             referenceProjects={referenceProjects}
             lang={lang}

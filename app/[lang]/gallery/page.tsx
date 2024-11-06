@@ -39,7 +39,7 @@ export default async function GalleryPage({
   );
 
   return (
-    <div className="space-y-12">
+    <div className="space-y-12 container mx-auto px-4 py-8">
       {heroContent && (
         <ContentSection
           key="hero-section"
@@ -50,8 +50,8 @@ export default async function GalleryPage({
         />
       )}
       {galleryContent && (
-        <section className="px-4 md:px-8">
-          <h2 className="text-4xl font-bold mb-8 text-center text-brand">
+        <section>
+          <h2 className="text-4xl font-bold mb-8 text-center text-primary">
             {typeof galleryContent.sectionTitle === "string"
               ? galleryContent.sectionTitle
               : galleryContent.sectionTitle?.[lang] || "Gallery"}

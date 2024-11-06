@@ -24,6 +24,7 @@ import {
 } from "@/components/ui/collapsible";
 import { ValidLocale } from "@/config/i18n-config";
 import { usePathname } from "next/navigation";
+import { ProductNavName } from "@/lib/sanity/queries/productsNavNames";
 
 interface NavigationItem {
   name: string;
@@ -33,54 +34,75 @@ interface NavigationItem {
 
 interface HeaderProps {
   lang: ValidLocale;
+  dynamicProducts: ProductNavName[];
+  showLanguageSwitcher: boolean;
 }
 
-export default function Component({ lang }: HeaderProps = { lang: "en" }) {
+export default function Header({
+  lang,
+  dynamicProducts,
+  showLanguageSwitcher,
+}: HeaderProps) {
   const isRTL = lang === "ar";
   const [isSheetOpen, setIsSheetOpen] = React.useState(false);
+  const pathname = usePathname();
 
   const navigation: NavigationItem[] = [
-    { name: isRTL ? "من نحن" : "About", href: `/${lang}/about` },
     {
-      name: isRTL ? "المنتجات" : "Products",
+      name: lang === "ar" ? "الرئيسية" : "Home",
+      href: `/${lang}`,
+    },
+    {
+      name: lang === "ar" ? "المنتجات" : "Products",
       href: `/${lang}/products`,
       children: [
         {
-          name: isRTL ? "هياكل تركيب الألواح الشمسية" : "PV Mounting Structure",
+          name:
+            lang === "ar"
+              ? "هياكل تركيب الألواح الشمسية"
+              : "PV Mounting Structure",
           href: `/${lang}/products/pv-mounting-structure`,
         },
         {
-          name: isRTL
-            ? "خطوط إنتاج الصوف الصخري"
-            : "Rock Wool Production Lines",
+          name:
+            lang === "ar"
+              ? "خطوط إنتاج الصوف الصخري"
+              : "Rock Wool Production Lines",
           href: `/${lang}/products/rock-wool-production-lines`,
         },
         {
-          name: isRTL ? "مصنع إعادة تدوير الرصاص" : "Lead Recycling Plant",
+          name:
+            lang === "ar" ? "مصنع إعادة تدوير الرصاص" : "Lead Recycling Plant",
           href: `/${lang}/products/lead-recycling-plant`,
         },
         {
-          name: isRTL
-            ? "روبوت تنظيف الألواح الشمسية"
-            : "Solar Panel Cleaning Robot",
+          name:
+            lang === "ar"
+              ? "روبوت تنظيف الألواح الشمسية"
+              : "Solar Panel Cleaning Robot",
           href: `/${lang}/products/solar-panel-cleaning-robot`,
         },
+        ...dynamicProducts.map((product) => ({
+          name: product.title,
+          href: `/${lang}/products/${product.slug}`,
+        })),
         {
-          name: isRTL ? "المزيد" : "Other",
+          name: lang === "ar" ? "المزيد" : "Other",
           href: `/${lang}/products`,
         },
       ],
     },
+    { name: lang === "ar" ? "من نحن" : "About", href: `/${lang}/about` },
     {
-      name: isRTL ? "المشاريع المرجعية" : "Reference Projects",
+      name: lang === "ar" ? "المشاريع المرجعية" : "Reference Projects",
       href: `/${lang}/reference-projects`,
     },
-    { name: isRTL ? " المعرض" : "Gallery", href: `/${lang}/gallery` },
+    { name: lang === "ar" ? "المعرض" : "Gallery", href: `/${lang}/gallery` },
+    { name: lang === "ar" ? "الاخبار" : "News", href: `/${lang}/news` },
     {
-      name: isRTL ? " الاخبار" : "News",
-      href: `/${lang}/news`,
+      name: lang === "ar" ? "تواصل معنا" : "Contact",
+      href: `/${lang}/contact`,
     },
-    { name: isRTL ? "تواصل معنا" : "Contact", href: `/${lang}/contact` },
   ];
 
   const reversedNavigation = isRTL ? [...navigation].reverse() : navigation;
@@ -137,7 +159,7 @@ export default function Component({ lang }: HeaderProps = { lang: "en" }) {
             isRTL ? "flex-row-reverse" : ""
           }`}
         >
-          <LanguageSwitcher />
+          {showLanguageSwitcher && <LanguageSwitcher />}
           <ThemeToggle />
           <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
             <SheetTrigger asChild>

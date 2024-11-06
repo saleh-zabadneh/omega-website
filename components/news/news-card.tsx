@@ -1,7 +1,10 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import { ValidLocale } from "@/config/i18n-config";
 import { NewsItem } from "@/lib/sanity/queries/getNews";
+import { motion } from "framer-motion";
 
 export function NewsCard({
   item,
@@ -11,22 +14,30 @@ export function NewsCard({
   lang: ValidLocale;
 }) {
   return (
-    <Link href={`/${lang}/news/${item.slug}`} className="block">
-      <div className="bg-card rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow">
-        <Image
-          src={item.image}
-          alt={item.title}
-          width={400}
-          height={200}
-          className="w-full h-48 object-cover"
-        />
-        <div className="p-4">
-          <h3 className="text-xl font-semibold mb-2">{item.title}</h3>
-          <p className="text-muted-foreground line-clamp-3">
-            {item.description}
-          </p>
+    <Link href={`/${lang}/news/${item.slug}`}>
+      <motion.div
+        className="bg-card rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 h-full flex flex-col"
+        whileHover={{ y: -5 }}
+      >
+        <div className="relative h-56 overflow-hidden">
+          <Image
+            src={item.image}
+            alt={item.title}
+            fill
+            className="object-cover transition-transform duration-300 hover:scale-105"
+          />
         </div>
-      </div>
+        <div className="p-6 flex-grow flex flex-col justify-between">
+          <div>
+            <h3 className="text-xl font-semibold mb-3 line-clamp-2 hover:text-brand transition-colors">
+              {item.title}
+            </h3>
+            <p className="text-muted-foreground line-clamp-3 mb-4">
+              {item.description}
+            </p>
+          </div>
+        </div>
+      </motion.div>
     </Link>
   );
 }

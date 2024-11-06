@@ -78,7 +78,13 @@ function LocaleText({ text }: { text: string }) {
   return <p className="text-lg leading-relaxed max-w-4xl mx-auto">{text}</p>;
 }
 
-function ImageGrid({ images, columns }: { images: any[]; columns: number }) {
+export function ImageGrid({
+  images,
+  columns,
+}: {
+  images: any[];
+  columns: number;
+}) {
   const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(
     null
   );
@@ -112,10 +118,16 @@ function ImageGrid({ images, columns }: { images: any[]; columns: number }) {
     if (e.key === "Escape") setSelectedImageIndex(null);
   };
 
+  const handleOutsideClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (e.target === e.currentTarget) {
+      setSelectedImageIndex(null);
+    }
+  };
+
   return (
     <>
       <div
-        className={`grid grid-cols-1 place-content-center mx-auto max-w-4xl md:grid-cols-${gridColumns} gap-6`}
+        className={`grid grid-cols-1 place-content-center mx-auto max-w-7xl md:grid-cols-${gridColumns} gap-6`}
       >
         {images.map((image, index) => (
           <motion.div
@@ -132,7 +144,7 @@ function ImageGrid({ images, columns }: { images: any[]; columns: number }) {
               alt={image?.alt || ""}
               width={image?.asset?.metadata?.dimensions?.width || 800}
               height={image?.asset?.metadata?.dimensions?.height || 600}
-              className="w-full h-44 object-cover rounded-lg shadow-lg cursor-pointer"
+              className="w-full h-56 object-cover rounded-lg shadow-lg cursor-pointer"
             />
           </motion.div>
         ))}
@@ -144,28 +156,30 @@ function ImageGrid({ images, columns }: { images: any[]; columns: number }) {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             className="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center z-50"
-            onClick={() => setSelectedImageIndex(null)}
+            onClick={handleOutsideClick}
             onKeyDown={handleKeyDown}
             tabIndex={0}
           >
             <motion.div
-              className="relative w-full h-full flex items-center justify-center max-w-4xl md:max-w-[90vw] mx-auto"
-              onClick={(e) => e.stopPropagation()}
+              className="relative w-full h-full flex items-center justify-center"
+              onClick={handleOutsideClick}
             >
-              <motion.img
-                src={
-                  images[selectedImageIndex]?.asset?.url ||
-                  images[selectedImageIndex]?.url ||
-                  ""
-                }
-                alt={images[selectedImageIndex]?.alt || "Gallery image"}
-                className="max-h-[90vh] w-full max-w-full object-contain"
-                initial={{ scale: 0.8 }}
-                animate={{ scale: 1 }}
-                exit={{ scale: 0.8 }}
-              />
+              <div className=" mx-auto">
+                <motion.img
+                  src={
+                    images[selectedImageIndex]?.asset?.url ||
+                    images[selectedImageIndex]?.url ||
+                    ""
+                  }
+                  alt={images[selectedImageIndex]?.alt || "Gallery image"}
+                  className=" w-full max-w-[50rem]  h-full max-h-96   object-contain"
+                  initial={{ scale: 0.8 }}
+                  animate={{ scale: 1 }}
+                  exit={{ scale: 0.8 }}
+                />
+              </div>
               <button
-                className="absolute top-4 right-4 md:top-0 md:-right-12 text-white p-2 rounded-full bg-black bg-opacity-50 hover:bg-opacity-75 transition-all"
+                className="absolute top-56 sm:top-4 right-4 md:top-0 md:-right-12 text-white p-2 rounded-full bg-black bg-opacity-50 hover:bg-opacity-75 transition-all"
                 onClick={() => setSelectedImageIndex(null)}
               >
                 <X size={24} />
