@@ -21,7 +21,7 @@ export function ProductPageLayout({
   productPageImage,
 }: ProductLayoutPageProps) {
   return (
-    <div className="relative w-full aspect-[2/1] max-h-[500px]">
+    <div className="relative w-full aspect-[2/1] md:max-h-[500px] max-h-[650px]">
       <Image
         src={productPageImage.url}
         alt="Products"
