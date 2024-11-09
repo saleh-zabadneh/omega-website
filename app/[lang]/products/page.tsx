@@ -44,7 +44,7 @@ export default async function ProductsPage({
             />
           )}
         {/* Products Grid with negative margin to overlap with arch */}
-        <div className="relative mt-4 px-6 md:px-10 pb-20">
+        <div className="relative mt-12 md:mt-4 px-6 md:px-10 pb-20">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 w-full max-w-7xl mx-auto">
             {products.map((product, index) => (
               <div
