@@ -4,6 +4,7 @@ import { ValidLocale } from "@/config/i18n-config";
 export type DownloadableFile = {
   _id: string;
   title: string;
+  imageUrl: string;
   fileUrl: string;
   fileType: "local" | "googleDrive";
   googleDriveLink?: string;
@@ -25,6 +26,7 @@ export async function getDownloadSection(
       "files": files[]-> {
         _id,
         title,
+        "imageUrl": image.asset->url,
         "fileUrl": file.asset->url,
         fileType,
         googleDriveLink

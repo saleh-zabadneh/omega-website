@@ -179,13 +179,13 @@ export function ImageGrid({
                 />
               </div>
               <button
-                className="absolute top-[40%] sm:top-4 right-4 md:top-0 md:-right-12 text-white p-2 rounded-full bg-black bg-opacity-50 hover:bg-opacity-75 transition-all"
+                className="absolute w-0 sm:w-auto sm:top-4 right-4 md:top-0 md:-right-12 text-white p-2 rounded-full sm:bg-black bg-opacity-50 hover:bg-opacity-75 transition-all"
                 onClick={() => setSelectedImageIndex(null)}
               >
-                <X size={24} />
+                <X size={24} className="w-0 sm:w-auto" />
               </button>
               <button
-                className="absolute left-4 top-1/2 transform -translate-y-1/2 text-white p-2 rounded-full bg-black bg-opacity-50 hover:bg-opacity-75 transition-all"
+                className="absolute left-4  top-1/2 transform -translate-y-1/2 text-white p-2 rounded-full bg-black bg-opacity-50 hover:bg-opacity-75 transition-all"
                 onClick={handlePrevImage}
               >
                 <ChevronLeft size={24} />

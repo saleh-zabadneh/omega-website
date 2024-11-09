@@ -9,7 +9,7 @@ import {
 } from "@/lib/sanity/queries/getDownloadFiles";
 import { SectionContainer } from "../common/section-container";
 import { Heading } from "../common/heading";
-import { Download, FileText, Search, X } from "lucide-react";
+import { Download, Search, X } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import {
@@ -19,6 +19,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import Image from "next/image";
 
 function FileCard({
   file,
@@ -31,33 +32,33 @@ function FileCard({
     if (file.fileType === "googleDrive" && file.googleDriveLink) {
       window.open(file.googleDriveLink, "_blank");
     } else {
-      // Create a temporary anchor element
       const link = document.createElement("a");
       link.href = file.fileUrl;
       link.target = "_blank";
       link.rel = "noopener noreferrer";
       link.download = file.title;
-
-      // Append to the document body
       document.body.appendChild(link);
-
-      // Programmatically click the link
       link.click();
-
-      // Remove the link from the document
       document.body.removeChild(link);
     }
   };
 
   return (
-    <Card className="w-full">
-      <CardHeader>
-        <CardTitle className="flex items-center gap-2">
-          <FileText className="w-6 h-6" />
-          {file.title}
-        </CardTitle>
+    <Card className="w-full overflow-hidden">
+      <CardHeader className="p-0">
+        <div className="relative w-full h-48">
+          <Image
+            src={file.imageUrl}
+            alt={file.title}
+            fill
+            className="object-cover"
+          />
+        </div>
       </CardHeader>
-      <CardFooter>
+      <CardContent className="p-4">
+        <CardTitle className="text-lg mb-2">{file.title}</CardTitle>
+      </CardContent>
+      <CardFooter className="p-4 pt-0">
         <Button onClick={handleDownload} className="w-full">
           <Download className="w-4 h-4 mr-2" />
           Download
@@ -80,9 +81,8 @@ export function DownloadSection({
     file.title.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  // Split the title into parts for the Heading component
   const titleParts = section.title[lang].split(" ");
-  const specialWord = titleParts.pop(); // Use the last word as the special word
+  const specialWord = titleParts.pop();
   const mainTitle = titleParts.join(" ");
 
   return (
@@ -122,7 +122,7 @@ export function DownloadSection({
         <AnimatePresence>
           {filteredFiles.length > 0 ? (
             <motion.div
-              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
               initial="hidden"
               animate="visible"
               exit="hidden"

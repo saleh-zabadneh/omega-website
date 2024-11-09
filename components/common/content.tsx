@@ -204,7 +204,7 @@ export function ImageGrid({
                 />
               </div>
               <button
-                className="absolute top-[40%] sm:top-4 right-4 md:top-0 md:-right-12 text-white p-2 rounded-full bg-black bg-opacity-50 hover:bg-opacity-75 transition-all"
+                className="absolute  sm:top-4 right-4 md:top-0 md:-right-12 text-white p-2 rounded-full bg-black bg-opacity-50 hover:bg-opacity-75 transition-all"
                 onClick={() => setSelectedImageIndex(null)}
               >
                 <X size={24} />
