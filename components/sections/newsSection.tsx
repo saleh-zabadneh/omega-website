@@ -21,7 +21,8 @@ export function NewsSection({
   lang,
 }: NewsSectionProps) {
   return (
-    <SectionContainer className="relative overflow-hidden bg-gradient-to-br from-background to-background/80 py-16 md:py-24">
+    // <SectionContainer className="relative overflow-hidden bg-gradient-to-br from-background to-background/80 py-16 md:py-24">
+    <section className="py-16 md:py-24 max-w-7xl w-full relative overflow-hidden">
       <div className="absolute inset-0 bg-grid-slate-900/[0.04] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_at_center,white,transparent_75%)]" />
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -74,6 +75,9 @@ export function NewsSection({
           </Link>
         </motion.div>
       </motion.div>
-    </SectionContainer>
+    </section>
   );
+  {
+    /* </SectionContainer> */
+  }
 }

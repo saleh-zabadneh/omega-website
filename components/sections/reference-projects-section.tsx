@@ -17,7 +17,8 @@ export function ReferenceProjectsSection({
   lang,
 }: ReferenceProjectsSectionProps) {
   return (
-    <SectionContainer>
+    // <SectionContainer>
+    <section className="py-16 md:py-24 max-w-7xl w-full relative overflow-hidden">
       <Heading specialWord={specialWord ? specialWord[lang] : undefined}>
         {heading[lang]}
       </Heading>
@@ -30,6 +31,9 @@ export function ReferenceProjectsSection({
           {lang === "ar" ? "مشاهدة جميع المشاريع" : "Explore Projects"}
         </Button>
       </Link>
-    </SectionContainer>
+    </section>
   );
+  {
+    /* </SectionContainer> */
+  }
 }

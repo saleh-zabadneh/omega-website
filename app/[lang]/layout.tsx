@@ -9,6 +9,8 @@ import WhatsAppLink from "@/components/common/whatsapp-link";
 import { LanguageProvider } from "@/providers/language-provider";
 import ChatbotWrapper from "@/components/common/ChatbotWrapper";
 import HeaderWrapper from "@/components/layout/header-wrapper";
+import { Toaster } from "@/components/ui/toaster";
+import { ProtectedLayout } from "@/components/common/protected-layout";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -69,19 +71,22 @@ export default function RootLayout({
       >
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <LanguageProvider initialLocale={lang}>
-            <div className="flex flex-col min-h-screen">
-              <HeaderWrapper lang={lang} />
-              <main className="flex-grow">{children}</main>
-              <Footer lang={lang} />
-            </div>
-            <WhatsAppLink
-              lang={lang}
-              phoneNumber="1234567890"
-              message="Hi, I'd like to know more about your services."
-            />
-            <ChatbotWrapper lang={lang} />
+            <ProtectedLayout>
+              <div className="flex flex-col min-h-screen">
+                <HeaderWrapper lang={lang} />
+                <main className="flex-grow">{children}</main>
+                <Footer lang={lang} />
+              </div>
+              <WhatsAppLink
+                lang={lang}
+                phoneNumber="1234567890"
+                message="Hi, I'd like to know more about your services."
+              />
+              <ChatbotWrapper lang={lang} />
+            </ProtectedLayout>
           </LanguageProvider>
         </ThemeProvider>
+        <Toaster />
       </body>
     </html>
   );

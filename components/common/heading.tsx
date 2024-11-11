@@ -48,12 +48,12 @@ export function Heading({
         className="capitalize inline-block "
         onClick={() => setIsSelected(!isSelected)}
       >
-        <motion.span className="relative px-2 inline-block">
+        <motion.span className="relative px-2 pb-2 inline-block">
           {parts[0]}
           {highlightColor && (
             <motion.span
               className={cn(
-                "absolute inset-0 -z-10 md:block hidden",
+                "absolute inset-0  -z-10 md:block hidden",
                 highlightColor
               )}
               initial="initial"
@@ -65,8 +65,7 @@ export function Heading({
         {specialWord && (
           <motion.span className="relative inline-block">
             <span className={cn("relative z-10 mx-2 text-primary")}>
-              {" "}
-              {specialWord}{" "}
+              {specialWord}
             </span>
             {specialWordColor && (
               <motion.span
