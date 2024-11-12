@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { SectionContainer } from "../common/section-container";
+// import { SectionContainer } from "../common/section-container";
 import { Heading } from "../common/heading";
 import { ValidLocale } from "@/config/i18n-config";
 import { Button } from "../ui/button";
@@ -31,39 +31,20 @@ export function NewsSection({
         <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
           {subheading[lang]}
         </p>
-        <motion.div
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12"
-          variants={{
-            hidden: { opacity: 0 },
-            show: {
-              opacity: 1,
-              transition: {
-                staggerChildren: 0.2,
-              },
-            },
-          }}
-          initial="hidden"
-          animate="show"
-        >
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
           {featuredNews.map((newsItem) => (
-            <motion.div
-              key={newsItem._id}
-              variants={{
-                hidden: { opacity: 0, y: 20 },
-                show: { opacity: 1, y: 0 },
-              }}
-            >
+            <div key={newsItem._id}>
               <NewsCard item={newsItem} lang={lang} />
-            </motion.div>
+            </div>
           ))}
-        </motion.div>
-        <motion.div className="flex justify-center">
+        </div>
+        <div className="flex justify-center">
           <Link href={`/${lang}/news`} passHref>
             <Button className="bg-brand capitalize text-lg">
               {getTranslation(lang, "shared", "view all news")}
             </Button>
           </Link>
-        </motion.div>
+        </div>
       </motion.div>
     </section>
   );
