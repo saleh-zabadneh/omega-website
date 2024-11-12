@@ -24,12 +24,7 @@ export function NewsSection({
     // <SectionContainer className="relative overflow-hidden bg-gradient-to-br from-background to-background/80 py-16 md:py-24">
     <section className="py-16 md:py-24 max-w-7xl w-full relative overflow-hidden">
       <div className="absolute inset-0 bg-grid-slate-900/[0.04] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_at_center,white,transparent_75%)]" />
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-        className="relative z-10 container mx-auto px-4"
-      >
+      <motion.div className="relative z-10 container mx-auto px-4">
         <Heading className="text-4xl md:text-5xl font-bold text-center mb-4">
           {heading[lang]}
         </Heading>
@@ -62,12 +57,7 @@ export function NewsSection({
             </motion.div>
           ))}
         </motion.div>
-        <motion.div
-          className="flex justify-center"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.6, duration: 0.4 }}
-        >
+        <motion.div className="flex justify-center">
           <Link href={`/${lang}/news`} passHref>
             <Button className="bg-brand capitalize text-lg">
               {getTranslation(lang, "shared", "view all news")}
