@@ -21,7 +21,7 @@ export default function ReferenceProjectSection2({
   );
 
   return (
-    <section className="py-16 bg-background">
+    <div className="py-16 bg-background">
       <div className="container mx-auto px-4">
         {Object.entries(groupedProjects).map(([category, projects], index) => (
           <motion.div
@@ -68,7 +68,7 @@ export default function ReferenceProjectSection2({
           </motion.div>
         ))}
       </div>
-    </section>
+    </div>
   );
 }
 

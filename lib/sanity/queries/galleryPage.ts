@@ -34,12 +34,15 @@ export async function getGalleryPage(
             ...
           },
           _type == 'imageGrid' => {
-            images[] {
-              "url": asset->url,
-              "metadata": asset->metadata
+          images[] {
+            "asset": asset->{
+              "url": url,
+              "metadata": metadata
             },
-            columns
+            alt
           },
+          columns
+        },
           _type == 'list' => {
             items
           },

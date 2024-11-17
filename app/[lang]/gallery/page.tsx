@@ -6,6 +6,7 @@ import {
 } from "@/lib/sanity/queries/galleryPage";
 import { ContentSection } from "@/components/common/content";
 import ImageGalleryGrid from "@/components/common/ImageGalleryGrid";
+import { SectionContainer } from "@/components/common/section-container";
 
 export async function generateMetadata({
   params,
@@ -39,43 +40,54 @@ export default async function GalleryPage({
   );
 
   return (
-    <div className="space-y-12 container mx-auto px-4 py-8">
-      {heroContent && (
-        <ContentSection
-          key="hero-section"
-          className="px-0 md:px-0"
-          sectionTitle={heroContent.sectionTitle}
-          content={heroContent.content}
-          lang={lang}
-        />
-      )}
-      {galleryContent && (
-        <section>
-          <h2 className="text-4xl font-bold mb-8 text-center text-primary">
-            {typeof galleryContent.sectionTitle === "string"
-              ? galleryContent.sectionTitle
-              : galleryContent.sectionTitle?.[lang] || "Gallery"}
-          </h2>
-          <ImageGalleryGrid
-            images={
-              galleryContent.content.find((item) => item._type === "imageGrid")
-                ?.images || []
-            }
-          />
-        </section>
-      )}
-      {galleryPage?.sections
-        ?.filter(
-          (section) => section !== heroContent && section !== galleryContent
-        )
-        .map((section, index) => (
+    <main className="relative bg-background flex justify-center  mx-auto items-center flex-col overflow-hidden">
+      <SectionContainer>
+        {heroContent && (
           <ContentSection
-            key={index}
-            sectionTitle={section?.sectionTitle}
-            content={section.content}
+            key="hero-section"
+            className="px-0 md:px-0"
+            sectionTitle={heroContent.sectionTitle}
+            content={heroContent.content}
             lang={lang}
           />
-        ))}
-    </div>
+        )}
+        {galleryContent && (
+          <>
+            <h2 className="text-4xl font-bold mb-8 text-center text-primary">
+              {typeof galleryContent.sectionTitle === "string"
+                ? galleryContent.sectionTitle
+                : galleryContent.sectionTitle?.[lang] || "Gallery"}
+            </h2>
+
+            <div className="mx-4 py-2 mb-6 relative ">
+              <ImageGalleryGrid
+                images={
+                  galleryContent.content.find(
+                    (item) => item._type === "imageGrid"
+                  )?.images || []
+                }
+                columns={
+                  galleryContent.content.find(
+                    (item) => item._type === "imageGrid"
+                  )?.columns || 12
+                }
+              />
+            </div>
+          </>
+        )}
+        {galleryPage?.sections
+          ?.filter(
+            (section) => section !== heroContent && section !== galleryContent
+          )
+          .map((section, index) => (
+            <ContentSection
+              key={index}
+              sectionTitle={section?.sectionTitle}
+              content={section.content}
+              lang={lang}
+            />
+          ))}
+      </SectionContainer>
+    </main>
   );
 }

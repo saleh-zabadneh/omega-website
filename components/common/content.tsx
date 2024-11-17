@@ -180,11 +180,17 @@ export function ImageGrid({
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center z-50"
+            className="fixed inset-0  bg-black bg-opacity-90 flex items-center justify-center z-50"
             onClick={handleOutsideClick}
             onKeyDown={handleKeyDown}
             tabIndex={0}
           >
+            <button
+              className="absolute  md:right-4 right-2 md:top-1 top-0    text-white p-2 rounded-full bg-black bg-opacity-50 hover:bg-opacity-75 transition-all"
+              onClick={() => setSelectedImageIndex(null)}
+            >
+              <X size={24} />
+            </button>
             <motion.div
               className="relative w-full h-full flex items-center justify-center"
               onClick={handleOutsideClick}
@@ -203,12 +209,7 @@ export function ImageGrid({
                   exit={{ scale: 0.8 }}
                 />
               </div>
-              <button
-                className="absolute w-0 sm:w-auto sm:top-4 right-4 md:top-0 md:-right-12 text-white p-2 rounded-full sm:bg-black bg-opacity-50 hover:bg-opacity-75 transition-all"
-                onClick={() => setSelectedImageIndex(null)}
-              >
-                <X size={24} className="w-0 sm:w-auto" />
-              </button>
+
               <button
                 className="absolute left-4 top-1/2 transform -translate-y-1/2 text-white p-2 rounded-full bg-black bg-opacity-50 hover:bg-opacity-75 transition-all"
                 onClick={handlePrevImage}
