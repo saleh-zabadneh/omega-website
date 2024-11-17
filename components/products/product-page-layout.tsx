@@ -33,10 +33,10 @@ export function ProductPageLayout({
       />
       {/* Content overlay */}
       <div className="absolute inset-0 flex flex-col items-center justify-center px-6">
-        <h1 className="text-4xl md:text-6xl font-bold mb-6 text-center max-w-3xl ">
+        <h1 className="text-4xl text-white md:text-6xl font-bold mb-6 text-center max-w-3xl ">
           {productHeading[lang] || productHeading.en}
         </h1>
-        <p className="text-xl md:text-2xl max-w-2xl text-center">
+        <p className="text-xl md:text-2xl text-white max-w-2xl text-center">
           {productDescription[lang] || productDescription.en}
         </p>
       </div>

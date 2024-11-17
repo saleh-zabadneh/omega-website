@@ -76,11 +76,11 @@ export default async function ProductsPage({
                     <p className="text-muted-foreground line-clamp-3 group-hover:text-foreground transition-colors duration-300">
                       {product.description[lang]}
                     </p>
-                    <div className="flex items-center mt-4 text-primary">
+                    {/* <div className="flex items-center mt-4 text-primary">
                       {[...Array(5)].map((_, i) => (
                         <Star key={i} className="w-5 h-5 fill-current" />
                       ))}
-                    </div>
+                    </div> */}
                   </CardContent>
                   <Separator className="w-[90%] mx-auto" />
                   <CardFooter className="p-6">

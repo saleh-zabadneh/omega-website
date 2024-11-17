@@ -52,6 +52,8 @@ export default function Header({
       name: lang === "ar" ? "الرئيسية" : "Home",
       href: `/${lang}`,
     },
+
+    { name: lang === "ar" ? "من نحن" : "About", href: `/${lang}/about` },
     {
       name: lang === "ar" ? "المنتجات" : "Products",
       href: `/${lang}/products`,
@@ -92,7 +94,6 @@ export default function Header({
         },
       ],
     },
-    { name: lang === "ar" ? "من نحن" : "About", href: `/${lang}/about` },
     {
       name: lang === "ar" ? "المشاريع المرجعية" : "Reference Projects",
       href: `/${lang}/reference-projects`,
