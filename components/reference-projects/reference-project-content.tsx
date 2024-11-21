@@ -178,7 +178,7 @@ export function ImageGrid({
                     ""
                   }
                   alt={images[selectedImageIndex]?.alt || "Gallery image"}
-                  className=" w-full max-w-[50rem]  h-full max-h-96   object-contain"
+                  className=" w-full   h-full max-h-96   object-contain"
                   initial={{ scale: 0.8 }}
                   animate={{ scale: 1 }}
                   exit={{ scale: 0.8 }}

@@ -211,7 +211,11 @@ function MobileNav({ navigation, isRTL, lang, closeSheet }: MobileNavProps) {
         isRTL ? "pr-6" : "pl-6"
       }`}
     >
-      <div className="flex flex-col space-y-3 ">
+      <div
+        className={`flex flex-col  space-y-3  ${
+          lang === "ar" ? "text-right" : ""
+        } `}
+      >
         {navigation.map((item) => (
           <React.Fragment key={item.href}>
             {item.children ? (
@@ -219,7 +223,11 @@ function MobileNav({ navigation, isRTL, lang, closeSheet }: MobileNavProps) {
                 open={openCollapsible === item.href}
                 onOpenChange={() => handleCollapsibleToggle(item.href)}
               >
-                <CollapsibleTrigger className="flex w-full items-center justify-between py-2 text-sm font-medium transition-colors hover:text-primary">
+                <CollapsibleTrigger
+                  className={`flex  ${
+                    lang === "ar" ? "flex-row-reverse" : ""
+                  } w-full items-center justify-between py-2 text-sm font-medium transition-colors hover:text-primary `}
+                >
                   {item.name}
                   <ChevronDown className="h-4 w-4" />
                 </CollapsibleTrigger>
